@@ -13,7 +13,9 @@ const Signup = () => {
         <h2 className="text-4x1 dark:text-white font-bold text-center">SIGN UP</h2>
         <div className="flex flex-col text-gray-400 py-2">
           <label>First Name</label>
-          <input className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none" type="text" />
+            <input className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+              type="text"
+            placeholder=""/>
         </div>
         <div className="flex flex-col text-gray-400 py-2">
           <label>Last Name</label>
