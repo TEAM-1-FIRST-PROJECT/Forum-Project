@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import RecommendedPosts from "../../components/RecommendedPosts/RecommendedPosts";
+import RecentlyAddedPosts from "../../components/RecentlyAddedPosts/RecentlyAddedPosts";
 
 const PublicView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
@@ -16,13 +18,17 @@ const PublicView = () => {
       <div style={{ margin: '10px', padding: "10px", border: "1px solid black" }}>
         {recommendedPosts ? (
           <div>
-            <NavLink to={`/recently-added-posts`} onClick={() => setRecommendedPosts(true)}>recently added posts</NavLink>
-            <p>recommended</p>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button onClick={() => setRecommendedPosts(false)}>!!!RecentlyAddedPosts!!!</button>
+            </div>
+            <RecommendedPosts></RecommendedPosts>
           </div>
         ) : (
           <div>
-            <NavLink to={`/recommended-posts`}>recommended posts</NavLink>
-            <p>recently added posts</p>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button onClick={() => setRecommendedPosts(true)}>!!!RecommendedPosts!!!</button>
+            </div>
+            <RecentlyAddedPosts></RecentlyAddedPosts>
           </div>
         )}
 
