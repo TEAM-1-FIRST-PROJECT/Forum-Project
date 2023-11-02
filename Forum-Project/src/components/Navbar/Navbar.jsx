@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Categories } from "../../views/Categories/Categories";
+
 const Navbar = () => {
 
   return (
@@ -28,7 +30,7 @@ const Navbar = () => {
             to=""
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
-            Categories
+            < Categories />
           </Link>
 
           <Link
