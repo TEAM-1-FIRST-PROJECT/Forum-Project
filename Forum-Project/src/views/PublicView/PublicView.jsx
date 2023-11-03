@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import RecommendedPosts from "../../components/RecommendedPosts/RecommendedPosts";
 import RecentlyAddedPosts from "../../components/RecentlyAddedPosts/RecentlyAddedPosts";
+import SinglePost from "../SinglePost/SinglePost";
 
 const PublicView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
@@ -31,9 +32,8 @@ const PublicView = () => {
             <RecentlyAddedPosts></RecentlyAddedPosts>
           </div>
         )}
-
-
       </div>
+      <SinglePost></SinglePost>
     </>
   )
 }
