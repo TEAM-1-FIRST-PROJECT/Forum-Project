@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./views/Signup/Signup";
 import About from "./views/About/About";
 import PublicView from "./views/PublicView/PublicView";
+import EditorsChoice from "./views/EditorsChoice/EditorsChoice";
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/About" element={<About />} />
+        <Route path="/EditorsChoice" element={<EditorsChoice />} />
       </Routes>
       <Footer />
     </div>
