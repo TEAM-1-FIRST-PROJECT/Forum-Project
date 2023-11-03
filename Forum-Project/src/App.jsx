@@ -8,6 +8,7 @@ import About from "./views/About/About";
 import PublicView from "./views/PublicView/PublicView";
 import Notfound from "./views/Notfound/Notfound";
 import EditorsChoice from "./views/EditorsChoice/EditorsChoice";
+import SinglePost from "./views/SinglePost/SinglePost";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<PublicView />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/singlePost" element={<SinglePost />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/About" element={<About />} />
