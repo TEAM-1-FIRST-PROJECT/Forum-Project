@@ -1,7 +1,8 @@
-import React from 'react';
+
 import { useState } from 'react';
 
-export const Categories = () => {
+
+const Categories = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -70,4 +71,5 @@ export const Categories = () => {
       )}
     </div>
   );
-};
+};  
+export default Categories;

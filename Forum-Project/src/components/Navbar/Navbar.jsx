@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Categories } from "../../views/Categories/Categories";
+import Categories from "../../views/Categories/Categories";
 import AppleLogo from "../../assets/apple.png";
 
 const Navbar = () => {
