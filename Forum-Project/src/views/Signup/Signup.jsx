@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
-import SignupImg from "../../assets/Signup.jpeg";
-const Signup = () => {
+import SignUpImg from "../../assets/SignUp.jpeg";
+const SignUp = () => {
     
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
     <div className='hidden sm:block'>
-      <img className="w-full  object-cover max-w-3xl" src={SignupImg} alt="" />
+      <img className="w-full  object-cover max-w-3xl" src={SignUpImg} alt="" />
     </div>
 
     <div className="bg-gray-500 flex flex-col justify-center">
@@ -47,5 +47,5 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default SignUp
 
