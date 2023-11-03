@@ -3,9 +3,11 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./views/Login/Login";
 import { Routes, Route } from "react-router-dom";
-import SignUp from "./views/SignUp/SignUp";
+import SignUp from "./views/Signup/Signup";
 import About from "./views/About/About";
 import PublicView from "./views/PublicView/PublicView";
+import Notfound from "./views/Notfound/Notfound";
+import EditorsChoice from "./views/EditorsChoice/EditorsChoice";
 
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/About" element={<About />} />
+        <Route path="/EditorsChoice" element={<EditorsChoice />} />
+        <Route path="*" element={<Notfound />} />
       </Routes>
       <Footer />
     </div>

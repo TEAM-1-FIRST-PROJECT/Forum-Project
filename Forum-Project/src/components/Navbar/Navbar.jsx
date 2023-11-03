@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Categories } from "../../views/Categories/Categories";
+import Categories from "../../views/Categories/Categories";
 import AppleLogo from "../../assets/apple.png";
 
 const Navbar = () => {
@@ -39,7 +39,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="#"
+            to="/EditorsChoice"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
             Editor&rsquo;s choice
