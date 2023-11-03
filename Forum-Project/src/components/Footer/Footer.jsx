@@ -1,7 +1,7 @@
 
 const Footer = () => {
   return (
-      <div>
+      <div className=" text-center sticky bottom-0 bg-gray-900 text-white">
           <footer>&copy; Apple Forum 2023</footer>
     </div>
   )
