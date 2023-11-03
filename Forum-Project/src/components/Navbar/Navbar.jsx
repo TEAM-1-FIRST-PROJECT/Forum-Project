@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import AppleLogo from "../../assets/apple.png";
+import { Categories } from "../../views/Categories/Categories";
+
 const Navbar = () => {
   return (
     <div>
@@ -23,7 +24,7 @@ const Navbar = () => {
         </div>
         <ul className="md:flex md:items-center z-[-1] md:z-auto md:static absolute font-semibold w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
           <Link
-            to="/Home"
+            to="/home"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
             Home
@@ -33,7 +34,7 @@ const Navbar = () => {
             to="/"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
-            Categories
+            < Categories />
           </Link>
 
           <Link
