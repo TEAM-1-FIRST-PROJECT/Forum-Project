@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 
-
 const Categories = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -22,8 +21,13 @@ const Categories = () => {
           id="menu-button"
           aria-expanded={showDropdown}
           aria-haspopup="true"
-          onMouseEnter={toggleDropdown}
-          onMouseLeave={hideDropdown}
+          onClick={() => {
+            if (showDropdown) {
+              hideDropdown();
+            } else {
+              toggleDropdown();
+            }
+          }}
         >
           Categories
           <svg
@@ -48,8 +52,13 @@ const Categories = () => {
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex="-1"
-          onMouseEnter={toggleDropdown}
-          onMouseLeave={hideDropdown}
+          onClick={() => {
+            if (showDropdown) {
+              hideDropdown();
+            } else {
+              toggleDropdown();
+            }
+          }}
         >
           <div className="py-1" role="none">
             <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
@@ -61,15 +70,14 @@ const Categories = () => {
             <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">
               Watch
             </a>
-            <form method="POST" action="#" role="none">
-              <button type="submit" className="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">
-                View all
-              </button>
-            </form>
+            <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">
+              View all
+            </a>
           </div>
         </div>
       )}
     </div>
   );
-};  
+};
+
 export default Categories;
