@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import RecommendedPosts from "../../components/RecommendedPosts/RecommendedPosts";
 import RecentlyAddedPosts from "../../components/RecentlyAddedPosts/RecentlyAddedPosts";
-import SinglePost from "../SinglePost/SinglePost";
+import Sortbutton from "../../components/Sort/Sortbutton";
 
 const PublicView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
@@ -16,11 +16,12 @@ const PublicView = () => {
           Only registered members may post questions, contact other members or search our database of over several millions posts.
           Please Click <NavLink to={`/Login`}>LOGIN</NavLink> or Click to <NavLink to={`/Signup`}>REGISTER</NavLink></p>
       </div>
-      <div style={{ margin: '10px', padding: "10px", border: "1px solid black" }}>
+      <div style={{ margin: '10px', padding: "10px" }}>
         {recommendedPosts ? (
           <div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <button onClick={() => setRecommendedPosts(false)}>!!!RecentlyAddedPosts!!!</button>
+              <Sortbutton></Sortbutton>
             </div>
             <RecommendedPosts></RecommendedPosts>
           </div>
@@ -28,12 +29,13 @@ const PublicView = () => {
           <div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <button onClick={() => setRecommendedPosts(true)}>!!!RecommendedPosts!!!</button>
+              <Sortbutton></Sortbutton>
             </div>
             <RecentlyAddedPosts></RecentlyAddedPosts>
           </div>
         )}
       </div>
-      
+
     </>
   )
 }
