@@ -33,7 +33,7 @@ const PublicView = () => {
           </div>
         )}
       </div>
-      <SinglePost></SinglePost>
+      
     </>
   )
 }
