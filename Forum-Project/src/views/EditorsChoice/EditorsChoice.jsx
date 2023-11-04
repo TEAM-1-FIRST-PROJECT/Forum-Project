@@ -1,4 +1,4 @@
-import Sortbutton from "../../components/Sort/Sortbutton";
+import SortButton from "../../components/Sort/SortButton";
 
 const posts = [
     {
@@ -160,7 +160,7 @@ const posts = [
 const EditorsChoice = () => {
   return (
     <>
-      <Sortbutton />
+      <SortButton />
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
