@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // const post =
 // {
@@ -21,20 +22,19 @@ import { Link } from "react-router-dom";
 
 const SinglePost = (props) => {
   const post = props.value;
- 
+
   return (
     <article className="flex max-w-xl flex-col items-start justify-between">
       <div className="flex items-center gap-x-4 text-xs">
         <time dateTime={post.datetime} className="text-gray-500">
           {post.date}
         </time>
-        <button className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
+        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
           liked {post.id}
         </button>
-        <Link to="/singlePostView" value={post}
-          className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-          Post Details
-        </Link>
+        <Link to={{ pathname: '/singlePostView', state: { nem:'pep' } }} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        Post Details
+      </Link>
       </div>
       <div className="group relative">
         <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -60,7 +60,7 @@ const SinglePost = (props) => {
               props.{post.author.name}
             </a>
           </p>
-          <button onClick={() => { }} className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+          <button onClick={() => { }} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
             Replay
           </button>
         </div>
@@ -75,4 +75,7 @@ const SinglePost = (props) => {
   )
 }
 
+SinglePost.propTypes = {
+  value: PropTypes.object.isRequired,
+};
 export default SinglePost
