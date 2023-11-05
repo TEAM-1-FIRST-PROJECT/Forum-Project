@@ -1,10 +1,10 @@
 import SortButton from "../Sort/SortButton";
-import SinglePost from "../../views/SinglePost/SinglePost";
-import { posts } from "../../data/data";
+import RecommendedPosts from "../RecommendedPosts/RecommendedPosts";
+import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
 import { useState } from "react";
 
 const HomeView = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [recommendedPosts, setRecommendedPosts] = useState(false);
 
   return (
 
@@ -20,13 +20,27 @@ const HomeView = () => {
               Innovative, sleek, powerful electronic device revolutionizing modern tech experiences.
             </p>
           </div>
-          <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {posts.map((post) => (
-              <div key={post.id} >
-                <SinglePost value={post}></SinglePost>
-              </div>
-            ))}
+          <div >
+        {recommendedPosts ? (
+          <div>
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
+              <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
+                onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
+              <SortButton></SortButton>
+            </div>
+            <RecommendedPosts></RecommendedPosts>
           </div>
+        ) : (
+          <div>
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
+              <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
+                onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
+                <SortButton></SortButton>
+            </div>
+            <RecentlyAddedPosts></RecentlyAddedPosts>
+          </div>
+        )}
+      </div>
         </div>
       </div>
     </>
