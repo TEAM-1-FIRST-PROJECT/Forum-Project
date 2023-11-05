@@ -1,8 +1,22 @@
 import { Link } from "react-router-dom";
 import Categories from "../../views/Categories/Categories";
 import AppleLogo from "../../assets/apple.png";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { logoutUser } from "../../services/auth.services";
 
 const Navbar = () => {
+
+  const { user, setUser } = useContext(AuthContext);
+
+    const onLogout = () => {
+        logoutUser()
+            .then(() => {
+                setUser({
+                    user: null
+                })
+            })
+    }
   return (
     <div>
       <nav className="p-2.5 bg-gray-800 shadow md:flex md:items-center md:justify-between">
@@ -51,16 +65,17 @@ const Navbar = () => {
           >
             About
           </Link>
-          <Link to="/Login">
+          {user === null && <Link to="/Login">
             <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
               Login
             </button>
-          </Link>
-          <Link to="/Signup">
+          </Link>}
+          {user === null && <Link to="/Signup">
             <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
               Sign up
             </button>
-          </Link>
+          </Link>}
+          {user !== null && <Link to='/home' className='navigation-link' onClick={onLogout} >Log Out</Link>}
         </ul>
       </nav>
     </div>

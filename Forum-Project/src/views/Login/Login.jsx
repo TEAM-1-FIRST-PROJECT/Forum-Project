@@ -1,8 +1,65 @@
-import { Link } from "react-router-dom";
-import loginImg from "../../assets/login.jpeg";
+// import { Link } from "react-router-dom";
+// import loginImg from "../../assets/login.jpeg";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router";
+import {loginUser} from '../../services/auth.services'
+
 const Login = () => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+});
+
+const { setUser } = useContext(AuthContext);
+const navigate = useNavigate();
+
+const updateForm = (field) => (e) => {
+    setForm({
+        ...form,
+        [field]: e.target.value,
+    });
+}
+
+const onLogin = () => {
+    if (!form.email) {
+        alert('Email is required');
+        return;
+    }
+    if (!form.password && form.password.length < 6) {
+        alert('Password is required and must be at least 6 characters long');
+        return;
+    }
+
+    loginUser(form.email, form.password)
+        .then(credential => {
+            setUser({
+                user: credential.user
+            })
+        })
+        .then(() => {
+            navigate('/home');
+        })
+}
+
+
+
+return (
+    <div className='signin-wrapper'>
+        <div className='form'>
+            <label htmlFor='email'>Email</label>
+            <input type='email' name='email' id='email' value={form.email} onChange={updateForm('email')} />
+            <label htmlFor='password'>Password</label>
+            <input type='password' name='password' id='password' value={form.password} onChange={updateForm('password')} />
+            <button onClick={onLogin}> Login </button>
+        </div>
+    </div>
+);
+};
+
+export default Login;
+{/*
+<div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className='hidden sm:block'>
         <img className="w-full h-full object-cover" src={loginImg} alt="" />
       </div>
@@ -28,8 +85,4 @@ const Login = () => {
           <p className="text-gray-400 py-2 flex justify-center">Don&#39;t have an account? <Link className="ml-1 hover:animate-pulse mix-blend-color-dodge" to='/Signup'>Sign Up</Link></p>
         </form>
       </div>
-    </div>
-  );
-};
-
-export default Login;
+    </div>*/}
