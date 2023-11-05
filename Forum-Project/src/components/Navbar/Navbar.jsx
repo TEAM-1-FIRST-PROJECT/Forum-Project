@@ -9,14 +9,14 @@ const Navbar = () => {
 
   const { user, setUser } = useContext(AuthContext);
 
-    const onLogout = () => {
-        logoutUser()
-            .then(() => {
-                setUser({
-                    user: null
-                })
-            })
-    }
+  const onLogout = () => {
+    logoutUser()
+      .then(() => {
+        setUser({
+          user: null
+        })
+      })
+  }
   return (
     <div>
       <nav className="p-2.5 bg-gray-800 shadow md:flex md:items-center md:justify-between">
@@ -75,7 +75,10 @@ const Navbar = () => {
               Sign up
             </button>
           </Link>}
-          {user !== null && <Link to='/home' className='navigation-link' onClick={onLogout} >Log Out</Link>}
+          {user !== null && <Link to='/home' className='navigation-link' onClick={onLogout} >
+            <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
+              Log Out
+            </button></Link>}
         </ul>
       </nav>
     </div>
