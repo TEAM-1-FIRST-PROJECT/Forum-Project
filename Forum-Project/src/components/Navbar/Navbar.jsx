@@ -45,19 +45,19 @@ const Navbar = () => {
             Home
           </Link>
 
-          <Link
+          {user !== null &&<Link
             to="/"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
             < Categories />
-          </Link>
+          </Link>}
 
-          <Link
+          {user !== null &&<Link
             to="/EditorsChoice"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
             Editor&rsquo;s choice
-          </Link>
+          </Link>}
 
           <Link
             to="/About"
@@ -75,7 +75,7 @@ const Navbar = () => {
               Sign up
             </button>
           </Link>}
-          {user !== null && <Link to='/home' className='navigation-link' onClick={onLogout} >
+          {user !== null && <Link to='/' className='navigation-link' onClick={onLogout} >
             <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
               Log Out
             </button></Link>}

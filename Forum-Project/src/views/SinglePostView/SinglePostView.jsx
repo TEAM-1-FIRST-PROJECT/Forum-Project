@@ -1,4 +1,7 @@
+import Login from "../Login/Login";
 import SinglePost from "../SinglePost/SinglePost";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 
 const post =
@@ -20,12 +23,19 @@ const post =
   },
 }
 const SinglePostView = () => {
+  const { user } = useContext(AuthContext);
 
   return (
-    <div className="text-gray-600 pl-10 pt-10">
-      <SinglePost value={post}></SinglePost>
-    </div>
+    <>
+      {user ? (
+        <div className="text-gray-600 pl-10 pt-10" >
+          <SinglePost value={post}></SinglePost>
+        </div >
+      ) : (
+        <Login></Login>
+      )}</>
   )
+
 }
 
 export default SinglePostView

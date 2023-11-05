@@ -1,12 +1,14 @@
 import HomeView from "../../components/HomeView/HomeView";
-import PublicView from "../../components/PublicView/PublicView";
+import Login from "../Login/Login";
+import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
 
 const Home = () => {
-  const isLogged = false;
+  const { user } = useContext(AuthContext);
 
   return (
     <div>
-      {isLogged ? <HomeView /> : <PublicView />}
+      {user ? <HomeView /> : <Login />}
     </div>
   )
 };

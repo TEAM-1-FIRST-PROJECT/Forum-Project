@@ -1,25 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// const post =
-// {
-//   id: 1,
-//   title: "Boost your conversion rate",
-//   href: "#",
-//   description:
-//     "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-//   date: "Mar 16, 2020",
-//   datetime: "2020-03-16",
-//   category: { title: "Marketing", href: "#" },
-//   author: {
-//     name: "Michael Foster",
-//     role: "Co-Founder / CTO",
-//     href: "#",
-//     imageUrl:
-//       "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-//   },
-// }
-
 const SinglePost = (props) => {
   const post = props.value;
 
@@ -57,7 +38,7 @@ const SinglePost = (props) => {
           <p className="font-semibold text-gray-900">
             <a href={post.author.href}>
               <span className="absolute inset-0" />
-              props.{post.author.name}
+              {post.author.name}
             </a>
           </p>
           <button onClick={() => { }} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
