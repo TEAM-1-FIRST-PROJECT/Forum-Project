@@ -13,9 +13,9 @@ const SinglePost = (props) => {
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
           liked {post.id}
         </button>
-        <Link to={{ pathname: '/singlePostView', state: { nem:'pep' } }} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-        Post Details
-      </Link>
+        <Link to='/singlePostView' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+          Post Details
+        </Link>
       </div>
       <div className="group relative">
         <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -41,17 +41,14 @@ const SinglePost = (props) => {
               {post.author.name}
             </a>
           </p>
-          <button onClick={() => { }} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-            Replay
-          </button>
         </div>
       </div>
-      <div className="relative mt-8 flex items-center gap-x-4">
-        <div className="text-sm leading-6">
-          <p className="text-gray-600">Replay from {post.author.name}</p>
-          <p className="text-gray-600 pl-10" >Replay Replay Replay</p>
-        </div>
-      </div>
+      <Link to='/' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        Replay
+      </Link>
+      <Link to='/' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        See all replays
+      </Link>
     </article>
   )
 }
