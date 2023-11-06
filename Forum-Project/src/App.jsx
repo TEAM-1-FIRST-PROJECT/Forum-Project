@@ -15,6 +15,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "./config/firebase-config";
 import { useState, useEffect } from "react";
 import { getUserData } from "./services/users.services";
+import Watch from "./views/Categories/Watch/Watch";
+import Iphone from "./views/Categories/iPhone/Iphone";
+import Mac from "./views/Categories/Mac/Mac";
+import ViewAll from "./views/Categories/ViewAll/ViewAll";
+
+
 
 
 const App = () => {
@@ -64,6 +70,10 @@ const App = () => {
           <Route path="/EditorsChoice" element={<EditorsChoice />} />
           <Route path="*" element={<Notfound />} />
           <Route path='/newPost' element={<NewPost></NewPost>} />
+          <Route path="/Iphone" element={<Iphone />} />
+          <Route path="/Mac" element={<Mac />} />
+          <Route path="/Watch" element={<Watch />} />
+          <Route path="/ViewAll" element={<ViewAll />} />
         </Routes>
         <Footer />
       </AuthContext.Provider>
