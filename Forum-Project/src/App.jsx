@@ -19,6 +19,7 @@ import Watch from "./views/Categories/Watch/Watch";
 import Iphone from "./views/Categories/iPhone/Iphone";
 import Mac from "./views/Categories/Mac/Mac";
 import ViewAll from "./views/Categories/ViewAll/ViewAll";
+import SettingsForm from "./views/SettingsForm/SettingsForm";
 
 
 
@@ -73,6 +74,7 @@ const App = () => {
           <Route path="/Mac" element={<Mac />} />
           <Route path="/Watch" element={<Watch />} />
           <Route path="/ViewAll" element={<ViewAll />} />
+          <Route path="/settings" element={<SettingsForm />} />
         </Routes>
         <Footer />
       </AuthContext.Provider>
