@@ -30,24 +30,24 @@ const App = () => {
     userData: false,
   })
 
-  if(appState.user !== user){
-    setAppState({user});
+  if (appState.user !== user) {
+    setAppState({ user });
   }
 
   useEffect(() => {
-      if (user === null){
-        return;
-      }
+    if (user === null) {
+      return;
+    }
 
-      getUserData(user.uid)
+    getUserData(user.uid)
       .then(snapshot => {
-        if(!snapshot.exists()){
+        if (!snapshot.exists()) {
           throw new Error('User data not found');
         }
 
         setAppState({
           ...appState,
-          userData: Object.keys(snapshot.val())[0] 
+          userData: Object.keys(snapshot.val())[0]
           // Object.keys(snapshot.val())[0] returns the first key of the object
           // Object.keys(snapshot.val()) returns an array of the keys of the object
           // snapshot.val() returns the value of the object
@@ -55,10 +55,9 @@ const App = () => {
         })
       })
   })
-  console.log(user);
   return (
     <div>
-      <AuthContext.Provider value={{ ...appState, setUser: setAppState}}>
+      <AuthContext.Provider value={{ ...appState, setUser: setAppState }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<PublicView />} />

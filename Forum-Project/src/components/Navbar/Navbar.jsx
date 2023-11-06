@@ -1,22 +1,15 @@
 import { Link } from "react-router-dom";
 import Categories from "../../views/Categories/Categories";
+import ProfileSettings from "../ProfileSetings/ProfileSetings";
 import AppleLogo from "../../assets/apple.png";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
-import { logoutUser } from "../../services/auth.services";
+
 
 const Navbar = () => {
 
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  const onLogout = () => {
-    logoutUser()
-      .then(() => {
-        setUser({
-          user: null
-        })
-      })
-  }
   return (
     <div>
       <nav className="p-2.5 bg-gray-800 shadow md:flex md:items-center md:justify-between">
@@ -43,19 +36,14 @@ const Navbar = () => {
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0">
             Home
           </Link>
-          <Link
-            to='/newPost'
-            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0">
-            New Post
-          </Link>
-          {user !== null &&<Link
+          {user !== null && <Link
             to="/"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
             < Categories />
           </Link>}
 
-          {user !== null &&<Link
+          {user !== null && <Link
             to="/EditorsChoice"
             className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
           >
@@ -78,10 +66,11 @@ const Navbar = () => {
               Sign up
             </button>
           </Link>}
-          {user !== null && <Link to='/' className='navigation-link' onClick={onLogout} >
-            <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
-              Log Out
-            </button></Link>}
+          {user !== null && <Link
+            to="/"
+            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
+          ><ProfileSettings />
+          </Link>}
         </ul>
       </nav>
     </div>
