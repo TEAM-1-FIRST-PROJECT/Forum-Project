@@ -50,7 +50,6 @@ const Login = () => {
         <div className="hidden sm:block">
           <img className="w-full h-full object-cover" src={loginImg} alt="" />
         </div>
-
         <div className="bg-gray-500 flex flex-col justify-center">
           <form className="max-w-[550px] w-full mx-auto bg-gray-600 p-8 px-8 rounded-lg">
             <h2 className="text-4x1 text-3xl dark:text-white font-bold text-center">
@@ -86,6 +85,7 @@ const Login = () => {
             </div>
             <button
               className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
+              type="button"
               onClick={handleLogin}
             >
               Log In
