@@ -1,5 +1,5 @@
 import { ref, push, get, query, equalTo, orderByChild, update } from 'firebase/database';
-import { db } from '../config/firebase-config';
+import { database } from '../config/firebase-config';
 
 const fromPostsDocument = snapshot => {
   const postsDocument = snapshot.val();
@@ -19,7 +19,7 @@ const fromPostsDocument = snapshot => {
 export const addPost = (content, username) => {
 
   return push(
-    ref(db, 'posts'),
+    ref(database, 'posts'),
     {
       content,
       author: username,
@@ -34,7 +34,7 @@ export const addPost = (content, username) => {
 
 export const getPostById = (id) => {
 
-  return get(ref(db, `posts/${id}`))
+  return get(ref(database, `posts/${id}`))
     .then(result => {
       if (!result.exists()) {
         throw new Error(`Post with id ${id} does not exist!`);
@@ -51,7 +51,7 @@ export const getPostById = (id) => {
 
 export const getLikedPosts = (username) => {
 
-  return get(ref(db, `users/${username}`))
+  return get(ref(database, `users/${username}`))
     .then(snapshot => {
       if (!snapshot.val()) {
         throw new Error(`User with handle @${username} does not exist!`);
@@ -62,7 +62,7 @@ export const getLikedPosts = (username) => {
 
       return Promise.all(Object.keys(user.likedPosts).map(key => {
 
-        return get(ref(db, `posts/${key}`))
+        return get(ref(database, `posts/${key}`))
           .then(snapshot => {
             const post = snapshot.val();
 
@@ -79,7 +79,7 @@ export const getLikedPosts = (username) => {
 
 export const getPostsByAuthor = (username) => {
 
-  return get(query(ref(db, 'Posts'), orderByChild('author'), equalTo(username)))
+  return get(query(ref(database, 'Posts'), orderByChild('author'), equalTo(username)))
     .then(snapshot => {
       if (!snapshot.exists()) return [];
 
@@ -89,7 +89,7 @@ export const getPostsByAuthor = (username) => {
 
 export const getAllPosts = () => {
 
-  return get(ref(db, 'posts'))
+  return get(ref(database, 'posts'))
     .then(snapshot => {
       if (!snapshot.exists()) {
         return [];
@@ -104,7 +104,7 @@ export const likePost = (username, postId) => {
   updateLikes[`/posts/${postId}/likedBy/${username}`] = true;
   updateLikes[`/users/${username}/likedPosts/${postId}`] = true;
 
-  return update(ref(db), updateLikes);
+  return update(ref(database), updateLikes);
 };
 
 export const dislikePost = (username, postId) => {
@@ -112,5 +112,5 @@ export const dislikePost = (username, postId) => {
   updateLikes[`/posts/${postId}/likedBy/${username}`] = null;
   updateLikes[`/users/${username}/likedPosts/${postId}`] = null;
 
-  return update(ref(db), updateLikes);
+  return update(ref(database), updateLikes);
 };

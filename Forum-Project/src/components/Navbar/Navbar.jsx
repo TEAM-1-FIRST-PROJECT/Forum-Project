@@ -10,9 +10,10 @@ const Navbar = () => {
 
   const { user } = useContext(AuthContext);
 
+
   return (
     <div>
-      <nav className="p-2.5 bg-gray-800 shadow md:flex md:items-center md:justify-between">
+      <nav className="p-2.5 bg-gray-800 shadow flex flex-wrap md:flex md:items-center md:justify-between">
         <div className="flex justify-between font-semibold items-center ">
           <Link to="/">
             <img src={AppleLogo} className="h-10 cursor-pointer mr-3" />
@@ -49,13 +50,6 @@ const Navbar = () => {
           >
             Editor&rsquo;s choice
           </Link>}
-
-          <Link
-            to="/About"
-            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
-          >
-            About
-          </Link>
           {user === null && <Link to="/Login">
             <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
               Login

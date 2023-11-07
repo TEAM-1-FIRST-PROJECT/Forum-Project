@@ -8,8 +8,8 @@ import {
   createUserHandle,
 } from "../../services/users.services";
 import { registerUser } from "../../services/auth.services";
-import { MAX_NAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
-
+import { MAX_NAME_LENGTH, MIN_NAME_LENGTH, PASSWORD_CHECK } from "../../common/constants";
+import { toast } from "react-toastify";
 const SignUp = () => {
   const [form, setForm] = useState({
     firstName: "",
@@ -17,8 +17,8 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
-    role: 'user',
-    profilePhoto:''
+    profilePhoto: '',
+    isAdmin: false,
   });
 
   const { setUser } = useContext(AuthContext);
@@ -35,35 +35,46 @@ const SignUp = () => {
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    if (!form.firstName && form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
-      alert("First Name is required");
+    if (!form.firstName) {
+      toast.warning("First Name is required");
       return;
     }
 
-    if (!form.lastName && form.lastName.length < MIN_NAME_LENGTH || form.lastName.length > MAX_NAME_LENGTH) {
-      alert("Last Name is required");
+    if (form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
+      toast.warning(`First Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
       return;
     }
 
+    if (!form.lastName) {
+      toast.warning("Last Name is required");
+      return;
+    }
+
+    if (form.lastName.length < MIN_NAME_LENGTH || form.lastName.length > MAX_NAME_LENGTH) {
+      toast.warning(`Last Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
+      return;
+    }
+    
+    if (!form.username) {
+      toast.warning("Username is required");
+      return;
+    }
 
     if (!form.email) {
-      alert("Email is required");
+      toast.warning("Email is required");
       return;
     }
-    if (!form.username) {
-      alert("Username is required");
+
+    if (!PASSWORD_CHECK.test(form.password)) {
+      toast.warning("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character and to be at least 8 characters long");
       return;
     }
-    if (!form.password && form.password.length < MIN_PASSWORD_LENGTH) {
-      alert(`Password is required and must be at least ${MIN_PASSWORD_LENGTH} characters lon`);
-      return;
-    }
-    console.log(form)
+
+
     getUserByHandle(form.username)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          alert("Username already exists");
-          return;
+          toast.warning("Username already exists");
         }
 
         return registerUser(form.email, form.password);
@@ -75,17 +86,18 @@ const SignUp = () => {
           credential.user.email, 
           form.firstName,
           form.lastName,
-          form.role,
-          form.profilePhoto
+          form.profilePhoto,
+          form.isAdmin,
         );
         setUser({
           user: credential.user,
         });
       })
       .then(() => {
+        toast.success("User created successfully");
         navigate("/home");
       })
-      .catch((e) => console.log(e));
+      .catch((e) => toast.error(e.message));
   };
   return (
     <>
@@ -156,6 +168,7 @@ const SignUp = () => {
             <button
               className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
               onClick={handleSignUp}
+              type="button"
             >
               SIGN UP
             </button>

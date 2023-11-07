@@ -7,7 +7,7 @@ import {
   createUserHandle,
 } from "../../services/users.services";
 import { registerUser } from "../../services/auth.services";
-import { MAX_NAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
+import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
 
 const SettingsForm = () => {
   const [form, setForm] = useState({
@@ -48,8 +48,8 @@ const SettingsForm = () => {
       alert("Username is required");
       return;
     }
-    if (!form.password && form.password.length < MIN_PASSWORD_LENGTH) {
-      alert(`Password is required and must be at least ${MIN_PASSWORD_LENGTH} characters lon`);
+    if (!form.password && form.password.length < 8) {
+      alert(`Password is required and must be at least ${8} characters lon`);
       return;
     }
     // console.log(form)

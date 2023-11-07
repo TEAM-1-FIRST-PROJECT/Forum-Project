@@ -4,7 +4,8 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
 import { loginUser } from "../../services/auth.services";
-import { MIN_PASSWORD_LENGTH } from "../../common/constants";
+import { PASSWORD_CHECK } from "../../common/constants";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -25,11 +26,10 @@ const Login = () => {
 
   const handleLogin = () => {
     if (!form.email) {
-      alert("Email is required");
-      return;
+    toast.warning("Email is required");
     }
-    if (!form.password && form.password.length < MIN_PASSWORD_LENGTH) {
-      alert(`Password is required and must be at least ${MIN_PASSWORD_LENGTH} characters long`);
+    if (!form.password && form.password.test(PASSWORD_CHECK)) {
+      toast.warning("Password is required");
       return;
     }
 

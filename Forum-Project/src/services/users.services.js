@@ -1,19 +1,20 @@
 import { get, set, ref, query, orderByChild, equalTo, update } from "firebase/database";
 import { database } from "../config/firebase-config";
 
-export const getUserByHandle = (userName) => {
-    return get(ref(database, `users/${userName}`))
+export const getUserByHandle = (username) => {
+    return get(ref(database, `users/${username}`))
 }
 
-export const createUserHandle = (userName, uid, email, firstName, lastName, role, profilePhoto) => {
-    return set(ref(database, `users/${userName}`), {
+export const createUserHandle = (username, uid, email, firstName, lastName, profilePhoto, isAdmin) => {
+    return set(ref(database, `users/${username}`), {
+        username,
         uid,
         email,
-        createdOnn: Date.now(),
-        profilePhoto,
-        role,
-        lastName,
         firstName,
+        lastName,
+        profilePhoto,
+        isAdmin,
+        createdOnn: Date.now(),
     })
 }
 
