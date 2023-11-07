@@ -1,18 +1,19 @@
-import { get, set, ref, query, orderByChild, equalTo, update} from "firebase/database";
+import { get, set, ref, query, orderByChild, equalTo, update } from "firebase/database";
 import { database } from "../config/firebase-config";
 
 export const getUserByHandle = (userName) => {
     return get(ref(database, `users/${userName}`))
 }
 
-export const createUserHandle = (userName, uid, email, firstName, lastName, profilePhoto) => {
+export const createUserHandle = (userName, uid, email, firstName, lastName, role, profilePhoto) => {
     return set(ref(database, `users/${userName}`), {
         uid,
         email,
         createdOnn: Date.now(),
         profilePhoto,
+        role,
         lastName,
-        firstName,       
+        firstName,
     })
 }
 
@@ -23,6 +24,6 @@ export const getUserData = (uid) => {
 
 export const updateUserData = () => {
 
-    return update(ref(), {  });
+    return update(ref(), {});
 };
 

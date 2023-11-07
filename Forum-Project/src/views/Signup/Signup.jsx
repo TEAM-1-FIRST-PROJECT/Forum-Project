@@ -17,6 +17,7 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
+    role: 'user',
     profilePhoto:''
   });
 
@@ -74,6 +75,7 @@ const SignUp = () => {
           credential.user.email, 
           form.firstName,
           form.lastName,
+          form.role,
           form.profilePhoto
         );
         setUser({
