@@ -18,7 +18,7 @@ const SignUp = () => {
     email: "",
     password: "",
     role: 'user',
-    profilePhoto:''
+    profilePhoto: ''
   });
 
   const { setUser } = useContext(AuthContext);
@@ -45,7 +45,6 @@ const SignUp = () => {
       return;
     }
 
-
     if (!form.email) {
       alert("Email is required");
       return;
@@ -58,7 +57,7 @@ const SignUp = () => {
       alert(`Password is required and must be at least ${MIN_PASSWORD_LENGTH} characters lon`);
       return;
     }
-    console.log(form)
+
     getUserByHandle(form.username)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -69,18 +68,23 @@ const SignUp = () => {
         return registerUser(form.email, form.password);
       })
       .then((credential) => {
+        console.log(credential);
         createUserHandle(
-          form.username,         
+          form.username,
           credential.user.uid,
-          credential.user.email, 
+          credential.user.email,
           form.firstName,
           form.lastName,
           form.role,
-          form.profilePhoto
+          form.profilePhoto,
+          form.username,
         );
+
+        credential.user.value = form.username
         setUser({
-          user: credential.user,
+          user: credential.user
         });
+
       })
       .then(() => {
         navigate("/home");

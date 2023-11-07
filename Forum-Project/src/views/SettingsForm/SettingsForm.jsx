@@ -2,20 +2,18 @@ import SignUpImg from "../../assets/SignUp.jpeg";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
-import {
-  getUserByHandle,
-  createUserHandle,
-} from "../../services/users.services";
-import { registerUser } from "../../services/auth.services";
-import { MAX_NAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
+import { getUserByHandle, updateUserData } from "../../services/users.services";
+import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
 
 const SettingsForm = () => {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
+    email: '',
+    photo: ''
   });
 
-  const { setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -26,51 +24,41 @@ const SettingsForm = () => {
     });
   };
 
-  const handleSignUp = (e) => {
+  const handleUpdateUserData = (e) => {
     e.preventDefault();
+    if (form.firstName) {
+      if (form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
+        alert("First Name is required");
+        return;
+      }
 
-    if (!form.firstName && form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
-      alert("First Name is required");
-      return;
-    }
-
-    if (!form.lastName && form.lastName.length < MIN_NAME_LENGTH || form.lastName.length > MAX_NAME_LENGTH) {
-      alert("Last Name is required");
-      return;
-    }
-
-
-    if (!form.email) {
-      alert("Email is required");
-      return;
-    }
-    if (!form.username) {
-      alert("Username is required");
-      return;
-    }
-    if (!form.password && form.password.length < MIN_PASSWORD_LENGTH) {
-      alert(`Password is required and must be at least ${MIN_PASSWORD_LENGTH} characters lon`);
-      return;
-    }
-    // console.log(form)
-    getUserByHandle(form.username)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          alert("Username already exists");
+      if (form.lastName) {
+        if (form.lastName.length < MIN_NAME_LENGTH || form.lastName.length > MAX_NAME_LENGTH) {
+          alert("Last Name is required");
           return;
         }
+      }
+    }
+    
+      getUserByHandle(form.username)
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          alert("Username is missing");
+          return;
+        }
+        if (snapshot.val().email !== user.email) {
+          alert('Unauthorized')
+          return;
+        }
+        if(!form.firstName) form.firstName = snapshot.val().firstName;
+        if(!form.lastName) form.lastName = snapshot.val().lastName;
 
-        return registerUser(form.email, form.password);
-      })
-      .then((credential) => {
-        createUserHandle(
+        updateUserData(
           form.username,
-          credential.user.uid,
-          credential.user.email
-        );
-        setUser({
-          user: credential.user,
-        });
+          form.firstName,
+          form.lastName,
+          form.photo
+        )
       })
       .then(() => {
         navigate("/home");
@@ -93,6 +81,15 @@ const SettingsForm = () => {
               Account settings
             </h2>
             <div className="flex flex-col text-gray-400 py-2">
+              <label>Username</label>
+              <input
+                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                type="text"
+                value={form.username}
+                onChange={updateForm("username")}
+              />
+            </div>
+            <div className="flex flex-col text-gray-400 py-2">
               <input
                 className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 type="text"
@@ -113,33 +110,25 @@ const SettingsForm = () => {
             <div className="flex flex-col text-gray-400 py-2">
               <input
                 className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="text"
-                value={form.username}
-                onChange={updateForm("username")}
+                type="email"
+                value={form.email}
+                onChange={updateForm("email")}
                 placeholder="change @mail"
               />
             </div>
             <div className="flex flex-col text-gray-400 py-2">
               <input
                 className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="password"
-                value={form.password}
-                onChange={updateForm("password")}
-                placeholder="change password"
-              />
-            </div>
-            <div className="flex flex-col text-gray-400 py-2">
-              <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="password"
-                value={form.password}
-                onChange={updateForm("password")}
+                type="file"
+                accept=".jpg, .jpeg"
+                value={form.photo}
+                onChange={updateForm("photo")}
                 placeholder="upload a profile photo"
               />
             </div>
             <button
               className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
-              onClick={handleSignUp}>
+              onClick={handleUpdateUserData}>
               UPLOAD
             </button>
           </form>
