@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import {
   getUserByHandle,
   createUserHandle,
+  updateUserData,
 } from "../../services/users.services";
 import { registerUser } from "../../services/auth.services";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
@@ -13,8 +14,8 @@ const SettingsForm = () => {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    email: '',
-    photo: ''
+    email: "",
+    photo: "",
   });
 
   const { user } = useContext(AuthContext);
@@ -31,68 +32,75 @@ const SettingsForm = () => {
   const handleUpdateUserData = (e) => {
     e.preventDefault();
     if (form.firstName) {
-      if (form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
+      if (
+        form.firstName.length < MIN_NAME_LENGTH ||
+        form.firstName.length > MAX_NAME_LENGTH
+      ) {
         alert("First Name is required");
         return;
       }
 
-    if (!form.firstName && form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
-      alert("First Name is required");
-      return;
-    }
+      if (
+        (!form.firstName && form.firstName.length < MIN_NAME_LENGTH) ||
+        form.firstName.length > MAX_NAME_LENGTH
+      ) {
+        alert("First Name is required");
+        return;
+      }
 
-    if (!form.lastName && form.lastName.length < MIN_NAME_LENGTH || form.lastName.length > MAX_NAME_LENGTH) {
-      alert("Last Name is required");
-      return;
-    }
+      if (
+        (!form.lastName && form.lastName.length < MIN_NAME_LENGTH) ||
+        form.lastName.length > MAX_NAME_LENGTH
+      ) {
+        alert("Last Name is required");
+        return;
+      }
 
-
-    if (!form.email) {
-      alert("Email is required");
-      return;
-    }
-    if (!form.username) {
-      alert("Username is required");
-      return;
-    }
-    if (!form.password && form.password.length < 8) {
-      alert(`Password is required and must be at least ${8} characters lon`);
-      return;
-    }
-    // console.log(form)
-    getUserByHandle(form.username)
-      .then((snapshot) => {
+      if (!form.email) {
+        alert("Email is required");
+        return;
+      }
+      if (!form.username) {
+        alert("Username is required");
+        return;
+      }
+      if (!form.password && form.password.length < 8) {
+        alert(`Password is required and must be at least ${8} characters lon`);
+        return;
+      }
+      // console.log(form)
+      getUserByHandle(form.username).then((snapshot) => {
         if (snapshot.exists()) {
           alert("Username already exists");
           return;
         }
-      }
-    }
-    
-      getUserByHandle(form.username)
-      .then((snapshot) => {
-        if (!snapshot.exists()) {
-          alert("Username is missing");
-          return;
-        }
-        if (snapshot.val().email !== user.email) {
-          alert('Unauthorized')
-          return;
-        }
-        if(!form.firstName) form.firstName = snapshot.val().firstName;
-        if(!form.lastName) form.lastName = snapshot.val().lastName;
+      });
 
-        updateUserData(
-          form.username,
-          form.firstName,
-          form.lastName,
-          form.photo
-        )
-      })
-      .then(() => {
-        navigate("/home");
-      })
-      .catch((e) => console.log(e));
+      getUserByHandle(form.username)
+        .then((snapshot) => {
+          if (!snapshot.exists()) {
+            alert("Username is missing");
+            return;
+          }
+          if (snapshot.val().email !== user.email) {
+            alert("Unauthorized");
+            return;
+          }
+          if (!form.firstName) form.firstName = snapshot.val().firstName;
+          if (!form.lastName) form.lastName = snapshot.val().lastName;
+
+          updateUserData(
+            form.username,
+            form.firstName,
+            form.lastName,
+            form.photo
+          );
+        })
+        .then(() => {
+          navigate("/home");
+        })
+        .catch((e) => console.log(e));
+    }
   };
   return (
     <>
@@ -157,7 +165,8 @@ const SettingsForm = () => {
             </div>
             <button
               className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
-              onClick={handleUpdateUserData}>
+              onClick={handleUpdateUserData}
+            >
               UPLOAD
             </button>
           </form>
@@ -166,5 +175,4 @@ const SettingsForm = () => {
     </>
   );
 };
-
 export default SettingsForm;

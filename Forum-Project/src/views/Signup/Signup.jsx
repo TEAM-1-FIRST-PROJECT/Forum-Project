@@ -17,13 +17,8 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
-<<<<<<< HEAD
     profilePhoto: '',
     isAdmin: false,
-=======
-    role: 'user',
-    profilePhoto: ''
->>>>>>> aab68bce9ed07ac2c1d0f2957baf90d932e4be64
   });
 
   const { setUser } = useContext(AuthContext);
