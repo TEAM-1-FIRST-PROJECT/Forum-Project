@@ -17,8 +17,13 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
+<<<<<<< HEAD
     profilePhoto: '',
     isAdmin: false,
+=======
+    role: 'user',
+    profilePhoto: ''
+>>>>>>> aab68bce9ed07ac2c1d0f2957baf90d932e4be64
   });
 
   const { setUser } = useContext(AuthContext);
@@ -70,7 +75,6 @@ const SignUp = () => {
       return;
     }
 
-
     getUserByHandle(form.username)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -80,18 +84,22 @@ const SignUp = () => {
         return registerUser(form.email, form.password);
       })
       .then((credential) => {
+        console.log(credential);
         createUserHandle(
-          form.username,         
+          form.username,
           credential.user.uid,
-          credential.user.email, 
+          credential.user.email,
           form.firstName,
           form.lastName,
           form.profilePhoto,
           form.isAdmin,
         );
+
+        credential.user.value = form.username
         setUser({
-          user: credential.user,
+          user: credential.user
         });
+
       })
       .then(() => {
         toast.success("User created successfully");

@@ -2,9 +2,23 @@ import SortButton from "../Sort/SortButton";
 import RecommendedPosts from "../RecommendedPosts/RecommendedPosts";
 import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
 import { useState } from "react";
+import { useEffect } from "react";
+import { getAllPosts } from "../../services/posts.service";
+
+
 
 const HomeView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const allPosts = await getAllPosts();
+      setPosts(allPosts);
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
 
@@ -21,26 +35,34 @@ const HomeView = () => {
             </p>
           </div>
           <div >
-        {recommendedPosts ? (
-          <div>
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
-              <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
-                onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
-              <SortButton></SortButton>
-            </div>
-            <RecommendedPosts></RecommendedPosts>
+            {recommendedPosts ? (
+              <div>
+                <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
+                  <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
+                    onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
+                  <SortButton></SortButton>
+                </div>
+                <RecommendedPosts></RecommendedPosts>
+              </div>
+            ) : (
+              <div>
+                <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
+                  <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
+                    onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
+                  <SortButton></SortButton>
+                </div>
+                <RecentlyAddedPosts></RecentlyAddedPosts>
+                {posts.length > 0 && posts.map((post, index) => (
+                  <div key={index} className="bg-white shadow overflow-hidden sm:rounded-lg my-4">
+                    <div className="px-4 py-5 sm:px-6">
+                      <h3 className="text-lg leading-6 font-medium text-gray-900">{post.content}</h3>
+                      <p className="mt-1 max-w-2xl text-sm text-gray-500">{post.author}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        ) : (
-          <div>
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
-              <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
-                onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
-                <SortButton></SortButton>
-            </div>
-            <RecentlyAddedPosts></RecentlyAddedPosts>
-          </div>
-        )}
-      </div>
         </div>
       </div>
     </>
