@@ -49,7 +49,7 @@ const SinglePost = (props) => {
           <p className="font-semibold text-gray-900">
             <a href={post.author.href}>
               <span className="absolute inset-0" />
-              {post.author}
+              {post.author.name}
             </a>
           </p>
         </div>
