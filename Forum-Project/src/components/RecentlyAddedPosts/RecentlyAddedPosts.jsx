@@ -1,8 +1,21 @@
-import { posts } from "../../data/data";
+import { useState } from "react";
+import { getAllPosts } from "../../services/posts.service";
 import SinglePost from "../../views/SinglePost/SinglePost";
+import { useEffect } from "react";
 
-const recentlyAddedPosts = posts.slice(posts.length - 4);
 const RecentlyAddedPosts = () => {
+
+  const [recentlyAddedPosts, setRecentlyAddedPosts] = useState([]);
+
+  useEffect(() => {
+    getAllPosts()
+      .then((fetchedPosts) => {
+        setRecentlyAddedPosts(fetchedPosts);
+      })
+      .catch((error) => {
+        console.error('Error fetching recently added posts:', error);
+      });
+  }, []);
 
   return (
     <div className="bg-white py-5 sm:py-10">
