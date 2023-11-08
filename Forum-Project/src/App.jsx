@@ -78,7 +78,10 @@ const App = () => {
           <Route path="/post/:id" element={<PostDetails />} />
         </Routes>
         <Footer />
-        <ToastContainer position={"top-right"} autoClose={2000} />
+        <ToastContainer
+          position={"top-right"}
+          autoClose={1300}
+          pauseOnHover={true} />
       </AuthContext.Provider>
     </div>
   );

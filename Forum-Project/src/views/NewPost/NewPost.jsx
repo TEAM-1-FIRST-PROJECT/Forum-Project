@@ -1,48 +1,75 @@
-import { useState, useContext } from 'react';
-import { addPost } from '../../services/posts.service';
-import { AuthContext } from '../../context/authContext';
-
+import { useState, useContext } from "react";
+import { addPost } from "../../services/posts.service";
+import { AuthContext } from "../../context/authContext";
+import { getUserByHandle } from "../../services/users.services";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { set } from "firebase/database";
 const NewPost = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
   const [tags, setTags] = useState({});
   const [isPostSubmitted, setIsPostSubmitted] = useState(false); // Add a state variable to track post submission
-  const { userData } = useContext(AuthContext)
+  const { userData } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handlePostSubmit = async (event) => {
     event.preventDefault();
 
-    if (title.trim() === '' || description.trim() === '' || content.trim() === '') {
-      alert('Fields cannot be empty');
+    if (
+      title.trim() === "" ||
+      description.trim() === "" ||
+      content.trim() === ""
+    ) {
+      alert("Fields cannot be empty");
       return;
     }
 
     if (title.length < 16 || title.length > 64) {
-      alert('Title should be between 16 and 64 characters');
+      alert("Title should be between 16 and 64 characters");
       return;
     }
 
     if (content.length < 32 || content.length > 8192) {
-      alert('Content length should be between 32 and 8192 characters');
+      alert("Content length should be between 32 and 8192 characters");
       return;
     }
 
     const userName = userData.username;
 
-    try {
-      const newPost = await addPost(userName, title, content, description);
-      setTitle('');
-      setDescription('');
-      setContent('');
-      setIsPostSubmitted(true); // Set the flag to true upon successful submission
-      alert('Post submitted successfully!');
-      console.log('New post:', newPost);
-      //addNewPost(newPost);
-    } catch (error) {
-      console.error('Error submitting post:', error);
-      alert('An error occurred while submitting the post.');
-    }
+    getUserByHandle(userName).then((snapshot) => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+
+        if (userData.isBlocked === true) {
+          toast.error("This user is blocked and cannot create posts.");
+          setTimeout(() => {
+            navigate("/");
+          }, 2100);
+        } else if (userData.isBlocked === false) {
+          addPost(userName, title, content, description)
+            .then((newPost) => {
+              setTitle("");
+              setDescription("");
+              setContent("");
+              setIsPostSubmitted(true);
+              toast.done("Post submitted successfully!");
+              console.log("New post:", newPost);
+              //addNewPost(newPost);
+            })
+            .catch((error) => {
+              toast.error("Error submitting post:", error);
+              toast.error("An error occurred while submitting the post.");
+            });
+          setTimeout(() => {
+            navigate("/");
+          }, 2100);
+        }
+      } else {
+        toast.error("No such user exists!");
+      }
+    });
   };
 
   return (
@@ -51,7 +78,10 @@ const NewPost = () => {
       <form onSubmit={handlePostSubmit}>
         <div className="mt-6 space-y-6">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Title
             </label>
             <input
@@ -65,7 +95,10 @@ const NewPost = () => {
             />
           </div>
           <div>
-            <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Description
             </label>
             <textarea
@@ -79,7 +112,10 @@ const NewPost = () => {
             />
           </div>
           <div>
-            <label htmlFor="content" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="content"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               What&apos;s on your mind?
             </label>
             <textarea
