@@ -65,10 +65,10 @@ const SignUp = () => {
       return;
     }
 
-    if (!PASSWORD_CHECK.test(form.password)) {
-      toast.warning("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character and to be at least 8 characters long");
-      return;
-    }
+    // if (!PASSWORD_CHECK.test(form.password)) {
+    //   toast.warning("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character and to be at least 8 characters long");
+    //   return;
+    // }
 
     getUserByHandle(form.username)
       .then((snapshot) => {

@@ -4,10 +4,8 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
 import {
   getUserByHandle,
-  createUserHandle,
   updateUserData,
 } from "../../services/users.services";
-import { registerUser } from "../../services/auth.services";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
 
 const SettingsForm = () => {

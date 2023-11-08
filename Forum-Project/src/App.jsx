@@ -9,12 +9,12 @@ import PublicView from "./views/PublicView/PublicView";
 import Notfound from "./views/Notfound/Notfound";
 import EditorsChoice from "./views/EditorsChoice/EditorsChoice";
 import SinglePostView from "./views/SinglePostView/SinglePostView";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import { AuthContext } from "./context/authContext";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./config/firebase-config";
-import { useState, useEffect, useContext } from "react";
-import { getUserByHandle, getUserData } from "./services/users.services";
+import { useState, useEffect} from "react";
+import {  getUserData } from "./services/users.services";
 import Watch from "./views/Categories/Watch/Watch";
 import Iphone from "./views/Categories/iPhone/Iphone";
 import Mac from "./views/Categories/Mac/Mac";
@@ -22,16 +22,16 @@ import ViewAll from "./views/Categories/ViewAll/ViewAll";
 import SettingsForm from "./views/SettingsForm/SettingsForm";
 import AdminSignUp from "./views/Admin/AdminSignUp/AdminSignUp";
 import Admin from "./views/Admin/Admin";
-import { PropTypes } from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
+
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+
 
 
 // const AdminRoute = ({ element }) => {
 //   const { user } = useContext(AuthContext);
 //   const usenavigate = useNavigate();
-  
+
 
 //   useEffect(() => {
 
@@ -41,12 +41,12 @@ import { useNavigate } from "react-router-dom";
 //       toast.error("You are not authorized to view this page");
 //      usenavigate("/home");
 //     }
-  
+
 //    }, [user]);
 
-      
 
- 
+
+
 // };
 
 
@@ -74,10 +74,11 @@ const App = () => {
       if (!snapshot.exists()) {
         throw new Error("User data not found");
       }
-
+      const username = Object.keys(snapshot.val())[0]
+      //console.log((snapshot.val()[username].isAdmin), username)
       setAppState({
         ...appState,
-        userData: Object.keys(snapshot.val())[0],
+        userData: { username, isAdmin: snapshot.val()[username].isAdmin }
         // Object.keys(snapshot.val())[0] returns the first key of the object
         // Object.keys(snapshot.val()) returns an array of the keys of the object
         // snapshot.val() returns the value of the object
