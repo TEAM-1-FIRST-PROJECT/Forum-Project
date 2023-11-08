@@ -54,7 +54,7 @@ const NewPost = () => {
               setDescription("");
               setContent("");
               setIsPostSubmitted(true);
-              toast.done("Post submitted successfully!");
+              toast("Post submitted successfully!");
               console.log("New post:", newPost);
               //addNewPost(newPost);
             })
