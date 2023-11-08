@@ -22,31 +22,25 @@ import ViewAll from "./views/Categories/ViewAll/ViewAll";
 import SettingsForm from "./views/SettingsForm/SettingsForm";
 import AdminSignUp from "./views/Admin/AdminSignUp/AdminSignUp";
 import Admin from "./views/Admin/Admin";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-
 // const AdminRoute = ({ element }) => {
-//   const { user } = useContext(AuthContext);
+//   const { userData } = useContext(AuthContext);
+//   const { adminData } = useContext(AuthAdminContext);
 //   const usenavigate = useNavigate();
-
-
+//  console.log(adminData);
 //   useEffect(() => {
-
-//     if (user && user.isAdmin) {
+//     if (userData !== false) {
 //       return element;
 //     } else {
 //       toast.error("You are not authorized to view this page");
-//      usenavigate("/home");
+//       usenavigate("/home");
 //     }
+//   }, [userData, element, usenavigate]);
 
-//    }, [user]);
-
-
-
-
+//   return null; // Or you can return a loading indicator if needed
 // };
 
 
@@ -109,7 +103,7 @@ const App = () => {
           <Route path="/admin" element={<Admin />} />
         </Routes>
         <Footer />
-        <ToastContainer position={"top-right"} autoClose={2000} />
+        <ToastContainer  position={"top-right"} autoClose={2000} />
       </AuthContext.Provider>
     </div>
   );

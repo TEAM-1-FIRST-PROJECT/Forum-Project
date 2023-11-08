@@ -89,6 +89,9 @@ const AdminDashboard = () => {
               <strong>Title:</strong> {post.title}
             </p>
             <p>
+              <strong>Author:</strong> {post.author}
+            </p>
+            <p>
               <strong>Content:</strong> {post.content}
             </p>
             <button

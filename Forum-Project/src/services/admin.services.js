@@ -2,11 +2,11 @@ import { get, set, ref, update, remove } from "firebase/database";
 import { database } from "../config/firebase-config";
 
 export const getAdminByHandle = (firstName) => {
-  return get(ref(database, `admins/${firstName}`));
+  return get(ref(database, `users/${firstName}`));
 };
 
 export const createAdminHandle = (firstName, lastName, email, phone, uid) => {
-  return set(ref(database, `admins/${firstName}`), {
+  return set(ref(database, `users/${firstName}`), {
     firstName,
     lastName,
     email,
