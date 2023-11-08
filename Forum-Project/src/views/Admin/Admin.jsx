@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import { blockUser, deletePost, searchUser } from "../../services/admin.services";
+import { toast } from "react-toastify";
+import { logoutUser } from "../../services/auth.services";
+import { AuthContext } from "../../context/authContext";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { userData } = useContext(AuthContext);
+  // const blockedUser = () => users.map(user => user.isBlocked === true ? logoutUser() : null);
+ 
+ 
   useEffect(() => {
     getAllPosts().then(setPosts);
     searchUser("").then(setUsers); 
@@ -15,17 +21,23 @@ const AdminDashboard = () => {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
+  
   };
 
   const handleSearchSubmit = () => {
+    if (searchTerm === "") {
+      console.log(userData);
+      toast.warning("Please enter a username, email or first name");
+      return;
+    }
     searchUser(searchTerm).then(setUsers);
   };
 
-  const handleBlockUser = (userId, blockStatus, email) => {
-    blockUser(userId, blockStatus, email).then(() => {
+  const handleBlockUser = (username, blockStatus) => {
+    blockUser(username, blockStatus).then(() => {
       setUsers(
         users.map((user) =>
-          user.uid === userId ? { ...user, blocked: blockStatus, userEmail: email } : user
+          user.username === username ? { ...user, isBlocked: blockStatus } : user
         )
       );
     });
@@ -48,7 +60,7 @@ const AdminDashboard = () => {
           placeholder="Search users..."
           className="border p-2 mr-2"
         />
-        <button
+       <button
           onClick={handleSearchSubmit}
           className="px-4 py-2 bg-blue-500 text-white rounded"
         >
@@ -71,11 +83,11 @@ const AdminDashboard = () => {
             </p>
             <button
               className={`mt-2 px-4 py-2 ${
-                user.blocked ? "bg-green-500" : "bg-red-500"
+                user.isBlocked ? "bg-green-500" : "bg-red-500" 
               } text-white rounded`}
-              onClick={() => handleBlockUser(user.uid, !user.blocked, user.email)}
+              onClick={() => handleBlockUser(user.username, !user.isBlocked)}
             >
-              {user.blocked ? "Unblock" : "Block"}
+              {user.isBlocked ? "Unblock" : "Block"}
             </button>
           </div>
         ))}

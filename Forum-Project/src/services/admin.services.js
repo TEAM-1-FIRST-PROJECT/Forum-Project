@@ -13,6 +13,7 @@ export const createAdminHandle = (firstName, lastName, email, phone, uid) => {
     phone,
     uid,
     isAdmin: true,
+    isBlocked: false,
     createdOnn: Date.now(),
   });
 };
@@ -37,10 +38,10 @@ export const searchUser = (searchTerm) => {
 };
 
 // function for blocking user
-export const blockUser = (userId, blockStatus, email) => {
-  return update(ref(database, `blocked/${userId}`), {
-    blocked: blockStatus,
-    userEmail: email,
+export const blockUser = (username, blockStatus,) => {
+  return update(ref(database, `users/${username}`), {
+    isBlocked: blockStatus,
+  
   });
 };
 

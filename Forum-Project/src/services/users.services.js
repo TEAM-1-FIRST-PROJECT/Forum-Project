@@ -5,7 +5,7 @@ export const getUserByHandle = (username) => {
     return get(ref(database, `users/${username}`))
 }
 
-export const createUserHandle = (username, uid, email, firstName, lastName, profilePhoto, isAdmin) => {
+export const createUserHandle = (username, uid, email, firstName, lastName, profilePhoto) => {
     return set(ref(database, `users/${username}`), {
         username,
         uid,
@@ -13,8 +13,9 @@ export const createUserHandle = (username, uid, email, firstName, lastName, prof
         firstName,
         lastName,
         profilePhoto,
-        isAdmin,
+        isAdmin: false,
         createdOnn: Date.now(),
+        isBlocked: false,
     })
 }
 

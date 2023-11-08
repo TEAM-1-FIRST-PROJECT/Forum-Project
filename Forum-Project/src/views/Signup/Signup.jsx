@@ -18,7 +18,6 @@ const SignUp = () => {
     email: "",
     password: "",
     profilePhoto: '',
-    isAdmin: false,
   });
 
   const { setUser } = useContext(AuthContext);
@@ -87,7 +86,6 @@ const SignUp = () => {
           form.firstName,
           form.lastName,
           form.profilePhoto,
-          form.isAdmin,
         );
 
         credential.user.value = form.username
