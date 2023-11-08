@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const SinglePost = (props) => {
+
+  const { userData } = useContext(AuthContext);
+//console.log(userData)
   const post = props.value;
 
   return (
@@ -16,6 +21,9 @@ const SinglePost = (props) => {
         <Link to='/singlePostView' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Post Details
         </Link>
+        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
+          Delete Post
+        </button>
       </div>
       <div className="group relative">
         <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">

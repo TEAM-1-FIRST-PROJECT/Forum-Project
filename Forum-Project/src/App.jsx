@@ -75,10 +75,10 @@ const App = () => {
         throw new Error("User data not found");
       }
       const username = Object.keys(snapshot.val())[0]
-      //console.log((snapshot.val()[username].isAdmin), username)
+
       setAppState({
         ...appState,
-        userData: { username, isAdmin: snapshot.val()[username].isAdmin }
+        userData: snapshot.val()[username]
         // Object.keys(snapshot.val())[0] returns the first key of the object
         // Object.keys(snapshot.val()) returns an array of the keys of the object
         // snapshot.val() returns the value of the object
