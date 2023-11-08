@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { addPost } from '../../services/posts.service';
+import { AuthContext } from '../../context/authContext';
 
-const NewPost = ({ addNewPost }) => {
+const NewPost = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [content, setContent] = useState('');
+  const [tags, setTags] = useState({});
   const [isPostSubmitted, setIsPostSubmitted] = useState(false); // Add a state variable to track post submission
+  const { userData } = useContext(AuthContext)
 
   const handlePostSubmit = async (event) => {
     event.preventDefault();
@@ -25,17 +28,17 @@ const NewPost = ({ addNewPost }) => {
       return;
     }
 
-    const username = 'YourUsername';
+    const userName = userData.username;
 
     try {
-      const newPost = await addPost(title, description, content, username);
+      const newPost = await addPost(userName, title, content, description);
       setTitle('');
       setDescription('');
       setContent('');
       setIsPostSubmitted(true); // Set the flag to true upon successful submission
       alert('Post submitted successfully!');
       console.log('New post:', newPost);
-      addNewPost(newPost);
+      //addNewPost(newPost);
     } catch (error) {
       console.error('Error submitting post:', error);
       alert('An error occurred while submitting the post.');
@@ -77,7 +80,7 @@ const NewPost = ({ addNewPost }) => {
           </div>
           <div>
             <label htmlFor="content" className="block text-sm font-medium leading-6 text-gray-900">
-            What&apos;s on your mind?
+              What&apos;s on your mind?
             </label>
             <textarea
               rows="4"
