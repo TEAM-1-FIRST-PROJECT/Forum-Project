@@ -12,12 +12,8 @@ const SinglePost = (props) => {
   return (
     <article className="flex max-w-xl flex-col items-start justify-between">
       <div className="flex items-center gap-x-4 text-xs">
-        <time dateTime={new Date(post.createdOn).toISOString()} className="text-gray-500">
-          {new Date(post.createdOn).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })}
+        <time dateTime={post.datetime} className="text-gray-500">
+          {post.date}
         </time>
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
           liked {post.id}
@@ -53,7 +49,7 @@ const SinglePost = (props) => {
           <p className="font-semibold text-gray-900">
             <a href={post.author.href}>
               <span className="absolute inset-0" />
-              {post.author}
+              {post.author.name}
             </a>
           </p>
         </div>
