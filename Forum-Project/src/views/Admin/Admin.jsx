@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import { blockUser, deletePost, searchUser } from "../../services/admin.services";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { userData } = useContext(AuthContext);
   useEffect(() => {
     getAllPosts().then(setPosts);
     searchUser("").then(setUsers); 
@@ -18,6 +20,7 @@ const AdminDashboard = () => {
   };
 
   const handleSearchSubmit = () => {
+    console.log(userData)
     searchUser(searchTerm).then(setUsers);
   };
 

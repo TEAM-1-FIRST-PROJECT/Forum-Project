@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { addPost } from '../../services/posts.service';
+import { AuthContext } from '../../context/authContext';
 
-const NewPost = ({ addNewPost }) => {
+
+const NewPost = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [content, setContent] = useState('');
+  const [tags, setTags] = useState({});
   const [isPostSubmitted, setIsPostSubmitted] = useState(false); // Add a state variable to track post submission
+  const { userData } = useContext(AuthContext)
 
   const handlePostSubmit = async (event) => {
     event.preventDefault();
@@ -24,20 +28,19 @@ const NewPost = ({ addNewPost }) => {
       alert('Content length should be between 32 and 8192 characters');
       return;
     }
-
-    const username = 'YourUsername';
-
+    const userName = userData.username
     try {
-      const newPost = await addPost(title, description, content, username);
+      const newPost = await addPost(userName, title, description, content);
       setTitle('');
       setDescription('');
       setContent('');
+      setTags('');
       setIsPostSubmitted(true); // Set the flag to true upon successful submission
       alert('Post submitted successfully!');
       console.log('New post:', newPost);
-      addNewPost(newPost);
+      //addNewPost(newPost);
     } catch (error) {
-      console.error('Error submitting post:', error);
+      console.error('Error submitting post:', error.message);
       alert('An error occurred while submitting the post.');
     }
   };
@@ -77,7 +80,7 @@ const NewPost = ({ addNewPost }) => {
           </div>
           <div>
             <label htmlFor="content" className="block text-sm font-medium leading-6 text-gray-900">
-            What&apos;s on your mind?
+              What&apos;s on your mind?
             </label>
             <textarea
               rows="4"
@@ -89,6 +92,7 @@ const NewPost = ({ addNewPost }) => {
               placeholder="What's on your mind?"
             />
           </div>
+
         </div>
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button type="button" className="text-sm font-semibold text-gray-900">
@@ -110,3 +114,19 @@ const NewPost = ({ addNewPost }) => {
 };
 
 export default NewPost;
+
+
+{/* <div>
+            <label htmlFor="tags" className="block text-sm font-medium leading-6 text-gray-900">
+              Add some tags
+            </label>
+            <textarea
+              rows="4"
+              id="tags"
+              name="tags"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
+              placeholder="What's on your mind?"
+            />
+          </div> */}
