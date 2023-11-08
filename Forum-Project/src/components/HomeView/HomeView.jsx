@@ -4,7 +4,7 @@ import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAllPosts } from "../../services/posts.service";
-
+import { Link } from "react-router-dom";
 
 
 const HomeView = () => {
@@ -57,6 +57,9 @@ const HomeView = () => {
                     <div className="px-4 py-5 sm:px-6">
                       <h3 className="text-lg leading-6 font-medium text-gray-900">{post.content}</h3>
                       <p className="mt-1 max-w-2xl text-sm text-gray-500">{post.author}</p>
+                      <Link to={`/post/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+          Post Details
+        </Link>
                     </div>
                   </div>
                 ))}

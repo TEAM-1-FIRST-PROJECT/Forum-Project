@@ -26,6 +26,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { logoutUser } from "./services/auth.services";
+import PostDetails from "./components/PostDetails/PostDetails";
 
 const App = () => {
   const [user] = useAuthState(auth);
@@ -81,6 +82,7 @@ const App = () => {
           <Route path="/settings" element={<SettingsForm />} />
           <Route path="/adminsignup" element={<AdminSignUp />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/post/:id" element={<PostDetails />} />
         </Routes>
         <Footer />
         <ToastContainer position={"top-right"} autoClose={2000} />

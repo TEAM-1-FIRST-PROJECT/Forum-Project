@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/authContext";
 const SinglePost = (props) => {
 
   const { userData } = useContext(AuthContext);
-//console.log(userData)
+  //console.log(userData)
   const post = props.value;
 
   return (
@@ -18,7 +18,7 @@ const SinglePost = (props) => {
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
           liked {post.id}
         </button>
-        <Link to='/singlePostView' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        <Link to={`/post/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Post Details
         </Link>
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
@@ -34,6 +34,9 @@ const SinglePost = (props) => {
         </h3>
         <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
           {post.description}
+        </p>
+        <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+          {post.content}
         </p>
       </div>
       <div className="relative mt-8 flex items-center gap-x-4">
