@@ -7,10 +7,12 @@ import { getAllPosts } from "../../services/posts.service";
 import { Link } from "react-router-dom";
 
 
+
 const HomeView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
   const [posts, setPosts] = useState([]);
 
+ 
   useEffect(() => {
     const fetchPosts = async () => {
       const allPosts = await getAllPosts();

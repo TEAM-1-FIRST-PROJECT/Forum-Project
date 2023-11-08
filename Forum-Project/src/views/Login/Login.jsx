@@ -26,9 +26,9 @@ const Login = () => {
 
   const handleLogin = () => {
     if (!form.email) {
-    toast.warning("Email is required");
+      toast.warning("Email is required");
     }
-    if (!form.password && form.password.test(PASSWORD_CHECK)) {
+    if (!form.password && PASSWORD_CHECK.test(form.password)) {
       toast.warning("Password is required");
       return;
     }
@@ -41,6 +41,9 @@ const Login = () => {
       })
       .then(() => {
         navigate("/home");
+      })
+      .catch((err) => {
+        toast.error(err.message);
       });
   };
 

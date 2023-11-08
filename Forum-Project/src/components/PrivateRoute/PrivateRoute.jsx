@@ -11,7 +11,7 @@ const PrivateRoute = ({ element: Element, adminOnly, ...rest }) => {
       return <Navigate to="/Login" />;
     }
   
-    if (adminOnly && user.role !== 'admin') {
+    if (adminOnly && user.isAdmin !== 'true') {
       // Redirect to a different page (e.g., access denied) for non-admin users
       return <Navigate to="/Notfound" />;
     }

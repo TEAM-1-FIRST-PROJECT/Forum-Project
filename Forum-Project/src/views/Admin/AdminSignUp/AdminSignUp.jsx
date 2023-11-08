@@ -43,7 +43,7 @@ function UserRegistrationComponent() {
     }
 
     if (!PHONE_NUMBER_CHECK.test(phone)) {
-      toast.warning("Username is required");
+      toast.warning("Phone is required");
       return;
     }
 
