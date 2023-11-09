@@ -1,4 +1,4 @@
-import SortButton from "../Sort/SortButton";
+import SortButton from "../SortButton/SortButton";
 import RecommendedPosts from "../RecommendedPosts/RecommendedPosts";
 import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
 import { useState } from "react";
