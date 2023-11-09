@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCommentsById } from "../../services/comments.services";
 import SingleComment from "../RecommendedPosts/SingleComment/SingleComment";
+import PropTypes from "prop-types";
 
 
 const Comments = (props) => {
@@ -36,6 +37,7 @@ const Comments = (props) => {
   )
 }
 
+Comments.propTypes = {
+  value: PropTypes.string.isRequired,
+};
 export default Comments;
-
-{/*  */ }
