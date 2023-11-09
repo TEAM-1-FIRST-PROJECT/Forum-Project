@@ -9,6 +9,7 @@ import PublicView from "./views/PublicView/PublicView";
 import Notfound from "./views/Notfound/Notfound";
 import EditorsChoice from "./views/EditorsChoice/EditorsChoice";
 import SinglePostView from "./views/SinglePostView/SinglePostView";
+import Comments from "./components/Comments/Comments";
 import { Routes, Route } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -79,7 +80,8 @@ const App = () => {
             <Route path="/admin" element={<Admin />} />
           )}
           <Route path="/post/:id" element={<PostDetails />} />
-          <Route path="/newComment/:id" element={<NewComment/>}/>
+          <Route path="/newComment/:id" element={<NewComment />} />
+          <Route path="/allComments/:id" element={<Comments />} />
         </Routes>
         <Footer />
         <ToastContainer
