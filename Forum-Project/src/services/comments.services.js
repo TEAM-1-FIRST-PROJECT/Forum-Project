@@ -31,9 +31,9 @@ const fromCommentsDocument = snapshot => {
     };
   });
 }
-export const getCommentsByAuthor = (username) => {
+export const getCommentsById = (id) => {
 
-  return get(query(ref(database, 'comments'), orderByChild('author'), equalTo(username)))
+  return get(query(ref(database, 'comments'), orderByChild('postId'), equalTo(id)))
     .then(snapshot => {
       if (!snapshot.exists()) return [];
 
