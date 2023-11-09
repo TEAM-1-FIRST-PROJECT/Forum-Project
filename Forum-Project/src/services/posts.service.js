@@ -122,18 +122,3 @@ export const deletePost = (postId) => {
   return remove(ref(database, `posts/${postId}`));
 };
 
-export const addNewComment = (userName, title, content) => {
-
-  return push(
-    ref(database, 'comments'),
-    {
-      author: userName,
-      title,
-      content,
-      createdOn: Date.now(),
-    },
-  )
-    .then();
-}
-// result => {    return getCommentById(result.key);
-//     }

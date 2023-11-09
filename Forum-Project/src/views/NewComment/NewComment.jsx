@@ -3,15 +3,17 @@ import { AuthContext } from "../../context/authContext";
 import { getUserByHandle } from "../../services/users.services";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { addNewComment } from "../../services/posts.service";
+import { addNewComment } from "../../services/comments.services";
+import { useParams } from "react-router-dom";
 
 const NewComment = () => {
-
+  const { id } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isPostSubmitted, setIsCommentSubmitted] = useState(false); 
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
+  
 
   const commentSubmitHanDler = async (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ const NewComment = () => {
     }
 
     if (title.length < 4 || title.length > 10) {
-      alert("Title should be between 16 and 64 characters");
+      alert("Title should be between 4 and 10 characters");
       return;
     }
 
@@ -47,7 +49,7 @@ const NewComment = () => {
           }, 2100);
         } else if (userData.isBlocked === false) {
 
-          addNewComment(userName, title, content)
+          addNewComment(id, title, content)
             .then((newComment) => {
               setTitle("");
               setContent("");
