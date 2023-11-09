@@ -61,23 +61,28 @@ const SinglePost = (props) => {
           {post.content}
         </p>
       </div>
-      <div className="relative mt-8 flex items-center gap-x-4">
+      <div className="relative mt-8 flex items-center gap-x-4 text-sm leading-6">
 
-        <div className="text-sm leading-6">
-          <p className="font-semibold text-gray-900">
-            <a>
-              <span className="absolute inset-0" />
-              {post.author}
-            </a>
-          </p>
-        </div>
+
+        <p className="font-semibold text-gray-900">
+          <span className="absolute inset-0" />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <p className='pl-3'>{post.author}</p>
+            <p style={{ marginLeft: '1rem' }}>tags</p>
+          </div>
+
+        </p>
+
+
       </div>
-      <Link to='/' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-        Reply
-      </Link>
-      <Link to='/' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-        See all replies
-      </Link>
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <Link to='/newComment' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+          Reply
+        </Link>
+        <Link to='/seeAllComment' className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+          See all comments
+        </Link>
+      </div>
     </article>
   )
 }
