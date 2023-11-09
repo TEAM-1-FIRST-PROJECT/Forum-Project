@@ -6,35 +6,15 @@ import Categories from "../../views/Categories/Categories";
 import ProfileSettings from "../ProfileSetings/ProfileSetings";
 import { toast } from "react-toastify";
 import { searchUser } from "../../services/users.services";
-import { getUsersLength } from "../../services/users.services";
-import { getPostsLength } from "../../services/posts.service";
 
 function Header() {
   const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
-  const [usersLength, setUsersLength] = useState([]);
-  const [postsLength, setPostsLength] = useState([]);
+ 
   const node = useRef();
   
-  useEffect(() => {
-    getUsersLength()
-      .then(length => {
-        setUsersLength(length);
-      })
-      .catch(error => {
-        toast.error(error);
-      });
-  
-    getPostsLength()
-      .then(length => {
-        setPostsLength(length);
-      })
-      .catch(error => {
-        toast.error(error);
-      });
-  }); 
 
 
 const handleSearchChange = (event) => {
@@ -191,17 +171,7 @@ toast.warning("Please enter a username, email or first name");
           <div className="flex flex-col items-center justify-center space-y-2"></div>
         </div>
       </div>
-      <div className="flex justify-center items-center mt-5 space-x-4">
-        <div className="flex flex-col items-center bg-white shadow-xl shadow-indigo-300 p-5 rounded-md">
-          <p className="text-lg font-extrabold text-red-600">{ usersLength }</p>
-          <p className="font-sans font-bold text-lg">Registered Users</p>
-        </div>
-        <div className=" border-l border-gray-300 h-20 "></div>
-        <div className="flex flex-col items-center bg-white shadow-xl shadow-indigo-300 p-5 rounded-md">
-          <span className="text-lg font-extrabold text-red-600">{ postsLength }</span>
-          <span className="font-sans font-bold text-lg">Total Posts</span>
-        </div>
-      </div>
+    
     </>
   );
 }
