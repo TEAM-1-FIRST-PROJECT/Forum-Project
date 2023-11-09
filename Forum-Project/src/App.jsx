@@ -25,6 +25,7 @@ import Admin from "./views/Admin/Admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetails from "./components/PostDetails/PostDetails";
+import NewComment from "./views/NewComment/NewComment";
 
 const App = () => {
   const [user] = useAuthState(auth);
@@ -78,6 +79,7 @@ const App = () => {
             <Route path="/admin" element={<Admin />} />
           )}
           <Route path="/post/:id" element={<PostDetails />} />
+          <Route path='/newComment' element={<NewComment/>}/>
         </Routes>
         <Footer />
         <ToastContainer

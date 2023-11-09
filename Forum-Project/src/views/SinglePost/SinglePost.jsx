@@ -68,7 +68,7 @@ const SinglePost = (props) => {
           <span className="absolute inset-0" />
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <p className='pl-3'>{post.author}</p>
-            <p style={{ marginLeft: '1rem' }}>tags</p>
+            <p style={{ marginLeft: '1rem' }}>{post.tags}</p>
           </div>
 
         </p>
