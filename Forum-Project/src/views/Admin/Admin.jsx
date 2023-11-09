@@ -1,15 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import { blockUser, deletePost, searchUser } from "../../services/admin.services";
 import { toast } from "react-toastify";
-import { logoutUser } from "../../services/auth.services";
-import { AuthContext } from "../../context/authContext";
+
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { userData } = useContext(AuthContext);
   // const blockedUser = () => users.map(user => user.isBlocked === true ? logoutUser() : null);
  
  
@@ -26,7 +24,6 @@ const AdminDashboard = () => {
 
   const handleSearchSubmit = () => {
     if (searchTerm === "") {
-      console.log(userData);
       toast.warning("Please enter a username, email or first name");
       return;
     }

@@ -13,7 +13,7 @@ import { Routes, Route } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./config/firebase-config";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { getUserData } from "./services/users.services";
 import Watch from "./views/Categories/Watch/Watch";
 import Iphone from "./views/Categories/iPhone/Iphone";
@@ -22,10 +22,8 @@ import ViewAll from "./views/Categories/ViewAll/ViewAll";
 import SettingsForm from "./views/SettingsForm/SettingsForm";
 import AdminSignUp from "./views/Admin/AdminSignUp/AdminSignUp";
 import Admin from "./views/Admin/Admin";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
-import { logoutUser } from "./services/auth.services";
 import PostDetails from "./components/PostDetails/PostDetails";
 
 const App = () => {
@@ -48,13 +46,11 @@ const App = () => {
       if (!snapshot.exists()) {
         throw new Error("User data not found");
       }
-    
       const username = Object.keys(snapshot.val())[0];
 
       setAppState({
         ...appState,
         userData: snapshot.val()[username],
-
       });
     });
   });
@@ -82,7 +78,10 @@ const App = () => {
           <Route path="/post/:id" element={<PostDetails />} />
         </Routes>
         <Footer />
-        <ToastContainer position={"top-right"} autoClose={2000} />
+        <ToastContainer
+          position={"top-right"}
+          autoClose={1300}
+          pauseOnHover={true} />
       </AuthContext.Provider>
     </div>
   );
