@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCommentsById } from "../../services/comments.services";
-import SingleComment from "../RecommendedPosts/SingleComment/SingleComment";
+import SingleComment from "../SingleComment/SingleComment";
 import PropTypes from "prop-types";
 
 
