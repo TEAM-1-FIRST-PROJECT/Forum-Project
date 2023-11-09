@@ -1,22 +1,23 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
 
 const SinglePost = (props) => {
 
-  const { userData } = useContext(AuthContext);
-  //console.log(userData)
   const post = props.value;
+
+  const myDate = new Date(post.createdOn);
+  const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
+  const minutes = myDate.getMinutes().toString().padStart(2, '0'); // Get minutes (0-59), convert to string, and pad with leading zero if necessary
+  const formattedDate = `${hours}:${minutes} ${myDate.getDate()}/${myDate.getMonth() + 1}`;
 
   return (
     <article className="flex max-w-xl flex-col items-start justify-between">
       <div className="flex items-center gap-x-4 text-xs">
-        <time dateTime={post.datetime} className="text-gray-500">
-          {post.date}
+        <time dateTime={formattedDate} className="text-gray-500">
+          {formattedDate}
         </time>
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
-          liked {post.id}
+          liked {'98'}
         </button>
         <Link to={`/post/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Post Details
@@ -27,7 +28,7 @@ const SinglePost = (props) => {
       </div>
       <div className="group relative">
         <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-          <a href={post.href}>
+          <a>
             <span className="absolute inset-0" />
             {post.title}
           </a>
@@ -40,16 +41,12 @@ const SinglePost = (props) => {
         </p>
       </div>
       <div className="relative mt-8 flex items-center gap-x-4">
-        <img
-          src={post.author.imageUrl}
-          alt=""
-          className="h-10 w-10 rounded-full bg-gray-50"
-        />
+
         <div className="text-sm leading-6">
           <p className="font-semibold text-gray-900">
-            <a href={post.author.href}>
+            <a>
               <span className="absolute inset-0" />
-              {post.author.name}
+              {post.author}
             </a>
           </p>
         </div>
@@ -68,3 +65,13 @@ SinglePost.propTypes = {
   value: PropTypes.object.isRequired,
 };
 export default SinglePost
+
+{/* <img
+src={post.author.imageUrl}
+alt=""
+className="h-10 w-10 rounded-full bg-gray-50"
+/> */}
+
+{/* <time dateTime={post.createdOn.toString()} className="text-gray-500">
+          {post.createdOn.toString()}
+        </time> */}
