@@ -4,6 +4,7 @@ import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAllPosts } from "../../services/posts.service";
+import FilterButton from "../FilterButton/FilterButton";
 
 
 
@@ -21,7 +22,9 @@ const HomeView = () => {
 
   return (
     <>
-      <SortButton />
+    <div>
+    <SortButton /> 
+    </div>
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
@@ -35,6 +38,7 @@ const HomeView = () => {
           <div >
             {recommendedPosts ? (
               <div>
+                <FilterButton></FilterButton>
                 <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
@@ -44,6 +48,7 @@ const HomeView = () => {
               </div>
             ) : (
               <div>
+                <FilterButton></FilterButton>
                 <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
