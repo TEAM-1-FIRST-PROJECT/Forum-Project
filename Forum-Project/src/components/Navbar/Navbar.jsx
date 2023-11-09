@@ -9,65 +9,53 @@ import { AuthContext } from "../../context/authContext";
 const Navbar = () => {
 
   const { user } = useContext(AuthContext);
-
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div>
-      <nav className="p-2.5 bg-gray-800 shadow flex flex-wrap md:flex md:items-center md:justify-between">
-        <div className="flex justify-between font-semibold items-center ">
-          <Link to="/">
-            <img src={AppleLogo} className="h-10 cursor-pointer mr-3" />
-          </Link>
-          <Link
-            to="/"
-            className="text-white font-semibold cursor-pointer text-2xl"
+    <>
+      <nav
+            className={`absolute right-0 w-full bg-white rounded-lg shadow-xl overflow-hidden lg:static lg:bg-transparent lg:overflow-visible lg:w-auto ${
+              isOpen ? "block" : "hidden"
+            } lg:flex`}
           >
-            Dynamic Island
-          </Link>
-        </div>
-        <div className="">
-          <input
-            className="w-[400px] bg-gray-300 relative p-1 rounded-full border-none"
-            type="search"
-          />
-        </div>
-        <ul className="md:flex md:items-center z-[-1] md:z-auto md:static absolute font-semibold w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
-          <Link
-            to="/home"
-            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0">
-            Home
-          </Link>
-          {user !== null && <Link
-            to="/"
-            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
+            <Link
+              to="/"
+              className="block px-4 py-7 text-gray-800 hover:bg-indigo-500 hover:text-white"
+            >
+              Home
+            </Link>
+            {user !== null && <Link
+              to="/"
+              className="block px-4 py-2  text-gray-800 hover:bg-indigo-500 hover:text-white"
+            
           >
             < Categories />
           </Link>}
-
           {user !== null && <Link
             to="/EditorsChoice"
-            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
+            className="block px-4 py-5 items-center text-center text-gray-800 hover:bg-indigo-500 hover:text-white"
           >
             Editor&rsquo;s choice
           </Link>}
           {user === null && <Link to="/Login">
-            <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
+            <button className="block px-4 py-7 text-gray-800 hover:bg-indigo-500 hover:text-white">
               Login
             </button>
           </Link>}
           {user === null && <Link to="/Signup">
-            <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold duration-500 px-6 py-2 mx-4 rounded-lg">
+            <button className="block px-4 py-7 text-center text-gray-800 hover:bg-indigo-500 hover:text-white">
               Sign up
             </button>
           </Link>}
           {user !== null && <Link
             to="/"
-            className="text-xl text-white hover:text-teal-500 duration-500 mx-4 my-6 md:my-0"
+            className="block px-4 py-2 text-center text-gray-800 hover:bg-indigo-500 hover:text-white"
           ><ProfileSettings />
           </Link>}
-        </ul>
-      </nav>
-    </div>
+          </nav>
+    </>
   );
 };
 

@@ -58,8 +58,10 @@ function UserRegistrationComponent() {
 
         createAdminHandle(firstName, lastName, email, phone, newUser.uid)
           .then(() => {
-            toast.success("User created successfully");
-            navigate("/admin");
+            toast.success("User created successfully, redirecting... to admin panel");
+            setTimeout(() => {
+              navigate("/admin");
+            }, 2100);
           })
           .catch((error) => {
             toast.error(`Error creating user: ${error}`);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../../services/posts.service";
-import { blockUser, deletePost, searchUser } from "../../services/admin.services";
+import { adminSearchUser, blockUser, deletePost } from "../../services/admin.services";
 import { toast } from "react-toastify";
 
 
@@ -13,7 +13,7 @@ const AdminDashboard = () => {
  
   useEffect(() => {
     getAllPosts().then(setPosts);
-    searchUser("").then(setUsers); 
+    adminSearchUser("").then(setUsers); 
   }, []);
 
 
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
       toast.warning("Please enter a username, email or first name");
       return;
     }
-    searchUser(searchTerm).then(setUsers);
+    adminSearchUser(searchTerm).then(setUsers);
   };
 
   const handleBlockUser = (username, blockStatus) => {

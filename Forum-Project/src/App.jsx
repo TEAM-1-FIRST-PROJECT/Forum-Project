@@ -25,7 +25,7 @@ import Admin from "./views/Admin/Admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetails from "./components/PostDetails/PostDetails";
-
+import Header from "./components/Header/Header";
 const App = () => {
   const [user] = useAuthState(auth);
   const [appState, setAppState] = useState({
@@ -57,7 +57,7 @@ const App = () => {
   return (
     <div>
       <AuthContext.Provider value={{ ...appState, setUser: setAppState }}>
-        <Navbar />
+        <Header />
         <Routes>
           <Route path="/" element={<PublicView />} />
           <Route path="/home" element={<Home />} />
