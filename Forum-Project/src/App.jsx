@@ -74,14 +74,17 @@ const App = () => {
           <Route path="/ViewAll" element={<ViewAll />} />
           <Route path="/settings" element={<SettingsForm />} />
           <Route path="/adminsignup" element={<AdminSignUp />} />
-          <Route path="/admin" element={<Admin />} />
+          {appState.userData && appState.userData.isAdmin === true && (
+            <Route path="/admin" element={<Admin />} />
+          )}
           <Route path="/post/:id" element={<PostDetails />} />
         </Routes>
         <Footer />
         <ToastContainer
           position={"top-right"}
           autoClose={1300}
-          pauseOnHover={true} />
+          pauseOnHover={true}
+        />
       </AuthContext.Provider>
     </div>
   );
