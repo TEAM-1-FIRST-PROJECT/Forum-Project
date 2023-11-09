@@ -14,7 +14,8 @@ export const createUserHandle = (username, uid, email, firstName, lastName, prof
         lastName,
         profilePhoto,
         isAdmin: false,
-        createdOnn: Date.now(),
+        reatedOn: new Date(),
+        likedPosts: {},
         isBlocked: false,
     })
 }
