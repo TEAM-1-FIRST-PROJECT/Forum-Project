@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 
-const SortButton = () => {
+const SortButton = ({onSort}) => {
   return (
       <div className="absolute right-40 top-60">
            <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group">
@@ -21,7 +22,7 @@ const SortButton = () => {
             </span>
             <div className="absolute hidden group-focus:block top-full min-w-full w-max bg-white shadow-md mt-1 rounded">
               <ul className="text-left border rounded">
-                <li className="px-4 py-2 hover:bg-gray-100 border- text-black">most recent</li>
+                <li className="px-4 py-2 hover:bg-gray-100 border- text-black" onClick={onSort}>most recent</li>
                 <li className="px-4 py-2 hover:bg-gray-100 border-b text-black">most commented</li>
               </ul>
             </div>
@@ -29,5 +30,9 @@ const SortButton = () => {
     </div>
   )
 }
+
+SortButton.propTypes = {
+  onSort: PropTypes.func.isRequired,
+};
 
 export default SortButton;
