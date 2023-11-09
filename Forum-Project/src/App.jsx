@@ -22,13 +22,14 @@ import ViewAll from "./views/Categories/ViewAll/ViewAll";
 import SettingsForm from "./views/SettingsForm/SettingsForm";
 import AdminSignUp from "./views/Admin/AdminSignUp/AdminSignUp";
 import Admin from "./views/Admin/Admin";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetails from "./components/PostDetails/PostDetails";
 import Header from "./components/Header/Header";
 import NewComment from "./views/NewComment/NewComment";
+import Spiner from "./assets/spiner.png";
 const App = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [appState, setAppState] = useState({
     user,
     userData: false,
@@ -38,23 +39,55 @@ const App = () => {
     setAppState({ user });
   }
 
+
   useEffect(() => {
-    if (user === null) {
-      return;
-    }
+    if (user === null) return;
 
-    getUserData(user.uid).then((snapshot) => {
-      if (!snapshot.exists()) {
-        throw new Error("User data not found");
-      }
-      const username = Object.keys(snapshot.val())[0];
+    getUserData(user.uid)
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          toast.error("Something went wrong!");
+        }
+        const username = Object.keys(snapshot.val())[0];
+        // Delay setting the app state by 2 seconds
+        setTimeout(() => {
+         
 
-      setAppState({
-        ...appState,
-        userData: snapshot.val()[username],
-      });
-    });
-  });
+          setAppState({
+            ...appState,
+            userData: snapshot.val()[username],
+          });
+        },4);
+      })
+      .catch((e) => toast.error(e.message));
+  }, [user, appState]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen animate-spin">
+        <img className=" bg-transparent" src={Spiner} alt="" />
+      </div>
+    );
+  }
+
+
+  // useEffect(() => {
+  //   if (user === null) {
+  //     return;
+  //   }
+
+  //   getUserData(user.uid).then((snapshot) => {
+  //     if (!snapshot.exists()) {
+  //       throw new Error("User data not found");
+  //     }
+  //     const username = Object.keys(snapshot.val())[0];
+
+  //     setAppState({
+  //       ...appState,
+  //       userData: snapshot.val()[username],
+  //     });
+  //   });
+  // });
   return (
     <div>
       <AuthContext.Provider value={{ ...appState, setUser: setAppState }}>

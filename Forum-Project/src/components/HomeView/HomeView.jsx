@@ -1,10 +1,11 @@
-import SortButton from "../SortButton/SortButton";
+
 import RecommendedPosts from "../RecommendedPosts/RecommendedPosts";
 import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAllPosts } from "../../services/posts.service";
-
+import './homeview.css';
+import UserAndCommentsCounter from "../UserAndCommentsCounte/UserAndCommentsCounter";
 
 
 const HomeView = () => {
@@ -21,24 +22,23 @@ const HomeView = () => {
 
   return (
     <>
-      <SortButton />
-      <div className="bg-white py-24 sm:py-32">
+      <div className="bg-white sm:py-10 bgImage">
+        <UserAndCommentsCounter/>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              From the forum
+              DUNER
             </h2>
             <p className="mt-2 text-lg leading-8 text-gray-600">
               Innovative, sleek, powerful electronic device revolutionizing modern tech experiences.
             </p>
           </div>
-          <div >
+          <div>
             {recommendedPosts ? (
               <div>
                 <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
-                  <SortButton></SortButton>
                 </div>
                 <RecommendedPosts></RecommendedPosts>
               </div>
@@ -47,7 +47,6 @@ const HomeView = () => {
                 <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
-                  <SortButton></SortButton>
                 </div>
                 <RecentlyAddedPosts></RecentlyAddedPosts>
               </div>
@@ -57,6 +56,7 @@ const HomeView = () => {
       </div>
     </>
   );
+
 };
 
 export default HomeView;

@@ -112,7 +112,7 @@ const NewComment = () => {
             />
           </div>
         </div>
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="mt-6 mb-40 flex items-center justify-end gap-x-6">
           <button type="button" className="text-sm font-semibold text-gray-900">
             Cancel
           </button>
