@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { getPostById } from "../../services/posts.service";
 import { useEffect, useState } from "react";
 import SinglePost from "../../views/SinglePost/SinglePost";
+import Comments from "../Comments/Comments";
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -17,12 +18,14 @@ const PostDetails = () => {
                 setPost(null);
             });
     }, [id]);
-    //const author = post.author
-//console.log(author)
+    
     return (
         <div className="container mx-auto mt-5 p-5">
             {post ? (
-                <SinglePost value={post} />
+                <>
+                    <SinglePost value={post} />
+                    <Comments value={id}></Comments>
+                </>
             ) : (
                 <div className="text-red-500">Post not found</div>
             )}
