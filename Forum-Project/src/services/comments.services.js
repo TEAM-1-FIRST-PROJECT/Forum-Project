@@ -53,12 +53,13 @@ export const getAllComments = () => {
     });
 };
 
-export const addNewComment = (postId, title, content) => {
+export const addNewComment = (postId, userName, title, content) => {
 
   return push(
     ref(database, 'comments'),
     {
       postId,
+      userName,
       title,
       content,
       createdOn: Date.now(),
