@@ -76,11 +76,11 @@ const NewPost = () => {
   };
 
   return (
-    <div>
+    <div className=" items-center text-center max-w-lg">
       <h2 className="text-2xl font-semibold text-gray-900">New Post</h2>
       <form onSubmit={handlePostSubmit}>
-        <div className="mt-6 space-y-6">
-          <div>
+        <div className="mt-10 mb-40 space-y-10 ">
+          <div className=" items-center">
             <label
               htmlFor="title"
               className="block text-sm font-medium leading-6 text-gray-900"
@@ -93,7 +93,7 @@ const NewPost = () => {
               name="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
+              className="flex w-[600px] rounded-md border items-center border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
               placeholder="Title"
             />
           </div>
@@ -148,7 +148,7 @@ const NewPost = () => {
             />
           </div>
         </div>
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="mb-40  flex items-center justify-end gap-x-6">
           <button type="button" className="text-sm font-semibold text-gray-900">
             Cancel
           </button>

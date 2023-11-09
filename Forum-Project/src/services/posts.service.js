@@ -122,3 +122,13 @@ export const deletePost = (postId) => {
   return remove(ref(database, `posts/${postId}`));
 };
 
+export const getPostsLength = () => {
+  return get(ref(database, "posts")).then((snapshot) => {
+    if (!snapshot.exists()) {
+      throw new Error(`Users do not exist!`);
+    }
+    const posts = snapshot.val();
+    const postsLength = Object.keys(posts).length;
+    return postsLength;
+  });
+};
