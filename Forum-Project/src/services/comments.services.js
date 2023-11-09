@@ -1,4 +1,4 @@
-import { ref, push, get, query, equalTo, orderByChild } from 'firebase/database';
+import { ref, push, get, query, equalTo, orderByChild, remove } from 'firebase/database';
 import { database } from '../config/firebase-config';
 
 export const getCommentById = (id) => {
@@ -68,3 +68,7 @@ export const addNewComment = (postId, title, content) => {
       return getCommentById(result.key);
     });
 }
+
+export const deleteComment = (commentId) => {
+  return remove(ref(database, `comments/${commentId}`));
+};
