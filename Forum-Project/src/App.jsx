@@ -1,6 +1,5 @@
 import Home from "./views/Home/Home";
 import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Navbar/Navbar";
 import Login from "./views/Login/Login";
 import NewPost from "./views/NewPost/NewPost";
 import SignUp from "./views/Signup/Signup";
@@ -25,12 +24,8 @@ import Admin from "./views/Admin/Admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetails from "./components/PostDetails/PostDetails";
-<<<<<<< HEAD
 import Header from "./components/Header/Header";
-=======
 import NewComment from "./views/NewComment/NewComment";
-
->>>>>>> 1d186704e82fd33abcbf3316d14aa2846294bb56
 const App = () => {
   const [user] = useAuthState(auth);
   const [appState, setAppState] = useState({
