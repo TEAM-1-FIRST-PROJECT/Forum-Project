@@ -6,17 +6,18 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
-  const [tags, setTags] = useState({});
+  const [tags, setTags] = useState('');
   const [isPostSubmitted, setIsPostSubmitted] = useState(false); // Add a state variable to track post submission
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handlePostSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(`${tags}`, `${description}`);
     if (
       title.trim() === "" ||
       description.trim() === "" ||
@@ -48,11 +49,13 @@ const NewPost = () => {
             navigate("/");
           }, 2100);
         } else if (userData.isBlocked === false) {
-          addPost(userName, title, content, description)
+          console.log(`${tags}`, `${description}`);
+          addPost(userName, title, content, description, tags)
             .then((newPost) => {
               setTitle("");
               setDescription("");
               setContent("");
+              setTags('');
               setIsPostSubmitted(true);
               toast("Post submitted successfully!");
               console.log("New post:", newPost);
@@ -102,7 +105,7 @@ const NewPost = () => {
               Description
             </label>
             <textarea
-              rows="2"
+              rows="1"
               id="description"
               name="description"
               value={description}
@@ -126,6 +129,22 @@ const NewPost = () => {
               onChange={(e) => setContent(e.target.value)}
               className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
               placeholder="What's on your mind?"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor='tags'
+              className="block text-sm font-medium leading-6 text-gray-900">
+              Add some tags
+            </label>
+            <input
+              type="text"
+              id='tags'
+              name='tags'
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
+              placeholder="Add some tags"
             />
           </div>
         </div>
