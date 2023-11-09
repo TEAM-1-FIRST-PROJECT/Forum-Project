@@ -17,7 +17,8 @@ const PostDetails = () => {
                 setPost(null);
             });
     }, [id]);
-
+    //const author = post.author
+//console.log(author)
     return (
         <div className="container mx-auto mt-5 p-5">
             {post ? (
