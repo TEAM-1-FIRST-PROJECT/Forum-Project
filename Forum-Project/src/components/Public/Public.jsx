@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import RecommendedPosts from "../RecommendedPosts/RecommendedPosts";
 import RecentlyAddedPosts from "../RecentlyAddedPosts/RecentlyAddedPosts";
-import SortButton from "../Sort/SortButton";
+import SortButton from "../SortButton/Sortbutton";
+
 
 const Public = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);

@@ -1,4 +1,4 @@
-import SortButton from "../../components/Sort/SortButton";
+import SortButton from "../../components/SortButton/Sortbutton";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../../services/posts.service";
