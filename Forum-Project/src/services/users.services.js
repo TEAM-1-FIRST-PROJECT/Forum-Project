@@ -48,3 +48,22 @@ export const updateUserData = (username, firstName, lastName) => {
 //       console.error('Error getting user:', error);
 //     });
 //   };
+
+
+export const searchUser = (searchTerm) => {
+    return get(ref(database, "users")).then((snapshot) => {
+      if (!snapshot.exists()) {
+        throw new Error(`User with searchTerm ${searchTerm} does not exist!`);
+      }
+      const users = snapshot.val();
+      const filteredUsers = Object.keys(users)
+        .filter(
+          (key) =>
+            (users[key]?.username && users[key].username.includes(searchTerm)) ||
+            (users[key]?.email && users[key].email.includes(searchTerm)) ||
+            (users[key]?.firstName && users[key].firstName.includes(searchTerm))
+        )
+        .map((key) => users[key]);
+      return filteredUsers;
+    });
+  };

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SignUpImg from "../../assets/SignUp.jpeg";
+import SignUpImg from "../../assets/login.jpeg";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
@@ -8,7 +8,11 @@ import {
   createUserHandle,
 } from "../../services/users.services";
 import { registerUser } from "../../services/auth.services";
-import { MAX_NAME_LENGTH, MIN_NAME_LENGTH, PASSWORD_CHECK } from "../../common/constants";
+import {
+  MAX_NAME_LENGTH,
+  MIN_NAME_LENGTH,
+  PASSWORD_CHECK,
+} from "../../common/constants";
 import { toast } from "react-toastify";
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -17,7 +21,7 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
-    profilePhoto: '',
+    profilePhoto: "",
   });
 
   const { setUser } = useContext(AuthContext);
@@ -39,8 +43,13 @@ const SignUp = () => {
       return;
     }
 
-    if (form.firstName.length < MIN_NAME_LENGTH || form.firstName.length > MAX_NAME_LENGTH) {
-      toast.warning(`First Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
+    if (
+      form.firstName.length < MIN_NAME_LENGTH ||
+      form.firstName.length > MAX_NAME_LENGTH
+    ) {
+      toast.warning(
+        `First Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`
+      );
       return;
     }
 
@@ -49,11 +58,16 @@ const SignUp = () => {
       return;
     }
 
-    if (form.lastName.length < MIN_NAME_LENGTH || form.lastName.length > MAX_NAME_LENGTH) {
-      toast.warning(`Last Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
+    if (
+      form.lastName.length < MIN_NAME_LENGTH ||
+      form.lastName.length > MAX_NAME_LENGTH
+    ) {
+      toast.warning(
+        `Last Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`
+      );
       return;
     }
-    
+
     if (!form.username) {
       toast.warning("Username is required");
       return;
@@ -85,18 +99,19 @@ const SignUp = () => {
           credential.user.email,
           form.firstName,
           form.lastName,
-          form.profilePhoto,
+          form.profilePhoto
         );
 
-        credential.user.value = form.username
+        credential.user.value = form.username;
         setUser({
-          user: credential.user
+          user: credential.user,
         });
-
       })
       .then(() => {
-        toast.success("User created successfully");
-        navigate("/home");
+        toast.success("User created successfully, redirecting...");
+        setTimeout(() => {
+          navigate("/home");
+        }, 2100);
       })
       .catch((e) => toast.error(e.message));
   };
@@ -105,7 +120,7 @@ const SignUp = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
         <div className="hidden sm:block">
           <img
-            className="w-full  object-cover max-w-3xl"
+            className="w-full h-full object-cover"
             src={SignUpImg}
             alt=""
           />

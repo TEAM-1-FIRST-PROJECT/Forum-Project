@@ -19,7 +19,7 @@ export const createAdminHandle = (firstName, lastName, email, phone, uid) => {
 };
 
 // function for searching user by username or email
-export const searchUser = (searchTerm) => {
+export const adminSearchUser = (searchTerm) => {
   return get(ref(database, "users")).then((snapshot) => {
     if (!snapshot.exists()) {
       throw new Error(`User with searchTerm ${searchTerm} does not exist!`);

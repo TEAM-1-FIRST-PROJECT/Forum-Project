@@ -18,7 +18,7 @@ const Categories = () => {
             <div>
                 <button
                     type="button"
-                    className={`inline-flex w-full justify-center px-3 py-2 text-white text-xl duration-500 mx-4 my-6 md:my-0 focus:outline-none`}
+                    className={`block mt-5 text-gray-800 hover:bg-indigo-500 hover:text-white`}
                     id="menu-button"
                     aria-expanded={showDropdown}
                     aria-haspopup="true"
@@ -48,7 +48,7 @@ const Categories = () => {
 
             {showDropdown && (
                 <div
-                    className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
