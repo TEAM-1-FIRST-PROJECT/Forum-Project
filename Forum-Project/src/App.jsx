@@ -79,7 +79,7 @@ const App = () => {
             <Route path="/admin" element={<Admin />} />
           )}
           <Route path="/post/:id" element={<PostDetails />} />
-          <Route path='/newComment' element={<NewComment/>}/>
+          <Route path="/comment/:id" element={<NewComment/>}/>
         </Routes>
         <Footer />
         <ToastContainer
