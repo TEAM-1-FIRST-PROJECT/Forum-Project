@@ -1,10 +1,30 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { deletePost } from "../../services/posts.service";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { toast } from "react-toastify";
 
 const SinglePost = (props) => {
+  const navigate = useNavigate();
+  const { userData } = useContext(AuthContext);
 
   const post = props.value;
+  const postId = post.id;
+  const postAuthor = post.author;
 
+
+  const deletePostHandler = () => {
+    if (postAuthor === userData.username) {
+      deletePost(postId).then(() => {
+        navigate("/home");
+        toast("You post deleted permanently!")
+      }).catch((error) => console.error(error));
+
+    } else { toast('Only author can delete the post!') }
+  };
+  //console.log(post.id)
   const myDate = new Date(post.createdOn);
   const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
   const minutes = myDate.getMinutes().toString().padStart(2, '0'); // Get minutes (0-59), convert to string, and pad with leading zero if necessary
@@ -22,7 +42,8 @@ const SinglePost = (props) => {
         <Link to={`/post/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Post Details
         </Link>
-        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
+        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+          onClick={deletePostHandler}>
           Delete Post
         </button>
       </div>

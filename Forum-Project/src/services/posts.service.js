@@ -1,4 +1,4 @@
-import { ref, push, get, query, equalTo, orderByChild, update } from 'firebase/database';
+import { ref, push, get, query, equalTo, orderByChild, update, remove } from 'firebase/database';
 import { database } from '../config/firebase-config';
 
 const fromPostsDocument = snapshot => {
@@ -115,4 +115,8 @@ export const dislikePost = (username, postId) => {
   updateLikes[`/users/${username}/likedPosts/${postId}`] = null;
 
   return update(ref(database), updateLikes);
+};
+
+export const deletePost = (postId) => {
+  return remove(ref(database, `posts/${postId}`));
 };

@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import { getUserByHandle } from "../../services/users.services";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { set } from "firebase/database";
+
 const NewPost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
