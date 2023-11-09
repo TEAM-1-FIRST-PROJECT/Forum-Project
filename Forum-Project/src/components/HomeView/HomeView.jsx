@@ -9,22 +9,19 @@ import { getAllPosts } from "../../services/posts.service";
 
 const HomeView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
-  const [posts, setPosts] = useState([]);
-
 
   useEffect(() => {
     const fetchPosts = async () => {
       const allPosts = await getAllPosts();
-      setPosts(allPosts);
+      setRecommendedPosts(allPosts);
     };
 
     fetchPosts();
   }, []);
 
   return (
-
     <>
-      {/* <SortButton /> */}
+      <SortButton />
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
@@ -41,7 +38,7 @@ const HomeView = () => {
                 <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
-                  {/* <SortButton></SortButton> */}
+                  <SortButton></SortButton>
                 </div>
                 <RecommendedPosts></RecommendedPosts>
               </div>
@@ -50,7 +47,7 @@ const HomeView = () => {
                 <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
-                  {/* <SortButton></SortButton> */}
+                  <SortButton></SortButton>
                 </div>
                 <RecentlyAddedPosts></RecentlyAddedPosts>
               </div>
