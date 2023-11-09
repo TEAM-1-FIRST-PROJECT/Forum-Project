@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
 import { updateUserData, } from "../../services/users.services";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
+import { toast } from "react-toastify";
 
 const SettingsForm = () => {
   const [form, setForm] = useState({
@@ -31,7 +32,7 @@ const SettingsForm = () => {
         form.firstName.length < MIN_NAME_LENGTH ||
         form.firstName.length > MAX_NAME_LENGTH
       ) {
-        alert("First Name is required");
+        toast.warning("First Name is required");
         return;
       }
     }
@@ -40,16 +41,16 @@ const SettingsForm = () => {
         (form.lastName.length < MIN_NAME_LENGTH) ||
         form.lastName.length > MAX_NAME_LENGTH
       ) {
-        alert("Last Name is required");
+        toast.warning("Last Name is required");
         return;
       }
     }
     if (!form.email) {
-      alert("Email is required");
+      toast.warning("Email is required");
       return;
     }
     if (form.email !== user.email) {
-      alert("Wrong email");
+      toast.error("Wrong email");
       return;
     }
 
@@ -62,11 +63,11 @@ const SettingsForm = () => {
       form.lastName,
       form.photo
     )
-      //})
-
-
       .then(() => {
-        navigate("/home");
+        toast.success("User data updated");
+        setTimeout(() => {
+          navigate("/home");   
+        }, 2100);
       })
       .catch((e) => console.log(e));
   };
