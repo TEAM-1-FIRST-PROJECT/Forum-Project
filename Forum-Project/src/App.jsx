@@ -25,7 +25,12 @@ import Admin from "./views/Admin/Admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetails from "./components/PostDetails/PostDetails";
+<<<<<<< HEAD
 import Header from "./components/Header/Header";
+=======
+import NewComment from "./views/NewComment/NewComment";
+
+>>>>>>> 1d186704e82fd33abcbf3316d14aa2846294bb56
 const App = () => {
   const [user] = useAuthState(auth);
   const [appState, setAppState] = useState({
@@ -78,6 +83,7 @@ const App = () => {
             <Route path="/admin" element={<Admin />} />
           )}
           <Route path="/post/:id" element={<PostDetails />} />
+          <Route path="/newComment/:id" element={<NewComment/>}/>
         </Routes>
         <Footer />
         <ToastContainer

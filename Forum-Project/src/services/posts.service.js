@@ -121,3 +121,4 @@ export const dislikePost = (username, postId) => {
 export const deletePost = (postId) => {
   return remove(ref(database, `posts/${postId}`));
 };
+
