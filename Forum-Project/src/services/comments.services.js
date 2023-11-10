@@ -63,11 +63,25 @@ export const addNewComment = (postId, userName, title, content) => {
   )
     .then(result => {
       return getCommentById(result.key);
+    })
+    .then(newComment => {
+      return getCommentCount(postId)
+        .then(updatedCount => {
+          return { newComment, updatedCount };
+        });
     });
 }
 
 export const deleteComment = (commentId) => {
   return remove(ref(database, `comments/${commentId}`));
+};
+
+export const getCommentCount = (postId) => {
+  return get(query(ref(database, 'comments'), orderByChild('postId'), equalTo(postId)))
+    .then((snapshot) => {
+      if (!snapshot.exists()) return 0;
+      return Object.keys(snapshot.val()).length;
+    })
 };
 
 export const commentUpdateHandler = (id, content) => {
