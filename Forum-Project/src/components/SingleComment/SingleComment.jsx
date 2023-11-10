@@ -7,10 +7,12 @@ import { AuthContext } from "../../context/authContext";
 import { Link } from "react-router-dom";
 
 const SingleComment = (props) => {
+  
   const { userData } = useContext(AuthContext);
   const comment = props.value
   const commentAuthor = comment.userName
   const navigate = useNavigate();
+  
   const permissionChecker = commentAuthor === userData.username
   const deleteCommentHandler = () => {
     if (permissionChecker) {
@@ -22,7 +24,6 @@ const SingleComment = (props) => {
 
     } else { toast.error('Only author can delete the comment!') }
   };
-
 
   return (
     <div>
