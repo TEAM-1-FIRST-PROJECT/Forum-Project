@@ -30,30 +30,15 @@ const EditPost = () => {
       alert("Content length should be between 4 and 98 characters");
       return;
     }
-
+    const arrOfTags = tags.split(',').map(el => el.trim().toLowerCase())
+    
     getPostById(id)
       .then((result) => {
         console.log(result.author)
         if (userData.username === result.author) {
 
-
-          // postUpdateHandler(id, content)
-          //   .then(() => {
-          //     setTags('');
-          //     setContent("");
-          //     setIsCommentSubmitted(true);
-          //     toast("comment submitted successfully!");
-          //   })
-          //   .catch((error) => {
-          //     toast.error("Error submitting comment:", error);
-          //     toast.error("An error occurred while submitting the comment.");
-          //   });
-          // setTimeout(() => {
-          //   navigate(-1);
-          // }, 2100);
-          Promise.all([postUpdateHandler(id, content), tagsUpdateHandler(tags, id)])
+          Promise.all([postUpdateHandler(id, content), ...arrOfTags.map(tag => tagsUpdateHandler(tag, id))])
             .then(() => {
-              // Both updates completed successfully
               setTags('');
               setContent("");
               setIsCommentSubmitted(true);
@@ -63,7 +48,6 @@ const EditPost = () => {
               }, 2100);
             })
             .catch((errors) => {
-
               const [postError, tagsError] = errors;
               if (postError) {
                 toast.error("Error updating post:", postError);

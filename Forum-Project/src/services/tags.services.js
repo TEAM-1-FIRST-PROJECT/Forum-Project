@@ -1,4 +1,4 @@
-import { ref, push, update, get } from 'firebase/database';
+import { ref, update, get } from 'firebase/database';
 import { database } from '../config/firebase-config';
 import { toast } from 'react-toastify';
 
