@@ -149,3 +149,10 @@ export const getPostByTitle = (searchTerm) => {
     return filteredPosts;
   });
 };
+
+export const postUpdateHandler = (postId, content) => {
+
+  const path = `posts/${postId}/content`;
+ 
+  return update(ref(database), {[path]: content})
+};
