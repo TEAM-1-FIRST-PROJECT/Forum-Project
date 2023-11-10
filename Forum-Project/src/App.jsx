@@ -29,6 +29,7 @@ import Header from "./components/Header/Header";
 import NewComment from "./views/NewComment/NewComment";
 import Spiner from "./assets/spiner.png";
 import EditComment from "./components/EditComment/EditComment";
+import Search from "./views/Search/Search";
 import EditPost from "./components/EditPost/EditPost";
 
 const App = () => {
@@ -107,6 +108,7 @@ const App = () => {
           <Route path="/newPost" element={<NewPost></NewPost>} />
           <Route path="/Iphone" element={<Iphone />} />
           <Route path="/Mac" element={<Mac />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/Watch" element={<Watch />} />
           <Route path="/ViewAll" element={<ViewAll />} />
           <Route path="/settings" element={<SettingsForm />} />

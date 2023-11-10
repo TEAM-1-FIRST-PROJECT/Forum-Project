@@ -1,5 +1,6 @@
 import { ref, push, get, query, equalTo, orderByChild, update, remove } from 'firebase/database';
 import { database } from '../config/firebase-config';
+import { toast } from 'react-toastify';
 
 const fromPostsDocument = snapshot => {
   const postsDocument = snapshot.val();
@@ -130,6 +131,22 @@ export const getPostsLength = () => {
     const posts = snapshot.val();
     const postsLength = Object.keys(posts).length;
     return postsLength;
+  });
+};
+
+export const getPostByTitle = (searchTerm) => {
+  return get(ref(database, "posts")).then((snapshot) => {
+    if (!snapshot.exists()) {
+      toast.error(`User with searchTerm ${searchTerm} does not exist!`);
+    }
+    const posts = snapshot.val();
+    const filteredPosts = Object.keys(posts)
+      .filter(
+        (key) =>
+          (posts[key]?.title && posts[key].title.includes(searchTerm))
+      )
+      .map((key) => posts[key]);
+    return filteredPosts;
   });
 };
 
