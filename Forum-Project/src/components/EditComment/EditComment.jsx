@@ -16,7 +16,7 @@ const EditComment = () => {
   const navigate = useNavigate();
 
 
-  const commentSubmitHanDler = async (event) => {
+  const commentSubmitHandler = async (event) => {
     event.preventDefault();
 
     if (content.trim() === "") {
@@ -56,7 +56,7 @@ const EditComment = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold text-gray-900">Edit Comment</h2>
-      <form onSubmit={commentSubmitHanDler}>
+      <form onSubmit={commentSubmitHandler}>
         <div className="mt-6 space-y-6">
           <div>
             <label

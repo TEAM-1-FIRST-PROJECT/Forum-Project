@@ -29,6 +29,8 @@ import Header from "./components/Header/Header";
 import NewComment from "./views/NewComment/NewComment";
 import Spiner from "./assets/spiner.png";
 import EditComment from "./components/EditComment/EditComment";
+import EditPost from "./components/EditPost/EditPost";
+
 const App = () => {
   const [user, loading] = useAuthState(auth);
   const [appState, setAppState] = useState({
@@ -112,10 +114,12 @@ const App = () => {
           {appState.userData && appState.userData.isAdmin === true && (
             <Route path="/admin" element={<Admin />} />
           )}
-          <Route path="/post/:id" element={<PostDetails />} />
+          <Route path="/postDetails/:id" element={<PostDetails />} />
+          <Route path="/editPost/:id" element={<EditPost />} />
           <Route path="/newComment/:id" element={<NewComment />} />
           <Route path="/allComments/:id" element={<Comments />} />
           <Route path="/editComment/:id" element={<EditComment />} />
+          <Route path="/editPost/:id" element={<EditPost />} />
         </Routes>
         <Footer />
         <ToastContainer
