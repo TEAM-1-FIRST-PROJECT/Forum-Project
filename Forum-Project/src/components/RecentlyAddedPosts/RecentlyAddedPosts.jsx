@@ -24,16 +24,17 @@ const RecentlyAddedPosts = () => {
     setRecentlyAddedPosts(sortedPostsByDate);
   };
   
-  const sortPostsByComments = async () => {
-    const postsWithCommentCounts = await Promise.all(
-      recentlyAddedPosts.map(async (post) => {
-        const commentCount = await getCommentCount(post.id);
-        return { ...post, commentCount };
-      })
-    );
-
-    const sortedPostsByComments = [...postsWithCommentCounts].sort((a, b) => b.commentCount - a.commentCount);
-    setRecentlyAddedPosts(sortedPostsByComments);
+  const sortPostsByComments = () => {
+    Promise.all(
+      recentlyAddedPosts.map((post) =>
+        getCommentCount(post.id).then((commentCount) => ({ ...post, commentCount }))
+      )
+    ).then((sortedPostsByComments) => {
+      const sortedPostsByCommentsOnly = [...sortedPostsByComments].sort(
+        (a, b) => b.commentCount - a.commentCount
+      );
+      setRecentlyAddedPosts(sortedPostsByCommentsOnly);
+    });
   };
 
   return (

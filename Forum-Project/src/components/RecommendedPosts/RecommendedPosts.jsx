@@ -25,16 +25,17 @@ const RecommendedPosts = () => {
     setRecommendedPosts(sortedPostsByDate);
   };
   
-  const sortPostsByComments = async () => {
-    const postsWithCommentCounts = await Promise.all(
-      recommendedPosts.map(async (post) => {
-        const commentCount = await getCommentCount(post.id);
-        return { ...post, commentCount };
-      })
-    );
-
-    const sortedPostsByComments = [...postsWithCommentCounts].sort((a, b) => b.commentCount - a.commentCount);
-    setRecommendedPosts(sortedPostsByComments);
+  const sortPostsByComments = () => {
+    Promise.all(
+      recommendedPosts.map((post) =>
+        getCommentCount(post.id).then((commentCount) => ({ ...post, commentCount }))
+      )
+    ).then((posts) => {
+      const sortedPostsByComments = [...posts].sort(
+        (a, b) => b.commentCount - a.commentCount
+      );
+      setRecommendedPosts(sortedPostsByComments);
+    });
   };
 
   return (
