@@ -4,6 +4,7 @@ import { deleteComment } from "../../services/comments.services";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import { Link } from "react-router-dom";
 
 const SingleComment = (props) => {
   const { userData } = useContext(AuthContext);
@@ -28,12 +29,12 @@ const SingleComment = (props) => {
         <div className="text-gray-500">
           <div className='pl-3'>{comment.title}</div>
         </div>
-        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
-          liked {'98'}
-        </button>
+        <Link to={`/editComment/${comment.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+          Edit comment
+        </Link>
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={deleteCommentHandler}>
-          Delete Post
+          Delete comment
         </button>
       </div>
       <div className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
