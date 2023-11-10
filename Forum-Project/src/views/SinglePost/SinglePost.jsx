@@ -5,8 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { toast } from "react-toastify";
+import { getCommentCount } from "../../services/comments.services";
+import { useEffect, useState } from "react";
 
 const SinglePost = (props) => {
+
+  const [commentCount, setCommentCount] = useState(0);
+
   const navigate = useNavigate();
   const { userData } = useContext(AuthContext);
 
@@ -24,6 +29,11 @@ const SinglePost = (props) => {
 
     } else { toast('Only author can delete the post!') }
   };
+
+  useEffect(() => {
+    getCommentCount(postId)
+      .then(count => setCommentCount(count));
+  }, [postId]); 
   //console.log(post.id)
   const myDate = new Date(post.createdOn);
   const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
@@ -80,7 +90,7 @@ const SinglePost = (props) => {
           Reply
         </Link>
         <Link to={`/post/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-          See all comments
+          See all comments ({commentCount})
         </Link>
       </div>
     </article>
