@@ -13,7 +13,7 @@ export const addTags = (tag, postId) => {
   )
 }
 
-export const updateTag = (tag, postId) => {
+export const createTag = (tag, postId) => {
   const updateLikes = {};
   
   updateLikes[`/tags/${tag}/${postId}`] = true;
