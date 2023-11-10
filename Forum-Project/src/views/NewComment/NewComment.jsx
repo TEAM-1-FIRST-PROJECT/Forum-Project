@@ -124,7 +124,7 @@ const NewComment = () => {
           </button>
         </div>
         {isPostSubmitted && (
-          <p className="text-green-500 mt-2">Post successfully submitted!</p>
+          <p className="text-green-500 mt-2">Comment successfully submitted!</p>
         )}
       </form>
     </div>

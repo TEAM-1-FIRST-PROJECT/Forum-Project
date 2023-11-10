@@ -1,4 +1,4 @@
-import { ref, push, get, query, equalTo, orderByChild, remove } from 'firebase/database';
+import { ref, push, get, query, equalTo, orderByChild, remove, update } from 'firebase/database';
 import { database } from '../config/firebase-config';
 
 export const getCommentById = (id) => {
@@ -88,3 +88,9 @@ export const getCommentCount = (postId) => {
     })
 };
 
+export const commentUpdateHandler = (id, content) => {
+
+  const path = `comments/${id}/content`;
+
+  return update(ref(database), { [path]: content });
+};

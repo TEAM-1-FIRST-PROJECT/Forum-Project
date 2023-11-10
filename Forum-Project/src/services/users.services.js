@@ -50,22 +50,6 @@ export const updateUserData = (username, firstName, lastName) => {
   });
 };
 
-// export const getUserByUid = (uid) => {
-//     const usersRef = ref(database, 'users');
-//     const userQuery = query(usersRef, orderByChild('uid'), equalTo(uid));
-
-//     get(userQuery).then((snapshot) => {
-//       if (snapshot.exists()) {
-//         const user = snapshot.val();
-//         console.log('User found:', user);
-//       } else {
-//         console.log('User not found');
-//       }
-//     }).catch((error) => {
-//       console.error('Error getting user:', error);
-//     });
-//   };
-
 export const searchUser = (searchTerm) => {
   return get(ref(database, "users")).then((snapshot) => {
     if (!snapshot.exists()) {
