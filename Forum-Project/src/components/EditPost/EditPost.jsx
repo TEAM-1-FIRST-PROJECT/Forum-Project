@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { toast } from "react-toastify";
 import { postUpdateHandler } from "../../services/posts.service";
 import { getPostById } from "../../services/posts.service";
+import { createTag } from "../../services/tags.services";
 
 const EditPost = () => {
 
@@ -36,7 +37,7 @@ const EditPost = () => {
         console.log(result.author)
         if (userData.username === result.author) {
 
-          
+
           postUpdateHandler(id, content)
             .then(() => {
               setTags('');
@@ -53,11 +54,19 @@ const EditPost = () => {
           }, 2100);
         } else { toast.error('Only author can delete the comment!') }
       })
+
+    // addTags(tags, id)
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
+
+    createTag(tags, id)
+
   };
 
   return (
     <div className=" items-center text-center max-w-lg">
-      <h2 className="text-2xl font-semibold text-gray-900">New Post</h2>
+      <h2 className="text-2xl font-semibold text-gray-900">Edit Post</h2>
       <form onSubmit={postEditHandler}>
         <div className="mt-10 mb-40 space-y-10 ">
           <div>
