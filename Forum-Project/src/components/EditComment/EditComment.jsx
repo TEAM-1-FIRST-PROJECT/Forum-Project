@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { toast } from "react-toastify";
 import { commentUpdateHandler } from "../../services/comments.services";
+import { getCommentById } from "../../services/comments.services";
 
 
 const EditComment = () => {
@@ -27,25 +28,29 @@ const EditComment = () => {
       alert("Content length should be between 4 and 98 characters");
       return;
     }
+    
+    console.log(userData)
+    getCommentById(id)
+      .then((result) => {
+      
 
-    const userName = userData.username;
-console.log(userName)
+    if (userData.username === result.userName) {
+      commentUpdateHandler(id, content)
+        .then(() => {
 
-    commentUpdateHandler(id, content)
-      .then(() => {
-
-        setContent("");
-        setIsCommentSubmitted(true);
-        toast("comment submitted successfully!");
-      })
-      .catch((error) => {
-        toast.error("Error submitting comment:", error);
-        toast.error("An error occurred while submitting the comment.");
-      });
-    setTimeout(() => {
-      navigate(-1);
-    }, 2100);
-
+          setContent("");
+          setIsCommentSubmitted(true);
+          toast("comment submitted successfully!");
+        })
+        .catch((error) => {
+          toast.error("Error submitting comment:", error);
+          toast.error("An error occurred while submitting the comment.");
+        });
+      setTimeout(() => {
+        navigate(-1);
+      }, 2100);
+    } else { toast.error('Only author can delete the comment!') }
+    })
   };
 
   return (

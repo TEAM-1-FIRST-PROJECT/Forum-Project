@@ -8,13 +8,9 @@ export const getCommentById = (id) => {
       if (!result.exists()) {
         throw new Error(`Comment with id ${id} does not exist!`);
       }
+      const comment = result.val();       
 
-      const post = result.val();
-      post.id = id;
-      post.createdOn = new Date(post.createdOn);
-      if (!post.likedBy) post.likedBy = [];
-
-      return post;
+      return comment;
     });
 };
 
