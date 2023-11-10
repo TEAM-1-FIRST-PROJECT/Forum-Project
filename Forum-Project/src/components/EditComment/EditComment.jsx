@@ -29,7 +29,7 @@ const EditComment = () => {
     }
 
     const userName = userData.username;
-
+console.log(userName)
 
     commentUpdateHandler(id, content)
       .then(() => {
