@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { toast } from "react-toastify";
 import { postUpdateHandler } from "../../services/posts.service";
 import { getPostById } from "../../services/posts.service";
-import { createTag } from "../../services/tags.services";
+import { tagsUpdateHandler } from "../../services/tags.services";
 
 const EditPost = () => {
 
@@ -31,38 +31,51 @@ const EditPost = () => {
       return;
     }
 
-    console.log(id)
     getPostById(id)
       .then((result) => {
         console.log(result.author)
         if (userData.username === result.author) {
 
 
-          postUpdateHandler(id, content)
+          // postUpdateHandler(id, content)
+          //   .then(() => {
+          //     setTags('');
+          //     setContent("");
+          //     setIsCommentSubmitted(true);
+          //     toast("comment submitted successfully!");
+          //   })
+          //   .catch((error) => {
+          //     toast.error("Error submitting comment:", error);
+          //     toast.error("An error occurred while submitting the comment.");
+          //   });
+          // setTimeout(() => {
+          //   navigate(-1);
+          // }, 2100);
+          Promise.all([postUpdateHandler(id, content), tagsUpdateHandler(tags, id)])
             .then(() => {
+              // Both updates completed successfully
               setTags('');
               setContent("");
               setIsCommentSubmitted(true);
-              toast("comment submitted successfully!");
+              toast("Comment submitted successfully!");
+              setTimeout(() => {
+                navigate(-1);
+              }, 2100);
             })
-            .catch((error) => {
-              toast.error("Error submitting comment:", error);
-              toast.error("An error occurred while submitting the comment.");
+            .catch((errors) => {
+
+              const [postError, tagsError] = errors;
+              if (postError) {
+                toast.error("Error updating post:", postError);
+              }
+              if (tagsError) {
+                toast.error("Error updating tags:", tagsError);
+              }
             });
-          setTimeout(() => {
-            navigate(-1);
-          }, 2100);
         } else { toast.error('Only author can delete the comment!') }
       })
 
-    // addTags(tags, id)
-    //   .catch(error => {
-    //     console.error(error)
-    //   })
-
-    createTag(tags, id)
-
-  };
+  }
 
   return (
     <div className=" items-center text-center max-w-lg">
