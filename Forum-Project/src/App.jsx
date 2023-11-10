@@ -28,6 +28,7 @@ import PostDetails from "./components/PostDetails/PostDetails";
 import Header from "./components/Header/Header";
 import NewComment from "./views/NewComment/NewComment";
 import Spiner from "./assets/spiner.png";
+import Search from "./views/Search/Search";
 const App = () => {
   const [user, loading] = useAuthState(auth);
   const [appState, setAppState] = useState({
@@ -104,6 +105,7 @@ const App = () => {
           <Route path="/newPost" element={<NewPost></NewPost>} />
           <Route path="/Iphone" element={<Iphone />} />
           <Route path="/Mac" element={<Mac />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/Watch" element={<Watch />} />
           <Route path="/ViewAll" element={<ViewAll />} />
           <Route path="/settings" element={<SettingsForm />} />

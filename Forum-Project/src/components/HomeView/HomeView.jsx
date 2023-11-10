@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import './homeview.css';
-import UserAndCommentsCounter from "../UserAndCommentsCounte/UserAndCommentsCounter";
+import UserAndCommentsCounter from "../UserAndCommentsCounter/UserAndCommentsCounter";
 import FilterButton from "../FilterButton/FilterButton";
 
 const HomeView = () => {

@@ -47,72 +47,55 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-      <div className="mb-4">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Search users..."
-          className="border p-2 mr-2"
-        />
-       <button
-          onClick={handleSearchSubmit}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+    <div className="mb-10">
+    <h2 className="text-2xl font-bold mb-5">Users</h2>
+    {users.map((user) => (
+      <div key={user.uid} className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 border bg-yellow-100 border-green-600 rounded-3xl p-10 pt-20 sm:mt-10 sm:pt-10 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+        <p>
+          <strong>Username:</strong> {user.username}
+        </p>
+        <p>
+          <strong>First Name:</strong> {user.firstName}
+        </p>
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        <button
+          className={`mt-2 px-4 py-2 ${
+            user.isBlocked ? "bg-green-500" : "bg-red-500"
+          } text-white rounded`}
+          onClick={() => handleBlockUser(user.username, !user.isBlocked)}
         >
-          Search
+          {user.isBlocked ? "Unblock" : "Block"}
         </button>
+        <div>
+          <h2 className="text-xl font-bold mb-2">Posts by {user.username}</h2>
+          {posts
+            .filter((post) => post.author === user.username)
+            .map((post) => (
+              <div key={post.id} className="border p-2 mb-2">
+                <p>
+                  <strong>Title:</strong> {post.title}
+                </p>
+                <p>
+                  <strong>Author:</strong> {post.author}
+                </p>
+                <p>
+                  <strong>Content:</strong> {post.content}
+                </p>
+                <button
+                  className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
+                  onClick={() => handleDeletePost(post.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+        </div>
       </div>
-
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-2">Users</h2>
-        {users.map((user) => (
-          <div key={user.uid} className="border p-2 mb-2">
-            <p>
-              <strong>Username:</strong> {user.username}
-            </p>
-            <p>
-              <strong>First Name:</strong> {user.firstName}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <button
-              className={`mt-2 px-4 py-2 ${
-                user.isBlocked ? "bg-green-500" : "bg-red-500" 
-              } text-white rounded`}
-              onClick={() => handleBlockUser(user.username, !user.isBlocked)}
-            >
-              {user.isBlocked ? "Unblock" : "Block"}
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h2 className="text-xl font-bold mb-2">Posts</h2>
-        {posts.map((post) => (
-          <div key={post.id} className="border p-2 mb-2">
-            <p>
-              <strong>Title:</strong> {post.title}
-            </p>
-            <p>
-              <strong>Author:</strong> {post.author}
-            </p>
-            <p>
-              <strong>Content:</strong> {post.content}
-            </p>
-            <button
-              className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
-              onClick={() => handleDeletePost(post.id)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
+    ))}
+  </div>
+  
   );
 };
 
