@@ -1,4 +1,4 @@
-import { ref, push, get, query, equalTo, orderByChild, remove } from 'firebase/database';
+import { ref, push, get, query, equalTo, orderByChild, remove, update } from 'firebase/database';
 import { database } from '../config/firebase-config';
 
 export const getCommentById = (id) => {
@@ -8,13 +8,9 @@ export const getCommentById = (id) => {
       if (!result.exists()) {
         throw new Error(`Comment with id ${id} does not exist!`);
       }
+      const comment = result.val();       
 
-      const post = result.val();
-      post.id = id;
-      post.createdOn = new Date(post.createdOn);
-      if (!post.likedBy) post.likedBy = [];
-
-      return post;
+      return comment;
     });
 };
 
@@ -53,12 +49,13 @@ export const getAllComments = () => {
     });
 };
 
-export const addNewComment = (postId, title, content) => {
+export const addNewComment = (postId, userName, title, content) => {
 
   return push(
     ref(database, 'comments'),
     {
       postId,
+      userName,
       title,
       content,
       createdOn: Date.now(),
@@ -66,9 +63,30 @@ export const addNewComment = (postId, title, content) => {
   )
     .then(result => {
       return getCommentById(result.key);
+    })
+    .then(newComment => {
+      return getCommentCount(postId)
+        .then(updatedCount => {
+          return { newComment, updatedCount };
+        });
     });
 }
 
 export const deleteComment = (commentId) => {
   return remove(ref(database, `comments/${commentId}`));
+};
+
+export const getCommentCount = (postId) => {
+  return get(query(ref(database, 'comments'), orderByChild('postId'), equalTo(postId)))
+    .then((snapshot) => {
+      if (!snapshot.exists()) return 0;
+      return Object.keys(snapshot.val()).length;
+    })
+};
+
+export const commentUpdateHandler = (id, content) => {
+
+  const path = `comments/${id}/content`;
+
+  return update(ref(database), { [path]: content });
 };

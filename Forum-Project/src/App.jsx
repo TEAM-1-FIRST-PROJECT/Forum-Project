@@ -28,6 +28,7 @@ import PostDetails from "./components/PostDetails/PostDetails";
 import Header from "./components/Header/Header";
 import NewComment from "./views/NewComment/NewComment";
 import Spiner from "./assets/spiner.png";
+import EditComment from "./components/EditComment/EditComment";
 import Search from "./views/Search/Search";
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -116,6 +117,7 @@ const App = () => {
           <Route path="/post/:id" element={<PostDetails />} />
           <Route path="/newComment/:id" element={<NewComment />} />
           <Route path="/allComments/:id" element={<Comments />} />
+          <Route path="/editComment/:id" element={<EditComment />} />
         </Routes>
         <Footer />
         <ToastContainer

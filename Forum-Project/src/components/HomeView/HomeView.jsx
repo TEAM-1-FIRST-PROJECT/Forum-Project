@@ -37,7 +37,7 @@ const HomeView = () => {
             {recommendedPosts ? (
               <div>
                 <FilterButton/>
-                <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
+                <div style={{  display: "flex", justifyContent: "flex-start", paddingLeft: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
                 </div>
@@ -46,7 +46,7 @@ const HomeView = () => {
             ) : (
               <div>
                 <FilterButton/>
-                <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: '10px' }}>
+                <div style={{  display: "flex", justifyContent: "flex-start", paddingLeft: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
                 </div>
