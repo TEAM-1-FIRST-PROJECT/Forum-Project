@@ -6,18 +6,17 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
-  const [tags, setTags] = useState('');
-  const [isPostSubmitted, setIsPostSubmitted] = useState(false); // Add a state variable to track post submission
+  const [tags, setTags] = useState("");
+  const [isPostSubmitted, setIsPostSubmitted] = useState(false);
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handlePostSubmit = async (event) => {
     event.preventDefault();
-   
+
     if (
       title.trim() === "" ||
       description.trim() === "" ||
@@ -55,7 +54,7 @@ const NewPost = () => {
               setTitle("");
               setDescription("");
               setContent("");
-              setTags('');
+              setTags("");
               setIsPostSubmitted(true);
               toast("Post submitted successfully!");
               console.log("New post:", newPost);
@@ -76,93 +75,54 @@ const NewPost = () => {
   };
 
   return (
-    <div className=" items-center text-center max-w-lg">
-      <h2 className="text-2xl font-semibold text-gray-900">New Post</h2>
-      <form onSubmit={handlePostSubmit}>
-        <div className="mt-10 mb-40 space-y-10 ">
-          <div className=" items-center">
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium leading-6 text-gray-900"
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 m-4 bg-white rounded-2xl shadow-2xl shadow-indigo-400 ">
+        <h2 className="text-2xl font-semibold text-center text-gray-900">
+          New Post
+        </h2>
+        <form onSubmit={handlePostSubmit} className="mt-4 space-y-6">
+          <div className="space-y-4">
+            {[
+              "Title",
+              "Description",
+              "What's on your mind?",
+              "Add some tags",
+            ].map((label, index) => (
+              <div key={index}>
+                <label
+                  htmlFor={label}
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {label}
+                </label>
+                <textarea
+                  id={label}
+                  name={label}
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-lg shadow-indigo-200 resize-x focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  placeholder={label}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between gap-4">
+            <button
+              type="button"
+              className="text-sm font-semibold text-gray-900"
             >
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="flex w-[600px] rounded-md border items-center border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="Title"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
             >
-              Description
-            </label>
-            <textarea
-              rows="1"
-              id="description"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="Description"
-            />
+              Post
+            </button>
           </div>
-          <div>
-            <label
-              htmlFor="content"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              What&apos;s on your mind?
-            </label>
-            <textarea
-              rows="4"
-              id="content"
-              name="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="What's on your mind?"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor='tags'
-              className="block text-sm font-medium leading-6 text-gray-900">
-              Add some tags
-            </label>
-            <input
-              type="text"
-              id='tags'
-              name='tags'
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="Add some tags"
-            />
-          </div>
-        </div>
-        <div className="mb-40  flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold text-gray-900">
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
-          >
-            Post
-          </button>
-        </div>
-        {isPostSubmitted && (
-          <p className="text-green-500 mt-2">Post successfully submitted!</p>
-        )}
-      </form>
+          {isPostSubmitted && (
+            <p className="mt-2 text-green-500">Post successfully submitted!</p>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
