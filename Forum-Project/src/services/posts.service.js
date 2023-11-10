@@ -132,3 +132,10 @@ export const getPostsLength = () => {
     return postsLength;
   });
 };
+
+export const postUpdateHandler = (postId, content) => {
+
+  const path = `posts/${postId}/content`;
+ 
+  return update(ref(database), {[path]: content})
+};
