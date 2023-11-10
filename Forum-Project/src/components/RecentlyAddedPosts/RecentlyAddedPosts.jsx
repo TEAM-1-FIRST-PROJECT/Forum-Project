@@ -3,6 +3,7 @@ import { getAllPosts } from "../../services/posts.service";
 import SinglePost from "../../views/SinglePost/SinglePost";
 import { useEffect } from "react";
 import SortButton from "../SortButton/Sortbutton";
+import { getCommentCount } from "../../services/comments.services";
 
 const RecentlyAddedPosts = () => {
 
@@ -19,8 +20,20 @@ const RecentlyAddedPosts = () => {
   }, []);
 
   const sortPosts = () => {
-    const sortedPosts = [...recentlyAddedPosts].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
-    setRecentlyAddedPosts(sortedPosts);
+    const sortedPostsByDate = [...recentlyAddedPosts].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
+    setRecentlyAddedPosts(sortedPostsByDate);
+  };
+  
+  const sortPostsByComments = async () => {
+    const postsWithCommentCounts = await Promise.all(
+      recentlyAddedPosts.map(async (post) => {
+        const commentCount = await getCommentCount(post.id);
+        return { ...post, commentCount };
+      })
+    );
+
+    const sortedPostsByComments = [...postsWithCommentCounts].sort((a, b) => b.commentCount - a.commentCount);
+    setRecentlyAddedPosts(sortedPostsByComments);
   };
 
   return (
@@ -30,7 +43,7 @@ const RecentlyAddedPosts = () => {
         <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
           Recently added posts
           </h3>
-          <SortButton onSort={sortPosts} />
+          <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
         </div>
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {recentlyAddedPosts.map((post) => (
