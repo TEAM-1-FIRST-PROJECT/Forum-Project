@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 const SortButton = ({onSort, onSortByComments}) => {
   return (
-      <div className="absolute right-40 top-60">
+      <div className="absolute right-40 top-30">
            <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group">
             <p className="px-4">Sort posts</p>
             <span className="border-l p-2 hover:bg-gray-100">
