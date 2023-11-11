@@ -15,7 +15,7 @@ const NewComment = () => {
   const navigate = useNavigate();
   
 
-  const commentSubmitHanDler = async (event) => {
+  const commentSubmitHandler = async (event) => {
     event.preventDefault();
 
     if (
@@ -75,7 +75,7 @@ const NewComment = () => {
   return (
     <div>
       <h2 className="text-2xl font-semibold text-gray-900">New Comment</h2>
-      <form onSubmit={commentSubmitHanDler}>
+      <form onSubmit={commentSubmitHandler}>
         <div className="mt-6 space-y-6">
           <div>
             <label

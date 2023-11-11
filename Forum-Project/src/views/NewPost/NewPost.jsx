@@ -83,23 +83,33 @@ const NewPost = () => {
         <form onSubmit={handlePostSubmit} className="mt-4 space-y-6">
           <div className="space-y-4">
             {[
-              "Title",
-              "Description",
-              "What's on your mind?",
-              "Add some tags",
-            ].map((label, index) => (
+              { label: "Title", state: title, setState: setTitle },
+              {
+                label: "Description",
+                state: description,
+                setState: setDescription,
+              },
+              {
+                label: "What's on your mind?",
+                state: content,
+                setState: setContent,
+              },
+              { label: "Add some tags", state: tags, setState: setTags },
+            ].map((field, index) => (
               <div key={index}>
                 <label
-                  htmlFor={label}
+                  htmlFor={field.label}
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  {label}
+                  {field.label}
                 </label>
                 <textarea
-                  id={label}
-                  name={label}
+                  id={field.label}
+                  name={field.label}
+                  value={field.state}
+                  onChange={(e) => field.setState(e.target.value)}
                   className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-lg shadow-indigo-200 resize-x focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-                  placeholder={label}
+                  placeholder={field.label}
                 />
               </div>
             ))}
@@ -113,6 +123,7 @@ const NewPost = () => {
             </button>
             <button
               type="submit"
+              onClick={handlePostSubmit}
               className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
             >
               Post

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SignUpImg from "../../assets/login.jpeg";
+import SignUpImg from "../../assets/sign-up.png";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
@@ -127,7 +127,7 @@ const SignUp = () => {
         </div>
         <div className="bg-gray-500 flex flex-col justify-center">
           <form className="max-w-[550px] w-full mx-auto bg-gray-600 p-8 px-8 rounded-lg">
-            <h2 className="text-4x1 dark:text-white font-bold text-center">
+            <h2 className="text-4x1 text-white font-bold text-center">
               SIGN UP
             </h2>
             <div className="flex flex-col text-gray-400 py-2">

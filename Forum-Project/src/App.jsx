@@ -20,8 +20,8 @@ import Iphone from "./views/Categories/iPhone/Iphone";
 import Mac from "./views/Categories/Mac/Mac";
 import ViewAll from "./views/Categories/ViewAll/ViewAll";
 import SettingsForm from "./views/SettingsForm/SettingsForm";
-import AdminSignUp from "./views/Admin/AdminSignUp/AdminSignUp";
-import Admin from "./views/Admin/Admin";
+import AdminSignUp from "./views/AdminDashboard/AdminSignUp/AdminSignUp";
+import AdminDashboard from "./views/AdminDashboard/AdminDashboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetails from "./components/PostDetails/PostDetails";
@@ -114,7 +114,7 @@ const App = () => {
           <Route path="/settings" element={<SettingsForm />} />
           <Route path="/adminsignup" element={<AdminSignUp />} />
           {appState.userData && appState.userData.isAdmin === true && (
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           )}
           <Route path="/postDetails/:id" element={<PostDetails />} />
           <Route path="/editPost/:id" element={<EditPost />} />
