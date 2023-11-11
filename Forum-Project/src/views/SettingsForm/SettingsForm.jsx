@@ -2,11 +2,14 @@ import SignUpImg from "../../assets/SignUp.jpeg";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router";
-import { updateUserData, } from "../../services/users.services";
+import { updateUserData } from "../../services/users.services";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
 import { toast } from "react-toastify";
+import { uploadToStorage } from "../../services/uploadToStorage.services";
+
 
 const SettingsForm = () => {
+
   const [form, setForm] = useState({
     lastName: "",
     email: "",
@@ -38,7 +41,7 @@ const SettingsForm = () => {
     }
     if (form.lastName) {
       if (
-        (form.lastName.length < MIN_NAME_LENGTH) ||
+        form.lastName.length < MIN_NAME_LENGTH ||
         form.lastName.length > MAX_NAME_LENGTH
       ) {
         toast.warning("Last Name is required");
@@ -57,19 +60,20 @@ const SettingsForm = () => {
     if (!form.firstName) form.firstName = userData.firstName;
     if (!form.lastName) form.lastName = userData.lastName;
 
-    updateUserData(
-      userData.username,
-      form.firstName,
-      form.lastName,
-      form.photo
-    )
+    updateUserData(userData.username, form.firstName, form.lastName, form.photo);
+      
+       uploadToStorage(form.photo)
+    
       .then(() => {
         toast.success("User data updated");
         setTimeout(() => {
-          navigate("/home");   
+          navigate("/home");
         }, 2100);
       })
-      .catch((e) => console.log(e));
+
+         .catch((e) => toast.error(e));
+    
+  
   };
   return (
     <>
@@ -117,9 +121,8 @@ const SettingsForm = () => {
               <input
                 className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 type="file"
-                accept=".jpg, .jpeg"
-                value={form.photo}
-                onChange={updateForm("photo")}
+                accept=".jpg, .jpeg, .png"
+                onChange={(e) => updateForm('photo', e.target.files[0])}
                 placeholder="upload a profile photo"
               />
             </div>

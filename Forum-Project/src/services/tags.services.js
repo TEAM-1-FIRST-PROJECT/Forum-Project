@@ -3,11 +3,11 @@ import { database } from '../config/firebase-config';
 import { toast } from 'react-toastify';
 
 export const tagsUpdateHandler = (tag, postId) => {
-  const updateLikes = {};
+  const updateTags = {};
 
-  updateLikes[`/tags/${tag}/${postId}`] = true;
+  updateTags[`/tags/tag/${tag}/${postId}`] = true;
 
-  return update(ref(database), updateLikes);
+  return update(ref(database), updateTags);
 };
 
 export const tagExistChecker = (tag) => {
@@ -21,3 +21,10 @@ export const tagExistChecker = (tag) => {
     return Object.keys(tags).includes(tag);
   });
 };
+
+export const removeTags = (tag, postId) =>{
+  const updateLikes = {};
+  updateLikes[`/tags/tag/${postId}/${tag}`] = null;
+
+  return update(ref(database), updateLikes);
+}
