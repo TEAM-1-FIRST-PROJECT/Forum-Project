@@ -88,11 +88,12 @@ export const getLikesPerPost = (postId) => {
         throw new Error(`User with handle @${postId} does not exist!`);
       }
 
-      const likesObject = snapshot.val().likedBy;
+      const likesObject = snapshot.val();
+      console.log(Object.values(likesObject, postId))
       const count = Object.values(likesObject).reduce((acc, value) => {
         acc += value ? 1 : -1;
         return acc;
-      },);
+      }, );
       return count
     });
 
