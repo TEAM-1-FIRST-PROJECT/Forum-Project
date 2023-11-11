@@ -103,21 +103,21 @@ export const getLikedPosts = (username) => {
 //     });
 
 // };
-// export const getLikesPerPost = (id) => {
+export const getLikesPerPost = (id) => {
 
-//   return get(ref(database, `posts/${id}`))
-//     .then(result => {
-//       if (!result.exists()) {
-//         throw new Error(`Post with id ${id} does not exist!`);
-//       }
-// const ar = Object.keys(result.val().likedBy)
-//       const post = ar
-//       post.id = id;
-//       post.createdOn = new Date(post.createdOn);
-//       if (!post) return 0;
-// console.log(post, typeof result.val().likedBy )
-//       return 2
-//     });
+  return get(ref(database, `posts/${id}`))
+    .then(result => {
+      if (!result.exists()) {
+        throw new Error(`Post with id ${id} does not exist!`);
+      }
+const ar = Object.keys(result.val().likedBy)
+      const post = ar
+      post.id = id;
+      post.createdOn = new Date(post.createdOn);
+      if (!post) return 0;
+console.log(typeof post, typeof result.val().likedBy )
+      return 2
+    });
 };
 export const getPostsByAuthor = (username) => {
 
