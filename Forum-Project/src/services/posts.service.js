@@ -80,7 +80,23 @@ export const getLikedPosts = (username) => {
       }));
     });
 };
+export const getLikesPerPost = (postId) => {
 
+  return get(ref(database, `posts/${postId}`))
+    .then(snapshot => {
+      if (!snapshot.val()) {
+        throw new Error(`User with handle @${postId} does not exist!`);
+      }
+
+      const likesObject = snapshot.val().likedBy;
+      const count = Object.values(likesObject).reduce((acc, value) => {
+        acc += value ? 1 : -1;
+        return acc;
+      },);
+      return count
+    });
+
+};
 export const getPostsByAuthor = (username) => {
 
   return get(query(ref(database, 'Posts'), orderByChild('author'), equalTo(username)))
@@ -153,6 +169,6 @@ export const getPostByTitle = (searchTerm) => {
 export const postUpdateHandler = (postId, content) => {
 
   const path = `posts/${postId}/content`;
- 
-  return update(ref(database), {[path]: content})
+
+  return update(ref(database), { [path]: content })
 };
