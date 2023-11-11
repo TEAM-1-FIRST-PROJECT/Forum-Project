@@ -80,23 +80,44 @@ export const getLikedPosts = (username) => {
       }));
     });
 };
-export const getLikesPerPost = (postId) => {
+// export const getLikesPerPost = (postId) => {
 
-  return get(ref(database, `posts/${postId}`))
-    .then(snapshot => {
-      if (!snapshot.val()) {
-        throw new Error(`User with handle @${postId} does not exist!`);
-      }
+//   return get(ref(database, `posts`))
+//     .then(snapshot => {
+//       if (!snapshot.val()) {
+//         throw new Error(`User with handle @${postId} does not exist!`);
+//       }
 
-      const likesObject = snapshot.val();
-      console.log(Object.values(likesObject, postId))
-      const count = Object.values(likesObject).reduce((acc, value) => {
-        acc += value ? 1 : -1;
-        return acc;
-      }, );
-      return count
-    });
+//       const likesObject = snapshot.val();
+      
+//       if(Object.values(likesObject)){
+//       console.log(likesObject)
+//       return Object.values(likesObject.likedBy).reduce((acc, value) => {
+//         acc += value ? 1 : -1;
+//         return acc;
+//       }, );
+//     } else {
+//       return 0
+//     }
+      
+//     });
 
+// };
+// export const getLikesPerPost = (id) => {
+
+//   return get(ref(database, `posts/${id}`))
+//     .then(result => {
+//       if (!result.exists()) {
+//         throw new Error(`Post with id ${id} does not exist!`);
+//       }
+// const ar = Object.keys(result.val().likedBy)
+//       const post = ar
+//       post.id = id;
+//       post.createdOn = new Date(post.createdOn);
+//       if (!post) return 0;
+// console.log(post, typeof result.val().likedBy )
+//       return 2
+//     });
 };
 export const getPostsByAuthor = (username) => {
 
