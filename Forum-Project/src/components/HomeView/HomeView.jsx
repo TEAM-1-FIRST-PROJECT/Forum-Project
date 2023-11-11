@@ -42,7 +42,6 @@ const HomeView = () => {
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
                 </div>
-                <SortButton/>
                 <RecommendedPosts></RecommendedPosts>
               </div>
             ) : (
@@ -52,7 +51,6 @@ const HomeView = () => {
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
                 </div>
-                <SortButton/>
                 <RecentlyAddedPosts></RecentlyAddedPosts>
               </div>
             )}

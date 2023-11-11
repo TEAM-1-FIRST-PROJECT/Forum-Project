@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { deletePost } from "../../services/posts.service";
+import { deletePost, dislikePost, getLikesPerPost, likePost } from "../../services/posts.service";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -11,16 +11,17 @@ import { useEffect, useState } from "react";
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-
+  const [counter, setCounter] = useState([]);
   const navigate = useNavigate();
   const { userData } = useContext(AuthContext);
 
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
-
+  const userName = userData.username
 
   const deletePostHandler = () => {
+
     if (postAuthor === userData.username) {
       deletePost(postId).then(() => {
         navigate("/home");
@@ -30,11 +31,46 @@ const SinglePost = (props) => {
     } else { toast('Only author can delete the post!') }
   };
 
+  const likePostHandler = () => {
+
+    likePost(userName, postId)
+      .then(() => {
+        toast("Post liked !")
+        // getLikesPerPost(postId)
+        //   .then((counter) => {
+        //     setCounter(counter);
+        //   })
+          //.catch((error) => console.error(error));
+      })
+      .catch((error) => console.error(error))
+  }
+
+  const dislikePostHandler = () => {
+    dislikePost(userName, postId)
+      .then(() => {
+        toast("Post disliked !")
+        // getLikesPerPost(postId)
+        //   .then((counter) => {
+        //     setCounter(counter);
+        //   })
+          .catch((error) => console.error(error));
+      })
+      .catch((error) => console.error(error))
+  }
+  // useEffect(() => {
+  //   getLikesPerPost(postId)
+  //     .then((counter) => {
+  //       setCounter(counter);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, [postId]);
+
+
   useEffect(() => {
     getCommentCount(postId)
       .then(count => setCommentCount(count));
-  }, [postId]); 
-  //console.log(post.id)
+  }, [postId]);
+
   const myDate = new Date(post.createdOn);
   const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
   const minutes = myDate.getMinutes().toString().padStart(2, '0'); // Get minutes (0-59), convert to string, and pad with leading zero if necessary
@@ -46,8 +82,13 @@ const SinglePost = (props) => {
         <time dateTime={formattedDate} className="text-gray-500">
           {formattedDate}
         </time>
-        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100" onClick={() => { }}>
-          liked {'98'}
+        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+          onClick={likePostHandler}>
+          like({counter})
+        </button>
+        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+          onClick={dislikePostHandler}>
+          dislike
         </button>
         <Link to={`/editPost/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Edit post
