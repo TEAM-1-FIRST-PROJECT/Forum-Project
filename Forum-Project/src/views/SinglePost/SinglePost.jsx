@@ -13,7 +13,7 @@ const SinglePost = (props) => {
   const [commentCount, setCommentCount] = useState(0);
   const [counter, setCounter] = useState([]);           //pending
   const navigate = useNavigate();
-  const { userData } = useContext(AuthContext);
+  const { user, userData } = useContext(AuthContext);
 
   const post = props.value;
   const postId = post.id;
@@ -66,24 +66,24 @@ const SinglePost = (props) => {
         <time dateTime={formattedDate} className="text-gray-500">
           {formattedDate}
         </time>
-        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+        {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={likePostHandler}>
           like{counter}
-        </button>
-        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+        </button>}
+        {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={dislikePostHandler}>
           dislike
-        </button>
-        <Link to={`/editPost/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        </button>}
+        {user && <Link to={user && `/editPost/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Edit post
-        </Link>
-        <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        </Link>}
+        {user && <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Post Details
-        </Link>
-        <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+        </Link>}
+        {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={deletePostHandler}>
           Delete Post
-        </button>
+        </button>}
       </div>
       <div className="group relative">
         <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -114,12 +114,12 @@ const SinglePost = (props) => {
 
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Link to={`/NewComment/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+      {user && <Link to={`/NewComment/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Reply
-        </Link>
-        <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        </Link>}
+        {user && <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           See all comments ({commentCount})
-        </Link>
+        </Link>}
       </div>
     </article>
   )
@@ -135,9 +135,6 @@ src={post.author.imageUrl}
 alt=""
 className="h-10 w-10 rounded-full bg-gray-50"
 /> */
-/* <time dateTime={post.createdOn.toString()} className="text-gray-500">
-          {post.createdOn.toString()}
-        </time> */
 
 
 
