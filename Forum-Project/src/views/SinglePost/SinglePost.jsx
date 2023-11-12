@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { deletePost, dislikePost, getLikesPerPost, likePost } from "../../services/posts.service";   //pending
+import { deletePost, getPostById} from "../../services/posts.service";   //pending
+import { likePost, dislikePost, likesReverse  } from "../../services/likePost.services.js";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -11,7 +12,8 @@ import { useEffect, useState } from "react";
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [counter, setCounter] = useState([]);           //pending
+  const [liked, setLiked]= useState({})
+  const [counter] = useState([]);           //pending
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
 
@@ -30,29 +32,76 @@ const SinglePost = (props) => {
     } else { toast('Only author can delete the post!') }
   };
 
+      useEffect(() => {
+        getPostById(postId)
+        .then((snapshot) => {
+          setLiked(snapshot.likedBy); 
+      })
+      .catch((error) => console.error(error));
+      }, [postId]);
+    
   const likePostHandler = () => {
+    
+    
+    console.log (userData.likedPosts)
+
+    if (userData.likedPosts.length) {
+      console.log(userData.likedPost)
+      
+      const disliked=Object.keys(liked).filter(key => liked[key] !== true);
+
+      console.log(disliked)
+      if (disliked.includes(userData.username)){
+      likesReverse(userName, postId)
+      .then(() => {
+        toast("Post disliked !")
+      })
+      .catch((error) => console.error(error))
+    }
+    } else {
+    console.log("li")
     likePost(userName, postId)
       .then(() => {
         toast("Post liked !")
       })
       .catch((error) => console.error(error))
-  }
+    }
 
+    
+  }
   const dislikePostHandler = () => {
+    if (userData.likedPosts) {
+      const disliked= Object.keys(userData.likedPosts)//.filter(id => id === true);
+      console.log(disliked, 'x')
+      likesReverse(userName, postId)
+      .then(() => {
+        toast("Post disliked !")
+      })
+      .catch((error) => console.error(error))
+    } else {
     dislikePost(userName, postId)
       .then(() => {
         toast("Post disliked !")
       })
       .catch((error) => console.error(error))
+    
+    }
+
+    
   }
-
-
+ 
   useEffect(() => {
   
     getCommentCount(postId)
       .then(count => setCommentCount(count));
   
   }, [postId]); // добавяме userName като зависимост
+
+  useEffect(() => {
+  
+  
+  
+  }, [postId]);
   
 
   const myDate = new Date(post.createdOn);
