@@ -190,9 +190,13 @@ export const getPostByTitle = (searchTerm) => {
   });
 };
 
-export const postUpdateHandler = (postId, content) => {
 
-  const path = `posts/${postId}/content`;
-
-  return update(ref(database), { [path]: content })
+export const postUpdateHandler = (postId, content, tags) => {
+  const pathContent = `posts/${postId}/content`;
+  const pathTags = `posts/${postId}/tags`;
+  
+  return update(ref(database), {
+    [pathContent]: content,
+    [pathTags]: tags
+  });
 };
