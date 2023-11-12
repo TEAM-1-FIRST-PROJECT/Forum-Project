@@ -29,7 +29,7 @@ const Iphone = () => {
   }, []);
 
   return (
-    <div className=" py-5 sm:py-10 rounded-3xl items-center flex justify-center">
+    <div className=" bgImage py-5 sm:py-10 rounded-3xl items-center flex justify-center">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 items-center ">
         <div className="mx-auto max-w-2xl lg:mx-0 items-center ">
           <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
