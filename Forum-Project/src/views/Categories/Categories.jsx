@@ -63,7 +63,7 @@ const Categories = () => {
                         <Link to="/watch" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">
                             Watch
                         </Link>
-                        <Link to="/view-all" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">
+                        <Link to="/ViewAll" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">
                             View all
                         </Link>
                     </div>
