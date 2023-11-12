@@ -127,7 +127,7 @@ const NewPost = () => {
               onClick={handlePostSubmit}
               className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
             >
-              Post
+               SUBMIT
             </button>
           </div>
           {isPostSubmitted && (
