@@ -7,7 +7,6 @@ import { getAllPosts } from "../../services/posts.service";
 import './homeview.css';
 import UserAndCommentsCounter from "../UserAndCommentsCounter/UserAndCommentsCounter";
 import FilterButton from "../FilterButton/FilterButton";
-import SortButton from "../SortButton/Sortbutton";
 
 const HomeView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
@@ -37,7 +36,7 @@ const HomeView = () => {
           <div>
             {recommendedPosts ? (
               <div>
-                <FilterButton/>
+                {/* <FilterButton/> */}
                 <div style={{  display: "flex", justifyContent: "flex-start", paddingLeft: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(false)}>Switch to recently posts</button>
@@ -46,7 +45,7 @@ const HomeView = () => {
               </div>
             ) : (
               <div>
-                <FilterButton/>
+                {/* <FilterButton/> */}
                 <div style={{  display: "flex", justifyContent: "flex-start", paddingLeft: '10px' }}>
                   <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
                     onClick={() => setRecommendedPosts(true)}>Switch to recommended posts</button>
