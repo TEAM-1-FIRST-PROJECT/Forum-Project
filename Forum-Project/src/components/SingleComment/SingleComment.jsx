@@ -6,14 +6,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { Link } from "react-router-dom";
 
-const SingleComment = (props) => {
+const SingleComment = ( props ) => {
   
   const { userData } = useContext(AuthContext);
-  const comment = props.value
+  const comment = props.value;
   const commentAuthor = comment.userName
   const navigate = useNavigate();
-  
-  const permissionChecker = commentAuthor === userData.username
+  const permissionChecker = userData ? userData.username === commentAuthor : false;
   const deleteCommentHandler = () => {
     if (permissionChecker) {
       deleteComment(comment.id).then(() => {
