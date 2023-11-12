@@ -4,12 +4,17 @@ import { AuthContext } from "../../context/authContext";
 import { getUserByHandle } from "../../services/users.services";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import {
+  MIN_CONTENT_LENGTH,
+  MIN_TITLE_LENGTH,
+  MAX_CONTENT_LENGTH,
+  MAX_TITLE_LENGTH
+} from "../../common/constants";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
-  const [tags, setTags] = useState("");
   const [isPostSubmitted, setIsPostSubmitted] = useState(false);
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -26,13 +31,13 @@ const NewPost = () => {
       return;
     }
 
-    if (title.length < 16 || title.length > 64) {
-      alert("Title should be between 16 and 64 characters");
+    if (title.length < MIN_TITLE_LENGTH || title.length > MAX_TITLE_LENGTH) {
+      alert(`Title should be between ${MIN_TITLE_LENGTH} and ${MAX_TITLE_LENGTH} characters`);
       return;
     }
 
-    if (content.length < 32 || content.length > 8192) {
-      alert("Content length should be between 32 and 8192 characters");
+    if (content.length < MIN_CONTENT_LENGTH || content.length > MAX_CONTENT_LENGTH) {
+      alert(`Content length should be between ${MIN_CONTENT_LENGTH} and ${MAX_CONTENT_LENGTH} characters`);
       return;
     }
 
@@ -48,17 +53,14 @@ const NewPost = () => {
             navigate("/");
           }, 2100);
         } else if (userData.isBlocked === false) {
-          console.log(`${tags}`, `${description}`);
-          addPost(userName, title, content, description, tags)
+          addPost(userName, title, content, description)
             .then((newPost) => {
               setTitle("");
               setDescription("");
               setContent("");
-              setTags("");
               setIsPostSubmitted(true);
               toast("Post submitted successfully!");
               console.log("New post:", newPost);
-              //addNewPost(newPost);
             })
             .catch((error) => {
               toast.error("Error submitting post:", error);
@@ -94,7 +96,6 @@ const NewPost = () => {
                 state: content,
                 setState: setContent,
               },
-              { label: "Add some tags", state: tags, setState: setTags },
             ].map((field, index) => (
               <div key={index}>
                 <label
