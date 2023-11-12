@@ -101,18 +101,19 @@ const EditPost = () => {
           </div>
         </div>
         <div className="mb-40  flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold text-gray-900">
+          <button type="button" className="text-sm font-semibold text-gray-900"
+          >
             Cancel
           </button>
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
           >
-            Post
+            SUBMIT
           </button>
         </div>
         {isPostSubmitted && (
-          <p className="text-green-500 mt-2">Post successfully submitted!</p>
+          <p className="text-green-500 mt-2">Post successfully edited!</p>
         )}
       </form>
     </div>

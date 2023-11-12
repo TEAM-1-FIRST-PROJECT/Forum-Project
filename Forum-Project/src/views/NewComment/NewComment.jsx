@@ -5,15 +5,22 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { addNewComment } from "../../services/comments.services";
 import { useParams } from "react-router-dom";
+import {
+  MIN_COMMENT_TITLE_LENGTH,
+  MAX_COMMENT_TITLE_LENGTH,
+  MIN_COMMENT_LENGTH,
+  MAX_COMMENT_LENGTH
+} from "../../common/constants";
+
 
 const NewComment = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [isPostSubmitted, setIsCommentSubmitted] = useState(false); 
+  const [isPostSubmitted, setIsCommentSubmitted] = useState(false);
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
 
   const commentSubmitHandler = async (event) => {
     event.preventDefault();
@@ -26,13 +33,13 @@ const NewComment = () => {
       return;
     }
 
-    if (title.length < 4 || title.length > 10) {
-      alert("Title should be between 4 and 10 characters");
+    if (title.length < MIN_COMMENT_TITLE_LENGTH || title.length > MAX_COMMENT_TITLE_LENGTH) {
+      alert(`Title should be between ${MIN_COMMENT_TITLE_LENGTH} and ${MAX_COMMENT_TITLE_LENGTH} characters`);
       return;
     }
 
-    if (content.length < 4 || content.length > 98) {
-      alert("Content length should be between 4 and 98 characters");
+    if (content.length < MIN_COMMENT_LENGTH || content.length > MAX_COMMENT_LENGTH) {
+      alert(`Content length should be between ${MIN_COMMENT_LENGTH} and ${MAX_COMMENT_LENGTH} characters`);
       return;
     }
 
@@ -120,7 +127,7 @@ const NewComment = () => {
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
           >
-            Post
+            Submit
           </button>
         </div>
         {isPostSubmitted && (
