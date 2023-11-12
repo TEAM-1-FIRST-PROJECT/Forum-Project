@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { deletePost, dislikePost, getLikesPerPost, likePost } from "../../services/posts.service";
+import { deletePost, dislikePost, getLikesPerPost, likePost } from "../../services/posts.service";   //pending
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [counter, setCounter] = useState([]);
+  const [counter, setCounter] = useState([]);           //pending
   const navigate = useNavigate();
   const { userData } = useContext(AuthContext);
 
@@ -39,8 +39,9 @@ const SinglePost = (props) => {
         // getLikesPerPost(postId)
         //   .then((counter) => {
         //     setCounter(counter);
+        //     console.log(counter, 'l')
         //   })
-          //.catch((error) => console.error(error));
+        //   .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error))
   }
@@ -52,8 +53,9 @@ const SinglePost = (props) => {
         // getLikesPerPost(postId)
         //   .then((counter) => {
         //     setCounter(counter);
+        //     console.log(counter,'d')
         //   })
-          .catch((error) => console.error(error));
+        //   .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error))
   }
@@ -61,8 +63,9 @@ const SinglePost = (props) => {
   //   getLikesPerPost(postId)
   //     .then((counter) => {
   //       setCounter(counter);
+  //     //  console.log(counter, 'ld')
   //     })
-  //     .catch((error) => console.error(error));
+  //     //.catch((error) => console.error(error));
   // }, [postId]);
 
 
@@ -84,7 +87,7 @@ const SinglePost = (props) => {
         </time>
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={likePostHandler}>
-          like({counter})
+          like{counter}
         </button>
         <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={dislikePostHandler}>
@@ -133,7 +136,7 @@ const SinglePost = (props) => {
         <Link to={`/NewComment/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Reply
         </Link>
-        <Link to={`/post/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           See all comments ({commentCount})
         </Link>
       </div>
