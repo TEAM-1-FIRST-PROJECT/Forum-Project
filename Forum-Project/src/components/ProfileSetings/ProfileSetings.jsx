@@ -1,21 +1,26 @@
-
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { logoutUser } from '../../services/auth.services';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/authContext';
+import { logoutUser } from '../../services/auth.services';
 
 const ProfileSettings = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
   const { setUser } = useContext(AuthContext);
 
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
   };
 
-  const hideDropdown = () => {
-    setShowDropdown(false);
-  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
 
   const onLogout = () => {
     logoutUser()
@@ -27,7 +32,7 @@ const ProfileSettings = () => {
   }
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left" ref={dropdownRef}>
       <div>
         <button
           type="button"
@@ -35,13 +40,7 @@ const ProfileSettings = () => {
           id="menu-button"
           aria-expanded={showDropdown}
           aria-haspopup="true"
-          onClick={() => {
-            if (showDropdown) {
-              hideDropdown();
-            } else {
-              toggleDropdown();
-            }
-          }}
+          onClick={() => setShowDropdown(!showDropdown)}
         >
           UserProfile
           <svg
@@ -66,13 +65,6 @@ const ProfileSettings = () => {
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex="-1"
-          onClick={() => {
-            if (showDropdown) {
-              hideDropdown();
-            } else {
-              toggleDropdown();
-            }
-          }}
         >
           <div className="py-1" role="none">
             <Link to="/newPost" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">
@@ -93,4 +85,3 @@ const ProfileSettings = () => {
 };
 
 export default ProfileSettings;
-

@@ -18,30 +18,22 @@ const SinglePost = (props) => {
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
-  const userName = userData.username
 
+  const userName = userData ? userData.username : null;
+  
   const deletePostHandler = () => {
-
-    if (postAuthor === userData.username) {
+    if (postAuthor === userName) {
       deletePost(postId).then(() => {
         navigate("/home");
         toast("You post deleted permanently!")
       }).catch((error) => console.error(error));
-
     } else { toast('Only author can delete the post!') }
   };
 
   const likePostHandler = () => {
-
     likePost(userName, postId)
       .then(() => {
         toast("Post liked !")
-        // getLikesPerPost(postId)
-        //   .then((counter) => {
-        //     setCounter(counter);
-        //     console.log(counter, 'l')
-        //   })
-        //   .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error))
   }
@@ -50,29 +42,18 @@ const SinglePost = (props) => {
     dislikePost(userName, postId)
       .then(() => {
         toast("Post disliked !")
-        // getLikesPerPost(postId)
-        //   .then((counter) => {
-        //     setCounter(counter);
-        //     console.log(counter,'d')
-        //   })
-        //   .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error))
   }
-  // useEffect(() => {
-  //   getLikesPerPost(postId)
-  //     .then((counter) => {
-  //       setCounter(counter);
-  //     //  console.log(counter, 'ld')
-  //     })
-  //     //.catch((error) => console.error(error));
-  // }, [postId]);
 
 
   useEffect(() => {
+  
     getCommentCount(postId)
       .then(count => setCommentCount(count));
-  }, [postId]);
+  
+  }, [postId]); // добавяме userName като зависимост
+  
 
   const myDate = new Date(post.createdOn);
   const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
@@ -149,12 +130,40 @@ SinglePost.propTypes = {
 };
 export default SinglePost
 
-{/* <img
+/* <img
 src={post.author.imageUrl}
 alt=""
 className="h-10 w-10 rounded-full bg-gray-50"
-/> */}
-
-{/* <time dateTime={post.createdOn.toString()} className="text-gray-500">
+/> */
+/* <time dateTime={post.createdOn.toString()} className="text-gray-500">
           {post.createdOn.toString()}
-        </time> */}
+        </time> */
+
+
+
+          // useEffect(() => {
+  //   getLikesPerPost(postId)
+  //     .then((counter) => {
+  //       setCounter(counter);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, [postId]);
+
+
+
+
+
+//dislikePostHandler
+         // getLikesPerPost(postId)
+        //   .then((counter) => {
+        //     setCounter(counter);
+//   })
+        
+
+
+//likePostHandler
+  // getLikesPerPost(postId)
+        //   .then((counter) => {
+        //     setCounter(counter);
+        //   })
+          //.catch((error) => console.error(error));

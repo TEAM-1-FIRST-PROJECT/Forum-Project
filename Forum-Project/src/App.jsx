@@ -61,7 +61,7 @@ const App = () => {
             ...appState,
             userData: snapshot.val()[username],
           });
-        },4);
+        }, 2000);
       })
       .catch((e) => toast.error(e.message));
   }, [user, appState]);

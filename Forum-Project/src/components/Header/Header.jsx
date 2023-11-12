@@ -56,13 +56,13 @@ function Header() {
   }, []);
 
   return (
-    <div className="relative h-[400px] lg:h-[500px]">
+    <div className="relative h-[400px] rounded-xl lg:h-[500px]">
       <img
         src={BgImg}
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <header className="relative flex items-center justify-between px-2 bg-opacity-80 bg-white bottom-0 inset-x-0 mx-auto max-w-screen-md w-full">
+      <header className="relative rounded-2xl flex items-center justify-between px-2 bg-white bottom-0 inset-x-0 mx-auto max-w-screen-md w-full">
         <div>
           <h1 className="text-2xl font-bold">
             <Link to="/">Dynamic Island</Link>
