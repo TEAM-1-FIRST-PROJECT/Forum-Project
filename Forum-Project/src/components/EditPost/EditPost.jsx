@@ -42,7 +42,7 @@ const EditPost = () => {
               setTags('');
               setContent("");
               setIsCommentSubmitted(true);
-              toast("Comment submitted successfully!");
+              toast("Post edited successfully!");
               setTimeout(() => {
                 navigate(-1);
               }, 2100);
@@ -50,10 +50,10 @@ const EditPost = () => {
             .catch((errors) => {
               const [postError, tagsError] = errors;
               if (postError) {
-                toast.error("Error updating post:", postError);
+                toast.error("Error editing post:", postError);
               }
               if (tagsError) {
-                toast.error("Error updating tags:", tagsError);
+                toast.error("Error editing tags:", tagsError);
               }
             });
         } else { toast.error('Only author can delete the comment!') }

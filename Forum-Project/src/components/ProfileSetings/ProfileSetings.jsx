@@ -42,7 +42,7 @@ const ProfileSettings = () => {
           aria-haspopup="true"
           onClick={() => setShowDropdown(!showDropdown)}
         >
-          UserProfile
+          User Profile
           <svg
             className={`-mr-1 h-5 w-5 ${showDropdown ? 'text-gray-900' : 'text-gray-400'}`}
             viewBox="0 0 20 20"
