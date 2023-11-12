@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 
 // const FilterButton = () => {
 //     const [isDropdownVisible, setDropdownVisibility] = useState(false);
@@ -58,9 +59,10 @@ import { useEffect, useRef, useState } from "react";
 // }
 
 
-const FilterButton = () => {
+const FilterButton = ({onFilter}) => {
     const [isDropdownVisible, setDropdownVisibility] = useState(false);
     const dropdownRef = useRef(null);
+    const [selectedCategories, setSelectedCategories] = useState([]);
   
     const toggleDropdown = () => {
       setDropdownVisibility(!isDropdownVisible);
@@ -78,10 +80,19 @@ const FilterButton = () => {
           document.removeEventListener("mousedown", handleClickOutside);
         };
       }, []);
+
+      const handleCheckboxChange = (category) => {
+        const updatedCategories = selectedCategories.includes(category)
+          ? selectedCategories.filter((c) => c !== category)
+          : [...selectedCategories, category];
+        setSelectedCategories(updatedCategories);
+        onFilter(updatedCategories);
+      };
+
   
 
   return (
-    <div className="absolute right-40 top-30" ref={dropdownRef}>
+    <div className="relative top-6" ref={dropdownRef}>
       <button id="dropdownDefault"
         data-dropdown-toggle="dropdown"
         className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
@@ -114,6 +125,8 @@ const FilterButton = () => {
                 id="apple"
                 type="checkbox"
                 value=""
+                checked={selectedCategories.includes('iPhone')}
+                onChange={() => handleCheckboxChange('iPhone')}
                 className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
               />
               <label
@@ -128,6 +141,8 @@ const FilterButton = () => {
                 id="fitbit"
                 type="checkbox"
                 value=""
+                checked={selectedCategories.includes('MacOs')}
+                onChange={() => handleCheckboxChange('MacOs')}
                 className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
               />
               <label
@@ -142,6 +157,8 @@ const FilterButton = () => {
                 id="dell"
                 type="checkbox"
                 value=""
+                checked={selectedCategories.includes('Apple Watch')}
+                onChange={() => handleCheckboxChange('Apple Watch')}
                 className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
               />
               <label
@@ -158,4 +175,8 @@ const FilterButton = () => {
   );
 };
 
+FilterButton.propTypes = {
+    onFilter: PropTypes.func.isRequired,
+  };
 export default FilterButton; 
+
