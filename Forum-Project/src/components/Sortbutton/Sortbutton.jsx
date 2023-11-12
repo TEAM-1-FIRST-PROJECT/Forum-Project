@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const SortButton = (onSort, onSortByComments) => {
+const SortButton = ({ onSort, onSortByComments }) => {
   return (
       <div className="relative top-4">
            <button className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group">
