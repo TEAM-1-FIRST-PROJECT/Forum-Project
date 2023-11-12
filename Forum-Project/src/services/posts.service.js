@@ -17,7 +17,7 @@ const fromPostsDocument = snapshot => {
   });
 }
 
-export const addPost = (userName, title, content, description, tags) => {
+export const addPost = (userName, title, content, description) => {
 
   return push(
     ref(database, 'posts'),
@@ -26,7 +26,6 @@ export const addPost = (userName, title, content, description, tags) => {
       title,
       content,
       description,
-      tags,
       createdOn: Date.now(),
     },
   )
@@ -89,7 +88,7 @@ export const getLikedPosts = (username) => {
 //       }
 
 //       const likesObject = snapshot.val();
-      
+
 //       if(Object.values(likesObject)){
 //       console.log(likesObject)
 //       return Object.values(likesObject.likedBy).reduce((acc, value) => {
@@ -99,24 +98,27 @@ export const getLikedPosts = (username) => {
 //     } else {
 //       return 0
 //     }
-      
+
 //     });
 
 // };
 export const getLikesPerPost = (id) => {
-
-  return get(ref(database, `posts/${id}`))
+//console.log(id)
+  return get(ref(database, `posts/${id}/likedBy`))
     .then(result => {
+      
       if (!result.exists()) {
         throw new Error(`Post with id ${id} does not exist!`);
       }
-const ar = Object.keys(result.val().likedBy)
-      const post = ar
-      post.id = id;
-      post.createdOn = new Date(post.createdOn);
+
+      const post = Object.values(result.val());
+      
       if (!post) return 0;
-console.log(typeof post, typeof result.val().likedBy )
-      return 2
+
+      return post.reduce((acc, value) => {
+        acc += value ? 1 : -1;
+        return 0;
+      },);
     });
 };
 export const getPostsByAuthor = (username) => {

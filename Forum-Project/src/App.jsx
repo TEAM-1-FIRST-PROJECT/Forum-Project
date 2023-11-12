@@ -64,7 +64,7 @@ const App = () => {
         }, 2000);
       })
       .catch((e) => toast.error(e.message));
-  }, [user, appState]);
+  }, []);
 
   if (loading) {
     return (

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import { getCommentCount } from "../../services/comments.services";
 import SortButton from "../SortButton/Sortbutton";
+import FilterButton from "../FilterButton/FilterButton";
 
 
 
@@ -24,7 +25,7 @@ const RecommendedPosts = () => {
     const sortedPostsByDate = [...recommendedPosts].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
     setRecommendedPosts(sortedPostsByDate);
   };
-  
+
   const sortPostsByComments = () => {
     Promise.all(
       recommendedPosts.map((post) =>
@@ -38,6 +39,14 @@ const RecommendedPosts = () => {
     });
   };
 
+  const filterPostsByTag = (tags) => {
+    const filteredPosts = recommendedPosts.filter((post) =>
+      tags.every((tag) => post.tags && post.tags.includes(tag))
+    );
+
+    setRecommendedPosts(filteredPosts);
+  };
+
   return (
     <div className=" py-5 sm:py-10 rounded-3xl items-center flex justify-center">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 items-center ">
@@ -45,7 +54,10 @@ const RecommendedPosts = () => {
           <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
             Recommended posts
           </h3>
-          <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
+          <div className="flex flex-col space-y-4">
+            <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
+            <FilterButton onFilter={filterPostsByTag} />
+          </div>
         </div>
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t bg-slate-100 border-gray-200 rounded-3xl p-10 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-1">
           {recommendedPosts.map((post) => (
