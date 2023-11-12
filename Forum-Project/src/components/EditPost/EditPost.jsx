@@ -37,7 +37,7 @@ const EditPost = () => {
         console.log(result.author)
         if (userData.username === result.author) {
 
-          Promise.all([postUpdateHandler(id, content), ...arrOfTags.map(tag => tagsUpdateHandler(tag, id))])
+          Promise.all([postUpdateHandler(id, content, tags), ...arrOfTags.map(tag => tagsUpdateHandler(tag, id))])
             .then(() => {
               setTags('');
               setContent("");
