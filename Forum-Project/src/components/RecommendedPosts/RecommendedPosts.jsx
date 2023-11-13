@@ -10,11 +10,13 @@ import FilterButton from "../FilterButton/FilterButton";
 const RecommendedPosts = () => {
 
   const [recommendedPosts, setRecommendedPosts] = useState([]);
+  const [originalPosts, setOriginalPosts] = useState([]);
 
   useEffect(() => {
     getAllPosts()
       .then((fetchedPosts) => {
         setRecommendedPosts(fetchedPosts);
+        setOriginalPosts(fetchedPosts);
       })
       .catch((error) => {
         console.error('Error fetching posts:', error);
@@ -47,6 +49,10 @@ const RecommendedPosts = () => {
     setRecommendedPosts(filteredPosts);
   };
 
+  const resetPosts = () => {
+    setRecommendedPosts(originalPosts);
+  };
+
   return (
     <div className=" py-5 sm:py-10 rounded-3xl items-center flex justify-center">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 items-center ">
@@ -56,7 +62,7 @@ const RecommendedPosts = () => {
           </h3>
           <div className="flex flex-col space-y-4">
             <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
-            <FilterButton onFilter={filterPostsByTag} />
+            <FilterButton onFilter={filterPostsByTag} onReset={resetPosts} />
           </div>
         </div>
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t bg-slate-100 border-gray-200 rounded-3xl p-10 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-1">

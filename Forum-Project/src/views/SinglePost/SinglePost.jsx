@@ -46,7 +46,7 @@ const SinglePost = (props) => {
       .catch((e) => console.log(e.message))
   };
 
-  
+
   ////----------------------
   useEffect(() => {
     getPostById(postId)
@@ -57,7 +57,7 @@ const SinglePost = (props) => {
   }, [postId]);
 
 
-   console.log (userData, user)
+  console.log(userData, user)
   const likePostHandler = () => {
     console.log(userData.likedPosts, user)
 
@@ -238,43 +238,43 @@ const SinglePost = (props) => {
         </p>
       </div>
       <div className="flex items-center gap-x-4 text-xs mt-4">
-        <button
+        {user && <button
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={() => { }}
         >
           <FaRegThumbsUp /> {"98"}
-        </button>
+        </button>}
 
-        <Link
+        {user && <Link
           to={`/NewComment/${postId}`}
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
         >
           <FaRegCommentDots /> Reply
-        </Link>
-        <Link
+        </Link>}
+        {user && <Link
           to={`/PostDetails/${postId}`}
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
         >
           <FaRegCommentDots /> Comments ({commentCount})
-        </Link>
-        <Link
+        </Link>}
+        {user && <Link
           to={`/PostDetails/${postId}`}
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
         >
           <FaInfoCircle /> Post Details
-        </Link>
-        <Link
+        </Link>}
+        {isAuthor && <Link
           to={`/EditPost/${postId}`}
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
         >
           <FaRegCommentDots /> Edit post
-        </Link>
-        <button
+        </Link>}
+        {isAuthor && <button
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={deletePostHandler}
         >
           <FaTrash /> Delete Post
-        </button>
+        </button>}
       </div>
     </article>
   );

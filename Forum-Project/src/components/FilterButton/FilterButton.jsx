@@ -59,7 +59,7 @@ import PropTypes from "prop-types";
 // }
 
 
-const FilterButton = ({onFilter}) => {
+const FilterButton = ({onFilter, onReset}) => {
     const [isDropdownVisible, setDropdownVisibility] = useState(false);
     const dropdownRef = useRef(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -88,14 +88,19 @@ const FilterButton = ({onFilter}) => {
         setSelectedCategories(updatedCategories);
         onFilter(updatedCategories);
       };
+    
+      const handleReset = () => {
+        setSelectedCategories([]);
+        onReset();
+      };
 
   
 
   return (
-    <div className="relative top-6" ref={dropdownRef}>
+    <div className="flex justify-end pr-10" ref={dropdownRef}>
       <button id="dropdownDefault"
         data-dropdown-toggle="dropdown"
-        className="relative flex items-center bg-gray-600 border focus:outline-none shadow text-white rounded focus:ring ring-gray-300 group"
+        className="relative flex items-center bg-white border border-white text-black font-medium focus:outline-none shadow rounded focus:ring ring-indigo-500/40 group hover:bg-light-blue-100 hover:text-black shadow-lg shadow-indigo-500/40"
         type="button"
         onClick={toggleDropdown}>
         <p className="px-4">Filter by category</p>
@@ -169,6 +174,12 @@ const FilterButton = ({onFilter}) => {
               </label>
             </li>
           </ul>
+          <button
+            onClick={handleReset}
+            className="text-indigo-500 underline hover:text-indigo-700"
+          >
+            Reset
+          </button>
         </div>
       </button>
     </div>
@@ -177,6 +188,7 @@ const FilterButton = ({onFilter}) => {
 
 FilterButton.propTypes = {
     onFilter: PropTypes.func.isRequired,
+    onReset: PropTypes.func.isRequired,
   };
 export default FilterButton; 
 
