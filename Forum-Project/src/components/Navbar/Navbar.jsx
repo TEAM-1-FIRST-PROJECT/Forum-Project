@@ -37,7 +37,7 @@ const Navbar = () => {
       });
     });
   }, [isOpen]);
-console.log(userData)
+
   return (
     <nav className=" bg-white h-30 opacity-95">
       <div className=" flex flex-wrap justify-between hover:shadow-2xl hover:shadow-indigo-400 p-5">

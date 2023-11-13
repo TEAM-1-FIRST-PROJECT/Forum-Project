@@ -15,22 +15,30 @@ import {
   FaInfoCircle,
   FaReply,
 } from "react-icons/fa";
+import { getUserByHandle } from "../../services/users.services.js";
 
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [likesCount, setLikesCount] = useState(0);           
+  const [likesCount, setLikesCount] = useState(0); 
+  const [img, setImg] = useState('');        
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
   
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
-  const postTags = post.tags
+  const postTags = post.tags;
   const userLike = userData ? userData.likedPosts : null;
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
+  
+  useEffect(() => {
+getUserByHandle(post.author)
+      .then((snapshot)=> {
+        setImg(snapshot.val().profilePhoto)});
+  }, []);
 
   const deletePostHandler = () => {
     if (postAuthor === userName) {
@@ -117,7 +125,7 @@ useEffect(() => {
 
       <div className="pl-3">
         <img
-          src={userData.profilePhoto}
+          src={img}
           className="h-10 w-10 rounded-full bg-gray-50"
         />
       </div>
