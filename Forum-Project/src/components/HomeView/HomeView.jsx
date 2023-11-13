@@ -7,8 +7,6 @@ import { getAllPosts } from "../../services/posts.service";
 import './homeview.css';
 import UserAndCommentsCounter from "../UserAndCommentsCounter/UserAndCommentsCounter";
 
-import background from '../../assets/backgroundimg.jpg';
-
 const HomeView = () => {
   const [recentlyAddedPosts, setRecentlyAddedPosts] = useState(false);
 
@@ -72,8 +70,8 @@ const HomeView = () => {
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
 
             </h2>
-            <p className="mt-10 text-2xl font-bold text-black-600 text-left leading-relaxed">
-              <span style={{ display: 'block' }}>Connect. Share. Explore. 💡</span>
+            <p className="mt-10 text-2xl text-yellow-50 font-bold text-black-600 text-left leading-relaxed">
+              <span className="block text-yellow-50">Connect. Share. Explore. 💡</span>
               Your Ultimate Apple Community.
             </p>
           </div>
