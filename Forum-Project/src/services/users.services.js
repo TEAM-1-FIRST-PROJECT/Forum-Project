@@ -30,7 +30,7 @@ export const createUserHandle = (
     lastName,
     profilePhoto,
     isAdmin: false,
-    reatedOn: new Date(),
+    createdOn: new Date(),
     likedPosts: {},
     isBlocked: false,
   });
