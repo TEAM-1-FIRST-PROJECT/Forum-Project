@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import './homeview.css';
 import UserAndCommentsCounter from "../UserAndCommentsCounter/UserAndCommentsCounter";
-import FilterButton from "../FilterButton/FilterButton";
+
+import background from '../../assets/backgroundimg.jpg';
 
 const HomeView = () => {
   const [recommendedPosts, setRecommendedPosts] = useState(false);
@@ -22,7 +23,7 @@ const HomeView = () => {
 
   return (
     <>
-      <div className="bg-white sm:py-10 bgImage">
+      <div className="bg-hero-pattern bg-contain" >
         <UserAndCommentsCounter/>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">

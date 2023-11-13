@@ -14,6 +14,9 @@ export default {
       '2xl': '1536px',
     },
     extend: {
+      backgroundImage: theme => ({
+        'hero-pattern': "url('././src/assets/backgroundimg.jpg')",
+      }),
       keyframes: {
         colorchange: {
           '0%': { backgroundColor: '#FFB6C1' },  // LightPink
