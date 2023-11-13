@@ -20,11 +20,11 @@ import { getUserByHandle } from "../../services/users.services.js";
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [likesCount, setLikesCount] = useState(0); 
-  const [img, setImg] = useState('');        
+  const [likesCount, setLikesCount] = useState(0);
+  const [img, setImg] = useState('');
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
-  
+
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
@@ -33,12 +33,13 @@ const SinglePost = (props) => {
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
-  
+
   useEffect(() => {
-getUserByHandle(post.author)
-      .then((snapshot)=> {
-        setImg(snapshot.val().profilePhoto)});
-  }, []);
+    getUserByHandle(post.author)
+      .then((snapshot) => {
+        setImg(snapshot.val().profilePhoto)
+      });
+  }, [post.author]);
 
   const deletePostHandler = () => {
     if (postAuthor === userName) {
@@ -59,8 +60,9 @@ getUserByHandle(post.author)
       dislikePost(userName, postId)
         .then(() => {
           getLikesPerPost(postId)
-          .then((result)=> {
-            setLikesCount(result)}); 
+            .then((result) => {
+              setLikesCount(result)
+            });
 
           userData.likedPosts = false;
         })
@@ -70,8 +72,9 @@ getUserByHandle(post.author)
       likePost(userName, postId)
         .then(() => {
           getLikesPerPost(postId)
-          .then((result)=> {
-            setLikesCount(result)});
+            .then((result) => {
+              setLikesCount(result)
+            });
 
           userData.likedPosts = true;
         })
@@ -79,11 +82,12 @@ getUserByHandle(post.author)
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
 
     getLikesPerPost(postId)
-      .then((result)=> {
-        setLikesCount(result)});
+      .then((result) => {
+        setLikesCount(result)
+      });
   }, [postId, likesCount]);
 
 

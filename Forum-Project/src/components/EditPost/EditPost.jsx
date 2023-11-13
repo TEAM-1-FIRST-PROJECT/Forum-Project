@@ -7,6 +7,8 @@ import { postUpdateHandler } from "../../services/posts.service";
 import { getPostById } from "../../services/posts.service";
 import { tagsUpdateHandler } from "../../services/tags.services";
 import { MIN_CONTENT_LENGTH, MAX_CONTENT_LENGTH } from "../../common/constants";
+import { useEffect } from "react";
+import { getPostContentHandler } from './../../services/posts.service';
 
 const EditPost = () => {
 
@@ -18,7 +20,12 @@ const EditPost = () => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
+  useEffect(() => {
+    getPostContentHandler(id)
+      .then((snapshot) => {
+        setContent(snapshot.val())
+      });
+  }, [id]);
   const postEditHandler = async (event) => {
     event.preventDefault();
 
