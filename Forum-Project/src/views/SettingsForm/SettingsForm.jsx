@@ -11,15 +11,15 @@ import { imageStorageDb } from "../../config/firebase-config";
 const SettingsForm = () => {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const { userData } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [data, setData] = useState({});
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
   });
-
-  const { userData } = useContext(AuthContext);
-const navigate = useNavigate();
-  // const navigate = useNavigate();
 
   const updateForm = (field) => (e) => {
     setForm({
@@ -28,12 +28,14 @@ const navigate = useNavigate();
     });
   };
 
-
   //UPLOAD PHOTO
   const handleUpload = () => {
-    uploadToStorage(profilePhoto);
+    uploadToStorage(profilePhoto)
+      .then((url) => {
+        setData({ ...userData, value: url });
+      })
   };
-
+  
   const handleFileChange = (e) => {
     if (profilePhoto) {
       const photoRef = sRef(imageStorageDb, `images/${profilePhoto.name}`);
@@ -85,18 +87,18 @@ const navigate = useNavigate();
     if (!form.firstName) form.firstName = userData.firstName;
     if (!form.lastName) form.lastName = userData.lastName;
     if (!form.email) form.email = userData.email;
-
+console.log(data.value)
     updateUserData(
       userData.username,
       form.firstName,
       form.lastName,
       form.email,
-      previewUrl
+      data.value
     ).then(() => {
       toast.success("Profile updated successfully")
       navigate("/");
     }).catch((err) => {
-toast.error(err.message)
+      toast.error(err.message)
     });
   };
 
@@ -129,7 +131,7 @@ toast.error(err.message)
                 />
                 <div className="h-20 w-20 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-500">
                   {previewUrl ? (
-                    <img src={previewUrl } className="h-20 w-20 rounded-full" />
+                    <img src={previewUrl} className="h-20 w-20 rounded-full" />
                   ) : (
                     "+"
                   )}

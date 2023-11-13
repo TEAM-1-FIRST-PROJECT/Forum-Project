@@ -15,22 +15,31 @@ import {
   FaInfoCircle,
   FaReply,
 } from "react-icons/fa";
+import { getUserByHandle } from "../../services/users.services.js";
 
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [likesCount, setLikesCount] = useState(0);           
+  const [likesCount, setLikesCount] = useState(0);
+  const [img, setImg] = useState('');
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
-  
+
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
-  const postTags = post.tags
+  const postTags = post.tags;
   const userLike = userData ? userData.likedPosts : null;
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
+
+  useEffect(() => {
+    getUserByHandle(post.author)
+      .then((snapshot) => {
+        setImg(snapshot.val().profilePhoto)
+      });
+  }, [post.author]);
 
   const deletePostHandler = () => {
     if (postAuthor === userName) {
@@ -51,8 +60,9 @@ const SinglePost = (props) => {
       dislikePost(userName, postId)
         .then(() => {
           getLikesPerPost(postId)
-          .then((result)=> {
-            setLikesCount(result)}); 
+            .then((result) => {
+              setLikesCount(result)
+            });
 
           userData.likedPosts = false;
         })
@@ -62,8 +72,9 @@ const SinglePost = (props) => {
       likePost(userName, postId)
         .then(() => {
           getLikesPerPost(postId)
-          .then((result)=> {
-            setLikesCount(result)});
+            .then((result) => {
+              setLikesCount(result)
+            });
 
           userData.likedPosts = true;
         })
@@ -71,11 +82,12 @@ const SinglePost = (props) => {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
 
     getLikesPerPost(postId)
-      .then((result)=> {
-        setLikesCount(result)});
+      .then((result) => {
+        setLikesCount(result)
+      });
   }, [postId, likesCount]);
 
 
@@ -117,7 +129,7 @@ useEffect(() => {
 
       <div className="pl-3">
         <img
-          src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src={img}
           className="h-10 w-10 rounded-full bg-gray-50"
         />
       </div>

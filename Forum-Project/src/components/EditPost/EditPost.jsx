@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import { postUpdateHandler } from "../../services/posts.service";
 import { getPostById } from "../../services/posts.service";
 import { tagsUpdateHandler } from "../../services/tags.services";
+import { MIN_CONTENT_LENGTH, MAX_CONTENT_LENGTH } from "../../common/constants";
+import { useEffect } from "react";
+import { getPostContentHandler } from './../../services/posts.service';
 
 const EditPost = () => {
 
@@ -17,7 +20,12 @@ const EditPost = () => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
+  useEffect(() => {
+    getPostContentHandler(id)
+      .then((snapshot) => {
+        setContent(snapshot.val())
+      });
+  }, [id]);
   const postEditHandler = async (event) => {
     event.preventDefault();
 
@@ -27,14 +35,14 @@ const EditPost = () => {
     }
 
     if (content.length < 32 || content.length > 8192) {
-      alert("Content length should be between 4 and 98 characters");
+      alert(`Content length should be between ${MIN_CONTENT_LENGTH} and ${MAX_CONTENT_LENGTH}`);
       return;
     }
     const arrOfTags = tags.split(',').map(el => el.trim().toLowerCase())
-    
+
     getPostById(id)
       .then((result) => {
-        console.log(result.author)
+
         if (userData.username === result.author) {
 
           Promise.all([postUpdateHandler(id, content, tags), ...arrOfTags.map(tag => tagsUpdateHandler(tag, id))])

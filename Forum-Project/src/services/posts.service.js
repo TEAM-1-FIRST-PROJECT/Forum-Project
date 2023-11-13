@@ -83,7 +83,7 @@ export const getLikesPerPost = (postId) => {
   return get(query(ref(database, `posts/${postId}/likedBy`)))
     .then((snapshot) => {
       if (!snapshot.exists()) return 0;
-    
+
       return Object.keys(snapshot.val()).length;
     })
 };
@@ -161,9 +161,14 @@ export const getPostByTitle = (searchTerm) => {
 export const postUpdateHandler = (postId, content, tags) => {
   const pathContent = `posts/${postId}/content`;
   const pathTags = `posts/${postId}/tags`;
-  
+
   return update(ref(database), {
     [pathContent]: content,
     [pathTags]: tags
   });
 };
+
+export const getPostContentHandler = (postId) => {
+  return get(ref(database, `posts/${postId}/content`
+  ))
+}
