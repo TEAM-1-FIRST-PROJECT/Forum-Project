@@ -36,6 +36,7 @@ import Article1 from "./views/EditorsChoice/Article 1/Article1";
 import Article2 from "./views/EditorsChoice/Article 2/Article2";
 import Article3 from "./views/EditorsChoice/Article 3/Article3";
 import Article4 from "./views/EditorsChoice/Article 4/Article4";
+import Contact from "./views/Contact/Contact";
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -108,6 +109,7 @@ const App = () => {
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/About" element={<About />} />
+          <Route path="/Contact" element={<Contact />} />
           <Route path="/EditorsChoice" element={<EditorsChoice />} />
           <Route path="*" element={<Notfound />} />
           <Route path="/newPost" element={<NewPost></NewPost>} />
