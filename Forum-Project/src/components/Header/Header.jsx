@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 import { getPostByTitle } from "../../services/posts.service";
 import Navbar from "../Navbar/Navbar";
+
 function Header() {
   const { user, userData } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +65,8 @@ function Header() {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <header className="relative ">
-       <Navbar />
+        <Navbar />
+      
       </header>
 
       <div
@@ -83,7 +85,7 @@ function Header() {
                 ref={node}
                 type="text"
                 value={searchTerm}
-              onChange={handleSearchChange}
+             onChange={handleSearchChange}
                 className="w-[300px] p-2 rounded-l-2xl focus:outline-none focus:ring-0 "
                 placeholder="Search..."
               />
@@ -102,7 +104,7 @@ function Header() {
                         to={"/search"}
                         state={{ post }}
                         key={post.id}
-                        onClick={() => setSearchTerm(post.title)}
+                        onChange={() => setSearchTerm(post.title)}
                         className="block p-2 hover:bg-gray-200 cursor-pointer"
                       >
                         {post.title}
@@ -113,7 +115,7 @@ function Header() {
               <button
                 type="submit"
                 onClick={handleSearchSubmit}
-                className="p-2 bg-blue-500 text-white rounded-r-2xl hover:bg-emerald-600 hover:animate-pulse"
+                className="p-2 bg-blue-500 text-white rounded-r-2xl hover:bg-blue-600 hover:animate-pulse"
               >
                 Search
               </button>
