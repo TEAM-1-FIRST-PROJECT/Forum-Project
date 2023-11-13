@@ -100,7 +100,7 @@ const FilterButton = ({onFilter, onReset}) => {
     <div className="flex justify-end pr-10" ref={dropdownRef}>
       <button id="dropdownDefault"
         data-dropdown-toggle="dropdown"
-        className="relative flex items-center bg-white border border-black text-black font-medium focus:outline-none shadow rounded focus:ring ring-gray-300 group hover:bg-light-blue-100 hover:text-black"
+        className="relative flex items-center bg-white border border-white text-black font-medium focus:outline-none shadow rounded focus:ring ring-indigo-500/40 group hover:bg-light-blue-100 hover:text-black shadow-lg shadow-indigo-500/40"
         type="button"
         onClick={toggleDropdown}>
         <p className="px-4">Filter by category</p>
@@ -176,7 +176,7 @@ const FilterButton = ({onFilter, onReset}) => {
           </ul>
           <button
             onClick={handleReset}
-            className="text-blue-500 underline hover:text-blue-700"
+            className="text-indigo-500 underline hover:text-indigo-700"
           >
             Reset
           </button>
