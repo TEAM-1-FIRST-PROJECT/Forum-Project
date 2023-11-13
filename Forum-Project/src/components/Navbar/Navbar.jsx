@@ -172,7 +172,7 @@ const Navbar = () => {
                   to="/EditorsChoice"
                   className="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 >
-                  EditorsChoice
+                  Editors&apos; Choice
                 </Link>
               </li>
             )}

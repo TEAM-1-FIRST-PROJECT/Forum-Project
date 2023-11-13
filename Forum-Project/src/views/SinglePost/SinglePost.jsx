@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { deletePost, getPostById } from "../../services/posts.service";   //pending
-import { likePost, dislikePost, likesReverse } from "../../services/likePost.services.js";
+import { deletePost, likePost, dislikePost, getLikesPerPost } from "../../services/posts.service";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -20,16 +19,15 @@ import {
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [liked, setLiked] = useState({})
-  const [counter] = useState([]);           //pending
+  const [likesCount, setLikesCount] = useState(0);           
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
-
+  
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
   const postTags = post.tags
-const userLike = userData ? userData.likedPosts : null;
+  const userLike = userData ? userData.likedPosts : null;
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
@@ -47,51 +45,46 @@ const userLike = userData ? userData.likedPosts : null;
       .catch((e) => console.log(e.message))
   };
 
-
-  useEffect(() => {
-    getPostById(postId)
-      .then((snapshot) => {
-        setLiked(snapshot.likedBy);
-      })
-      .catch((error) => console.error(error));
-  }, [postId]);
-
-
   const toggleLikePostHandler = () => {
     if (userData.likedPosts) {
-     
+
       dislikePost(userName, postId)
         .then(() => {
-          toast("Post disliked !");
-          
+          getLikesPerPost(postId)
+          .then((result)=> {
+            setLikesCount(result)}); 
+
           userData.likedPosts = false;
         })
         .catch((error) => console.error(error));
     } else {
-     
+
       likePost(userName, postId)
         .then(() => {
-          toast("Post liked !");
-        
+          getLikesPerPost(postId)
+          .then((result)=> {
+            setLikesCount(result)});
+
           userData.likedPosts = true;
         })
         .catch((error) => console.error(error));
     }
   };
 
+useEffect(() => {
+
+    getLikesPerPost(postId)
+      .then((result)=> {
+        setLikesCount(result)});
+  }, [postId, likesCount]);
 
 
   useEffect(() => {
 
     getCommentCount(postId)
       .then(count => setCommentCount(count));
-
   }, [postId]);
-
   useEffect(() => {
-
-
-
   }, [postId]);
 
 
@@ -145,10 +138,10 @@ const userLike = userData ? userData.likedPosts : null;
       </div>
       <div className="flex items-center gap-x-4 text-xs mt-4">
         {user && <button
-          className={`rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 ${userLike ? 'text-blue-500' :  'text-gray-600'}`}
+          className={`rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 ${userLike ? 'text-blue-500' : 'text-gray-600'}`}
           onClick={toggleLikePostHandler}
         >
-          <FaRegThumbsUp /> {"98"}
+          <FaRegThumbsUp /> {likesCount}
         </button>
         }
 

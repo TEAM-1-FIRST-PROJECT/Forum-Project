@@ -79,48 +79,15 @@ export const getLikedPosts = (username) => {
       }));
     });
 };
-// export const getLikesPerPost = (postId) => {
-
-//   return get(ref(database, `posts`))
-//     .then(snapshot => {
-//       if (!snapshot.val()) {
-//         throw new Error(`User with handle @${postId} does not exist!`);
-//       }
-
-//       const likesObject = snapshot.val();
-
-//       if(Object.values(likesObject)){
-//       console.log(likesObject)
-//       return Object.values(likesObject.likedBy).reduce((acc, value) => {
-//         acc += value ? 1 : -1;
-//         return acc;
-//       }, );
-//     } else {
-//       return 0
-//     }
-
-//     });
-
-// };
-export const getLikesPerPost = (id) => {
-//console.log(id)
-  return get(ref(database, `posts/${id}/likedBy`))
-    .then(result => {
-      
-      if (!result.exists()) {
-        throw new Error(`Post with id ${id} does not exist!`);
-      }
-
-      const post = Object.values(result.val());
-      
-      if (!post) return 0;
-
-      return post.reduce((acc, value) => {
-        acc += value ? 1 : -1;
-        return 0;
-      },);
-    });
+export const getLikesPerPost = (postId) => {
+  return get(query(ref(database, `posts/${postId}/likedBy`)))
+    .then((snapshot) => {
+      if (!snapshot.exists()) return 0;
+    
+      return Object.keys(snapshot.val()).length;
+    })
 };
+
 export const getPostsByAuthor = (username) => {
 
   return get(query(ref(database, 'Posts'), orderByChild('author'), equalTo(username)))
