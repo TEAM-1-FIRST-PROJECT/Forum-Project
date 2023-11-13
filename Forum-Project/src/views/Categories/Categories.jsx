@@ -10,7 +10,6 @@ const Categories = () => {
             setShowDropdown(false);
         }
     };
-
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -19,35 +18,34 @@ const Categories = () => {
     });
 
     return (
-        <div className="relative inline-block text-left" ref={dropdownRef}>
-            <div>
-                <button
-                    type="button"
-                    className={`block mt-5 text-gray-800 hover:bg-indigo-500 hover:text-white`}
-                    id="menu-button"
-                    aria-expanded={showDropdown}
-                    aria-haspopup="true"
-                    onClick={() => setShowDropdown(!showDropdown)}
+        <div
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+        >
+            <button
+                type="button"
+                className={`block mt-5`}
+                id="menu-button"
+                aria-expanded={showDropdown}
+                aria-haspopup="true"
+            >
+                Categories
+                <svg
+                    className={`-mr-1 h-5 w-5 ${showDropdown ? 'text-gray-900' : 'text-gray-400'}`}
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
                 >
-                    Categories
-                    <svg
-                        className={`-mr-1 h-5 w-5 ${showDropdown ? 'text-gray-900' : 'text-gray-400'}`}
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
-                </button>
-            </div>
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                    />
+                </svg>
+            </button>
 
             {showDropdown && (
                 <div
-                    className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute z-10 mt-0 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"

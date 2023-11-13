@@ -3,31 +3,4 @@
     background-size: cover;
     background-position: center;
   }
-  
-  @media screen and (max-width: 768px) {
-    .bgImage {
-      background-image: url('../../assets/backgroundimg.jpg');
-      background-size: cover;
-      background-position: center;
-    }
 
-    
-  }
-
-  @media screen and (max-width: 480px) {
-    .bgImage {
-      background-image: url('../../assets/backgroundimg.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-    
-  }
-
-  @media screen and (max-width: 320px) {
-    .bgImage {
-      background-image: url('../../assets/backgroundimg.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-    
-  }
