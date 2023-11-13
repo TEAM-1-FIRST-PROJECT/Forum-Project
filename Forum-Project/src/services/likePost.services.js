@@ -33,7 +33,7 @@ export const likePost = (username, postId) => {
 export const dislikePost = (username, postId) => {
   const updateLikes = {};
   updateLikes[`/posts/${postId}/likedBy/${username}`] = false;
-  updateLikes[`/users/${username}/likedPosts/${postId}`] = true;
+  updateLikes[`/users/${username}/likedPosts/${postId}`] = false;
 
   return update(ref(database), updateLikes);
 };
