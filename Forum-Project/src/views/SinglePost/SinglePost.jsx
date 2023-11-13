@@ -21,7 +21,7 @@ const SinglePost = (props) => {
   const [likesCount, setLikesCount] = useState(0);           
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
-
+  
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
@@ -49,7 +49,9 @@ const SinglePost = (props) => {
 
       dislikePost(userName, postId)
         .then(() => {
-          toast("Post disliked !");
+          getLikesPerPost(postId)
+          .then((result)=> {
+            setLikesCount(result)}); 
 
           userData.likedPosts = false;
         })
@@ -58,7 +60,9 @@ const SinglePost = (props) => {
 
       likePost(userName, postId)
         .then(() => {
-          toast("Post liked !");
+          getLikesPerPost(postId)
+          .then((result)=> {
+            setLikesCount(result)});
 
           userData.likedPosts = true;
         })
