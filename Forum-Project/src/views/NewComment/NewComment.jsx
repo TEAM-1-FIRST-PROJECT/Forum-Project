@@ -21,6 +21,9 @@ const NewComment = () => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
 
   const commentSubmitHandler = async (event) => {
     event.preventDefault();
@@ -120,7 +123,9 @@ const NewComment = () => {
           </div>
         </div>
         <div className="mt-6 mb-40 flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold text-gray-900">
+          <button type="button" 
+          onClick={handleCancel}
+          className="text-sm font-semibold text-gray-900">
             Cancel
           </button>
           <button
