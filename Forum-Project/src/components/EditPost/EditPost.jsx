@@ -56,7 +56,7 @@ const EditPost = () => {
                 toast.error("Error editing tags:", tagsError);
               }
             });
-        } else { toast.error('Only author can delete the comment!') }
+        } else { toast.error('Only author can edit the comment!') }
       })
 
   }

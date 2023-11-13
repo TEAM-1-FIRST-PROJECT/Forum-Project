@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getAllPosts } from '../../../services/posts.service';
 import SortButton from '../../../components/SortButton/Sortbutton';
-import sortPostsByComments from '../../../components/SortButton/Sortbutton';
-import sortPosts from '../../../components/SortButton/Sortbutton';
 import SinglePost from '../../../views/SinglePost/SinglePost';
+import { getCommentCount } from '../../../services/comments.services';
 
 
 const Mac = () => {
@@ -27,6 +26,24 @@ const Mac = () => {
 
     fetchData();
   }, []);
+
+  const sortPosts = () => {
+    const sortedPostsByDate = [...macosPosts].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
+    setMacOSPosts(sortedPostsByDate);
+  };
+
+  const sortPostsByComments = () => {
+    Promise.all(
+      macosPosts.map((post) =>
+      getCommentCount(post.id).then((commentCount) => ({ ...post, commentCount }))
+      )
+    ).then((sortedPostsByComments) => {
+      const sortedPostsByCommentsOnly = [...sortedPostsByComments].sort(
+        (a, b) => b.commentCount - a.commentCount
+      );
+      setMacOSPosts(sortedPostsByCommentsOnly);
+    });
+  };
 
   return (
     <div className=" bgImage py-5 sm:py-10 rounded-3xl items-center flex justify-center">
