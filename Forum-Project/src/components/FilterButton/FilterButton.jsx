@@ -59,7 +59,7 @@ import PropTypes from "prop-types";
 // }
 
 
-const FilterButton = ({onFilter}) => {
+const FilterButton = ({onFilter, onReset}) => {
     const [isDropdownVisible, setDropdownVisibility] = useState(false);
     const dropdownRef = useRef(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -87,6 +87,11 @@ const FilterButton = ({onFilter}) => {
           : [...selectedCategories, category];
         setSelectedCategories(updatedCategories);
         onFilter(updatedCategories);
+      };
+    
+      const handleReset = () => {
+        setSelectedCategories([]);
+        onReset();
       };
 
   
@@ -169,6 +174,12 @@ const FilterButton = ({onFilter}) => {
               </label>
             </li>
           </ul>
+          <button
+            onClick={handleReset}
+            className="text-blue-500 underline hover:text-blue-700"
+          >
+            Reset
+          </button>
         </div>
       </button>
     </div>
@@ -177,6 +188,7 @@ const FilterButton = ({onFilter}) => {
 
 FilterButton.propTypes = {
     onFilter: PropTypes.func.isRequired,
+    onReset: PropTypes.func.isRequired,
   };
 export default FilterButton; 
 
