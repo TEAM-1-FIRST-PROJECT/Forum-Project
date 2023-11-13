@@ -63,7 +63,7 @@ const Navbar = () => {
                 <Link className="sr-only"></Link>
                 <img className="w-9 h-9 rounded-full" src={imageUrls} />
               </button>
-              {!isMenuOpen && (
+              {isMenuOpen && (
                 <div
                   className="absolute z-50 right-0 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                   id="user-dropdown"

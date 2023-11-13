@@ -6,6 +6,7 @@ import {
   deletePost,
 } from "../../services/admin.services";
 import { toast } from "react-toastify";
+import UserAndCommentsCounter from "../../components/UserAndCommentsCounter/UserAndCommentsCounter";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -54,9 +55,13 @@ const AdminDashboard = () => {
       setPosts(posts.filter((post) => post.id !== postId));
     });
   };
-
+///*bg-fixed bg-hero-pattern bg-contain
   return (
-    <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t bg-slate-100 border-gray-200 rounded-3xl p-10 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+    <div className='bg-fixed bg-hero-pattern bg-contain'>
+      
+      
+      <UserAndCommentsCounter/>
+    <div className=" mx-auto grid max-w-3xl grid-cols-1  gap-y-16  rounded-xl p-5  sm:mt-28  ">
       <form>
         <label
           htmlFor="default-search"
@@ -85,7 +90,7 @@ const AdminDashboard = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 hover:shadow-white shadow-xl opacity-90 focus:outline-none"
             placeholder="Search by username, email or first name"
             autoComplete="off"
             value={searchTerm}
@@ -101,13 +106,14 @@ const AdminDashboard = () => {
           </button>
         </div>
       </form>
-      <div className=" grid grid-cols-2 mt-5 gap-4">
+      <div className="flex flex-col items-start justify-between mx-auto p-5  border-gray-300">
         {filteredUsers.map((user) => (
-          <div
+          user.isAdmin !== true && (
+            <div
             key={user.uid}
-            className="border bg-yellow-100 border-green-600 rounded-3xl p-5 pt-"
+            className=" bg-gray-300 m-4 rounded-xl p-6 hover:shadow-zinc-100"
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 text-lg">
               <div>
                 <h2 className="text-2xl font-bold mb-5">User</h2>
                 <p>
@@ -132,12 +138,12 @@ const AdminDashboard = () => {
               </div>
               <div>
                 <h2 className="text-xl font-bold mb-2">Posts</h2>
-                <div className=" overflow-scroll h-10 pb-40">
+                <div className=" overflow-scroll h-10 pb-40 ">
                   {posts
                     .filter((post) => post.author === user.username)
                     .map((post) => (
                       <div key={post.id} className="">
-                        <p className=" sticky top-0 bg-indigo-400 mb-2 p-2">
+                        <p className=" sticky top-0 bg-indigo-400 rounded-lg text-white mb- p-1">
                           <strong>Title:</strong> {post.title}
                         </p>
                         <p>
@@ -153,14 +159,17 @@ const AdminDashboard = () => {
                           Delete
                         </button>
                       </div>
+                      
                     ))}
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+            )
         ))}
       </div>
-    </div>
+      </div>
+      </div>
   );
 };
 
