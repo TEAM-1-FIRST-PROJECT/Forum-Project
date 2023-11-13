@@ -31,6 +31,7 @@ import Spiner from "./assets/spiner.png";
 import EditComment from "./components/EditComment/EditComment";
 import Search from "./views/Search/Search";
 import EditPost from "./components/EditPost/EditPost";
+import ProfilePhoto from "./components/ProfilePhoto/ProfilePhoto";
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -122,6 +123,7 @@ const App = () => {
           <Route path="/allComments/:id" element={<Comments />} />
           <Route path="/editComment/:id" element={<EditComment />} />
           <Route path="/editPost/:id" element={<EditPost />} />
+          <Route path="/Photo" element={<ProfilePhoto />} />
         </Routes>
         <Footer />
         <ToastContainer

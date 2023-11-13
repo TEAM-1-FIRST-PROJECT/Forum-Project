@@ -5,16 +5,26 @@ import { getDownloadURL, uploadBytes } from 'firebase/storage';
 import { toast } from 'react-toastify';
 
 
-export const uploadToStorage = (photo) => {
-    const storageRef = ref(imageStorageDb, `profilePhotos/${v4()}`);
-    return uploadBytes(storageRef, photo)
-      .then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-        return getDownloadURL(snapshot.ref);
-      })
-      .catch((error) => {
-        console.error('Upload failed:', error);
-        throw error;
-      });
-};
+
   
+// export const uploadToStorage = (photo) => {
+//   if (photo === null) return;
+//   const imageRef = ref(imageStorageDb, `images/${photo.name + v4()}`);
+
+//   uploadBytes(imageRef, photo)
+//     .then(() => {
+//       console.log("Image uploaded");
+//     })
+//     .catch((e) => console.log(e));
+// };
+
+
+     //  useEffect(() => {
+        //   listAll(imagesListRef).then((response) => {
+        //     response.items.forEach((item) => {
+        //       getDownloadURL(item).then((url) => {
+        //         setImageUrls((prev) => [...prev, url]);
+        //       });
+        //     });
+        //   });
+        // }, []);

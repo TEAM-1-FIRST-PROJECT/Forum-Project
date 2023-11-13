@@ -1,15 +1,12 @@
-import SignUpImg from "../../assets/SignUp.jpeg";
+
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
-import { useNavigate } from "react-router";
 import { updateUserData } from "../../services/users.services";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
 import { toast } from "react-toastify";
-import { uploadToStorage } from "../../services/uploadToStorage.services";
-
+import ProfilePhoto from "../../components/ProfilePhoto/ProfilePhoto";
 
 const SettingsForm = () => {
-
   const [form, setForm] = useState({
     lastName: "",
     email: "",
@@ -18,7 +15,7 @@ const SettingsForm = () => {
 
   const { user, userData } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const updateForm = (field) => (e) => {
     setForm({
@@ -27,9 +24,7 @@ const SettingsForm = () => {
     });
   };
 
-  const handleUpdateUserData = (e) => {
-    e.preventDefault();
-
+  const handleUpdateUserData = () => {
     if (form.firstName) {
       if (
         form.firstName.length < MIN_NAME_LENGTH ||
@@ -60,81 +55,135 @@ const SettingsForm = () => {
     if (!form.firstName) form.firstName = userData.firstName;
     if (!form.lastName) form.lastName = userData.lastName;
 
-    updateUserData(userData.username, form.firstName, form.lastName, form.photo);
-      
-       uploadToStorage(form.photo)
-    
-      .then(() => {
-        toast.success("User data updated");
-        setTimeout(() => {
-          navigate("/home");
-        }, 2100);
-      })
-
-         .catch((e) => toast.error(e));
-    
-  
+    updateUserData(
+      userData.username,
+      form.firstName,
+      form.lastName,
+      form.photo
+    );
   };
+
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
-        <div className="hidden sm:block">
-          <img
-            className="w-full  object-cover max-w-3xl"
-            src={SignUpImg}
-            alt=""
-          />
-        </div>
-        <div className="bg-gray-500 flex flex-col justify-center">
-          <form className="max-w-[550px] w-full mx-auto bg-gray-600 p-8 px-8 rounded-lg">
-            <h2 className="text-4x1 dark:text-white font-bold text-center">
-              Account settings
+      <form className="p-20">
+        <div className="space-y-12">
+          <div className="border-b border-gray-900/10 pb-12">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              Profile
             </h2>
-            <div className="flex flex-col text-gray-400 py-2">
-              <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="text"
-                value={form.firstName}
-                onChange={updateForm("firstName")}
-                placeholder="change first name"
-              />
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              This information will be displayed publicly so be careful what you
+              share.
+            </p>
+          </div>
+<ProfilePhoto />
+          <div className="border-b border-gray-900/10 pb-12">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              Personal Information
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              Use a permanent address where you can receive mail.
+            </p>
+
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-3">
+                <label
+                  htmlFor="first-name"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  First name
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={updateForm("firstName")}
+                    type="text"
+                    name="first-name"
+                    id="first-name"
+                    autoComplete="given-name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-3">
+                <label
+                  htmlFor="last-name"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Last name
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    onChange={updateForm("lastName")}
+                    name="last-name"
+                    id="last-name"
+                    autoComplete="family-name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Email address
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    onChange={updateForm("email")}
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div className="sm:col-span-3">
+                <label
+                  htmlFor="country"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Country
+                </label>
+                <div className="mt-2">
+                  <select
+                    id="country"
+                    name="country"
+                    autoComplete="country-name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  >
+                    <option>United States</option>
+                    <option>Canada</option>
+                    <option>Mexico</option>
+                    <option>Bulgaria</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col text-gray-400 py-2">
-              <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="text"
-                value={form.lastName}
-                onChange={updateForm("lastName")}
-                placeholder="change last name"
-              />
-            </div>
-            <div className="flex flex-col text-gray-400 py-2">
-              <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="email"
-                value={form.email}
-                onChange={updateForm("email")}
-                placeholder="@mail"
-              />
-            </div>
-            <div className="flex flex-col text-gray-400 py-2">
-              <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="file"
-                accept=".jpg, .jpeg, .png"
-                onChange={(e) => updateForm('photo', e.target.files[0])}
-                placeholder="upload a profile photo"
-              />
-            </div>
-            <button
-              className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
-              onClick={handleUpdateUserData}
-            >
-              UPLOAD
-            </button>
-          </form>
+          </div>
         </div>
-      </div>
+
+        <div className="mt-6 flex items-center justify-end gap-x-6">
+          <button
+            type="button"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            onClick={handleUpdateUserData}
+            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Save
+          </button>
+        </div>
+      </form>
     </>
   );
 };

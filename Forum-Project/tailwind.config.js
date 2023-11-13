@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     screens: {
       'sm': '640px',
@@ -36,7 +37,9 @@ export default {
     },
   },
   variants: {},
-  plugins: [],
-  darkMode: 'class',
+  plugins: [
+    '@tailwindcss/forms',
+  ],
+  
 }
 

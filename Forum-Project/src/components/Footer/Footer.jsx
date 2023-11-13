@@ -5,9 +5,9 @@ const Footer = () => {
     <>
       <footer className="relative bottom-0 left-0 z-10 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-2 dark:bg-gray-800 dark:border-gray-600">
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-          © 2023{" "}
+        Copyright &copy; 2023 by {" "}
           <a href="http://localhost:5173/" className="hover:underline">
-            Dynamin Island™
+            Dynamic Island™
           </a>
           . All Rights Reserved.
         </span>
@@ -18,19 +18,19 @@ const Footer = () => {
             </Link>
           </li>
           <li>
-            <a href="#" className="mr-4 hover:underline md:mr-6">
+            <Link to="#" className="mr-4 hover:underline md:mr-6">
               Privacy Policy
-            </a>
+            </Link>
           </li>
           <li>=
-            <a href="#" className="mr-4 hover:underline md:mr-6">
+            <Link to="#" className="mr-4 hover:underline md:mr-6">
               Licensing
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="hover:underlin mr-10">
+            <Link to="#" className="hover:underlin mr-10">
               Contact
-            </a>
+            </Link>
           </li>
         </ul>
       </footer>
