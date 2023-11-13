@@ -55,14 +55,14 @@ const App = () => {
         }
         const username = Object.keys(snapshot.val())[0];
         // Delay setting the app state by 2 seconds
-        setTimeout(() => {
-         
+      
+        
 
           setAppState({
             ...appState,
             userData: snapshot.val()[username],
           });
-        }, 2000);
+        
       })
       .catch((e) => toast.error(e.message));
   }, [user]);

@@ -40,13 +40,16 @@ export const getUserData = (uid) => {
   return get(query(ref(database, "users"), orderByChild("uid"), equalTo(uid)));
 };
 
-export const updateUserData = (username, firstName, lastName) => {
+export const updateUserData = (username, firstName, lastName, email, imgURL) => {
   const pathFirstName = `users/${username}/firstName`;
   const pathLastName = `users/${username}/lastName`;
-  //const pathPhoto = `users/${username}/email`
+  const pathEmail = `users/${username}/email`;
+  const pathPhoto = `users/${username}/profilePhoto`
   return update(ref(database), {
     [pathFirstName]: firstName,
     [pathLastName]: lastName,
+    [pathEmail]: email,
+    [pathPhoto]: imgURL,
   });
 };
 

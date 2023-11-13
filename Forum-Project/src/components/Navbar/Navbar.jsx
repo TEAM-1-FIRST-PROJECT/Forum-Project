@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
-import { useState } from "react"; // Import useState hook
+import { useEffect, useState } from "react"; // Import useState hook
 import logo from "../../assets/apple.png";
 import Categories from "../../views/Categories/Categories";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { logoutUser } from "../../services/auth.services";
+import { getDownloadURL } from "firebase/storage";
+import { listImg } from "../../services/uploadToStorage.services";
 
 const Navbar = () => {
   const { setUser, user, userData } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for tracking menu visibility
   const [isOpen, setIsOpen] = useState(false); // State for tracking menu visibility
+  const [imageUrls, setImageUrls] = useState([]);
 
   const userName = userData?.firstName;
   const userEmail = userData?.email;
+
 
   const onLogout = () => {
     logoutUser().then(() => {
@@ -22,6 +26,22 @@ const Navbar = () => {
     });
   };
 
+  useEffect(() => {
+   listImg()
+     .then((response) => {
+       if (response.length === 0) { 
+        
+         return;
+       }
+     response.items.forEach((item) => {
+       getDownloadURL(item).then((url) => {
+         setImageUrls((prev) => [...prev, url]);
+       });
+     });
+   });
+ }, []);
+
+ 
   return (
     <nav className="bg-white text-white rounded-3xl">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -45,7 +65,11 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <Link className="sr-only"></Link>
-                <img className="w-8 h-8 rounded-full" src="" alt="user photo" />
+                <img
+                  className="w-8 h-8 rounded-full"
+                  src={imageUrls}
+                 
+                />
               </button>
               {isMenuOpen && (
                 <div
@@ -117,12 +141,25 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-    
+
         <div
-        className={`items-center justify-between hidden w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'} md:block`}
+          className={`items-center justify-between hidden w-full md:flex md:w-auto md:order-1 ${
+            isOpen ? "block" : "hidden"
+          } md:block`}
           id="navbar-user"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            {userData && userData.isAdmin === true && (
+              <li>
+                <Link
+                  to="/admin"
+                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                  aria-current="page"
+                >
+                  Admin Dashboard
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 to="/"
@@ -168,8 +205,7 @@ const Navbar = () => {
               </li>
             )}
           </ul>
-          </div>
-        
+        </div>
       </div>
     </nav>
   );

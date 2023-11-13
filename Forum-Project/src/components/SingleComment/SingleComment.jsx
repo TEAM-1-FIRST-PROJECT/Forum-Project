@@ -10,8 +10,9 @@ const SingleComment = ( props ) => {
   
   const { userData } = useContext(AuthContext);
   const comment = props.value;
-  const commentAuthor = comment.userName
+  const commentAuthor = comment.userName;
   const navigate = useNavigate();
+  console.log(userData);
   const permissionChecker = userData ? userData.username === commentAuthor : false;
   const deleteCommentHandler = () => {
     if (permissionChecker) {

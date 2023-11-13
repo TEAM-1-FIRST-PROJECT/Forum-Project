@@ -23,7 +23,7 @@ const SinglePost = (props) => {
   const postAuthor = post.author;
   const postTags = post.tags
 
-  const userName = userData ? userData.username : null;
+  const userName = userData?.username
 
   const deletePostHandler = () => {
     if (postAuthor === userName) {

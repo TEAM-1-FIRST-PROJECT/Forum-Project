@@ -1,20 +1,24 @@
-
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { updateUserData } from "../../services/users.services";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from "../../common/constants";
 import { toast } from "react-toastify";
-import ProfilePhoto from "../../components/ProfilePhoto/ProfilePhoto";
+import { useNavigate } from "react-router-dom";
+import { uploadToStorage } from "../../services/uploadToStorage.services";
+import { deleteObject, ref as sRef } from "firebase/storage";
+import { imageStorageDb } from "../../config/firebase-config";
 
 const SettingsForm = () => {
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [form, setForm] = useState({
+    firstName: "",
     lastName: "",
     email: "",
-    photo: "",
   });
 
-  const { user, userData } = useContext(AuthContext);
-
+  const { userData } = useContext(AuthContext);
+const navigate = useNavigate();
   // const navigate = useNavigate();
 
   const updateForm = (field) => (e) => {
@@ -24,7 +28,33 @@ const SettingsForm = () => {
     });
   };
 
-  const handleUpdateUserData = () => {
+
+  //UPLOAD PHOTO
+  const handleUpload = () => {
+    uploadToStorage(profilePhoto);
+  };
+
+  const handleFileChange = (e) => {
+    if (profilePhoto) {
+      const photoRef = sRef(imageStorageDb, `images/${profilePhoto.name}`);
+      deleteObject(photoRef)
+        .then(() => {
+          console.log("Previous image deleted");
+        })
+        .catch((error) => {
+          console.error("Error deleting image: ", error);
+        });
+    }
+    setProfilePhoto(e.target.files[0]);
+
+    // Create a preview URL of the image
+    const url = URL.createObjectURL(e.target.files[0]);
+    setPreviewUrl(url);
+  };
+
+  // UPDATE USER DATA
+  const handleUpdateUserData = (e) => {
+    e.preventDefault();
     if (form.firstName) {
       if (
         form.firstName.length < MIN_NAME_LENGTH ||
@@ -47,20 +77,27 @@ const SettingsForm = () => {
       toast.warning("Email is required");
       return;
     }
-    if (form.email !== user.email) {
-      toast.error("Wrong email");
-      return;
-    }
+    // if (form.email !== user.email) {
+    //   toast.error("Wrong email");
+    //   return;
+    // }
 
     if (!form.firstName) form.firstName = userData.firstName;
     if (!form.lastName) form.lastName = userData.lastName;
+    if (!form.email) form.email = userData.email;
 
     updateUserData(
       userData.username,
       form.firstName,
       form.lastName,
-      form.photo
-    );
+      form.email,
+      previewUrl
+    ).then(() => {
+      toast.success("Profile updated successfully")
+      navigate("/");
+    }).catch((err) => {
+toast.error(err.message)
+    });
   };
 
   return (
@@ -76,7 +113,37 @@ const SettingsForm = () => {
               share.
             </p>
           </div>
-<ProfilePhoto />
+          <div className="col-span-full">
+            <label
+              htmlFor="photo"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Photo
+            </label>
+            <div className="mt-2 flex items-center gap-x-3">
+              <label className="cursor-pointer">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <div className="h-20 w-20 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-500">
+                  {previewUrl ? (
+                    <img src={previewUrl } className="h-20 w-20 rounded-full" />
+                  ) : (
+                    "+"
+                  )}
+                </div>
+              </label>
+              <button
+                type="button"
+                onClick={handleUpload}
+                className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              >
+                Change
+              </button>
+            </div>
+          </div>
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Personal Information
