@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAllPosts } from '../../../services/posts.service';
 import SortButton from '../../../components/SortButton/Sortbutton';
-import sortPostsByComments from '../../../components/SortButton/Sortbutton';
-import sortPosts from '../../../components/SortButton/Sortbutton';
 import SinglePost from '../../../views/SinglePost/SinglePost';
 import { getCommentCount } from '../../../services/comments.services';
 
