@@ -23,7 +23,9 @@ const SinglePost = (props) => {
   const postAuthor = post.author;
   const postTags = post.tags
 
+
   const userName = userData ? userData.username : null;
+  const isAuthor = postAuthor === userName;
 
   const deletePostHandler = () => {
     if (postAuthor === userName) {
@@ -37,6 +39,8 @@ const SinglePost = (props) => {
       .then(() => console.log(`${postTags} removed successfully`))
       .catch((e) => console.log(e.message))
   };
+
+  
   ////----------------------
   useEffect(() => {
     getPostById(postId)
@@ -47,13 +51,14 @@ const SinglePost = (props) => {
   }, [postId]);
 
 
-  // console.log (userData, user)
+   console.log (userData, user)
   const likePostHandler = () => {
-   // console.log(userData.likedPosts, user)
+    console.log(userData.likedPosts, user)
 
     if (userData.likedPosts) {
+
       //console.log('-disli')
-      const disliked = Object.keys(disliked).filter(key => disliked[key] !== true);
+      const disliked = Object.keys(userData.likedPosts).filter(key => disliked[key] !== true);
       if (disliked.includes(userData.username)) {
         likesReverse(userName, postId)
           .then(() => {
@@ -132,7 +137,7 @@ const SinglePost = (props) => {
         {user && <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Post Details
         </Link>}
-        {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+        {isAuthor && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={deletePostHandler}>
           Delete Post
         </button>}
@@ -156,11 +161,11 @@ const SinglePost = (props) => {
 
         <div className="font-semibold text-gray-900">
           <div className="pl-3">
-          <img
-            src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            <img
+              src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 
-            className="h-10 w-10 rounded-full bg-gray-50"
-          />
+              className="h-10 w-10 rounded-full bg-gray-50"
+            />
           </div>
           <span className="absolute inset-0" />
 
