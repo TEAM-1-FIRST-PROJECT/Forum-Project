@@ -19,11 +19,11 @@ export default {
       }),
       keyframes: {
         colorchange: {
-          '0%': { backgroundColor: '#FFB6C1' },  // LightPink
-          '25%': { backgroundColor: '#ADD8E6' }, // LightBlue
-          '50%': { backgroundColor: '#90EE90' }, // LightGreen
-          '75%': { backgroundColor: '#D3D3D3' }, // LightGray
-          '100%': { backgroundColor: '#FFB6C1' }, // LightPink
+          '0%': { backgroundColor: '#000002' },  // LightPink
+          '25%': { backgroundColor: '#1A374D' }, // LightBlue
+          '50%': { backgroundColor: '#406882' }, // LightGreen
+          '75%': { backgroundColor: '#6998AB' }, // LightGray
+          '100%': { backgroundColor: '#B1D0E0' }, // LightPink
         },
         bounce: {
           '0%, 100%': { transform: 'translateY(-5%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
@@ -32,7 +32,7 @@ export default {
       },
       animation: {
         ping: 'ping 2s ease-in-out ',
-        colorchange: 'colorchange 4s ease-in-out infinite',
+        colorchange: 'colorchange 20s ease-in-out infinite',
        
         
 

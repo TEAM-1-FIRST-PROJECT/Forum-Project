@@ -28,7 +28,7 @@ const SinglePost = (props) => {
   const postId = post.id;
   const postAuthor = post.author;
   const postTags = post.tags
-
+const userLike = userData ? userData.likedPosts : null;
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
@@ -47,7 +47,6 @@ const SinglePost = (props) => {
   };
 
 
-  ////----------------------
   useEffect(() => {
     getPostById(postId)
       .then((snapshot) => {
@@ -57,59 +56,36 @@ const SinglePost = (props) => {
   }, [postId]);
 
 
-  console.log(userData, user)
-  const likePostHandler = () => {
-    console.log(userData.likedPosts, user)
-
+  const toggleLikePostHandler = () => {
     if (userData.likedPosts) {
-
-      //console.log('-disli')
-      const disliked = Object.keys(userData.likedPosts).filter(key => disliked[key] !== true);
-      if (disliked.includes(userData.username)) {
-        likesReverse(userName, postId)
-          .then(() => {
-            toast("Post disliked !")
-          })
-          .catch((error) => console.error(error))
-      }
-    } else {
-      //console.log("li")
-      likePost(userName, postId)
-        .then(() => {
-          toast("Post liked !")
-        })
-        .catch((error) => console.error(error))
-    }
-  }
-  const dislikePostHandler = () => {
-    //console.log(userData.likedPosts, 'd')
-    if (userData.likedPosts) {
-      //console.log('-li')
-      const liked = Object.keys(liked).filter(key => liked[key] !== true);
-      //console.log(liked, userData.username)
-      if (liked.includes(userData.username)) {
-        likesReverse(userName, postId)
-          .then(() => {
-            toast("Post disliked !")
-          })
-          .catch((error) => console.error(error))
-      }
-    } else {
-      //console.log("disli")
+     
       dislikePost(userName, postId)
         .then(() => {
-          toast("Post liked !")
+          toast("Post disliked !");
+          
+          userData.likedPosts = false;
         })
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error));
+    } else {
+     
+      likePost(userName, postId)
+        .then(() => {
+          toast("Post liked !");
+        
+          userData.likedPosts = true;
+        })
+        .catch((error) => console.error(error));
     }
-  }
-  //-----------------------------------------------
+  };
+
+
+
   useEffect(() => {
 
     getCommentCount(postId)
       .then(count => setCommentCount(count));
 
-  }, [postId]); // добавяме userName като зависимост
+  }, [postId]);
 
   useEffect(() => {
 
@@ -123,77 +99,6 @@ const SinglePost = (props) => {
   const minutes = myDate.getMinutes().toString().padStart(2, '0'); // Get minutes (0-59), convert to string, and pad with leading zero if necessary
   const formattedDate = `${hours}:${minutes} ${myDate.getDate()}/${myDate.getMonth() + 1}`;
 
-  // return (
-  //   <article className="flex max-w-xl flex-col items-start justify-between">
-  //     <div className="flex items-center gap-x-4 text-xs">
-  //       <time dateTime={formattedDate} className="text-gray-500">
-  //         {formattedDate}
-  //       </time>
-  //       {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-  //         onClick={likePostHandler}>
-  //         like{counter}
-  //       </button>}
-  //       {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-  //         onClick={dislikePostHandler}>
-  //         dislike
-  //       </button>}
-  //       {user && <Link to={user && `/editPost/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-  //         Edit post
-  //       </Link>}
-  //       {user && <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-  //         Post Details
-  //       </Link>}
-  //       {user && <button className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-  //         onClick={deletePostHandler}>
-  //         Delete Post
-  //       </button>}
-  //     </div>
-  //     <div className="group relative">
-  //       <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-  //         <a>
-  //           <span className="absolute inset-0" />
-  //           {post.title}
-  //         </a>
-  //       </h3>
-  //       <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-  //         {post.description}
-  //       </p>
-  //       <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-  //         {post.content}
-  //       </p>
-  //     </div>
-  //     <div className="relative mt-8 flex items-center gap-x-4 text-sm leading-6">
-
-
-  //       <div className="font-semibold text-gray-900">
-  //         <div className="pl-3">
-  //         <img
-  //           src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-
-  //           className="h-10 w-10 rounded-full bg-gray-50"
-  //         />
-  //         </div>
-  //         <span className="absolute inset-0" />
-
-  //         <div style={{ display: 'flex', alignItems: 'center' }}>
-  //           <p className='pl-3'>{post.author}</p>
-  //           <p style={{ marginLeft: '1rem' }}>{post.tags}</p>
-  //         </div>
-
-  //       </div>
-
-
-  //     </div>
-  //     <div style={{ display: 'flex', gap: '1rem' }}>
-  //       {user && <Link to={`/NewComment/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-  //         Reply
-  //       </Link>}
-  //       {user && <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-  //         See all comments ({commentCount})
-  //       </Link>}
-  //     </div>
-  //   </article>
-  // )
 
   return (
     <article
@@ -239,11 +144,12 @@ const SinglePost = (props) => {
       </div>
       <div className="flex items-center gap-x-4 text-xs mt-4">
         {user && <button
-          className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-          onClick={() => { }}
+          className={`rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 ${userLike ? 'text-blue-500' :  'text-gray-600'}`}
+          onClick={toggleLikePostHandler}
         >
           <FaRegThumbsUp /> {"98"}
-        </button>}
+        </button>
+        }
 
         {user && <Link
           to={`/NewComment/${postId}`}
