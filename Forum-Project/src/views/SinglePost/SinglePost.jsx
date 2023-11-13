@@ -1,26 +1,30 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { deletePost, dislikePost, getLikesPerPost, likePost } from "../../services/posts.service";   //pending
+import { deletePost, getPostById } from "../../services/posts.service";   //pending
+import { likePost, dislikePost, likesReverse } from "../../services/likePost.services.js";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { toast } from "react-toastify";
 import { getCommentCount } from "../../services/comments.services";
 import { useEffect, useState } from "react";
+import { removeTags } from "../../services/tags.services.js";
 
 const SinglePost = (props) => {
 
   const [commentCount, setCommentCount] = useState(0);
-  const [counter, setCounter] = useState([]);           //pending
+  const [liked, setLiked] = useState({})
+  const [counter] = useState([]);           //pending
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
 
   const post = props.value;
   const postId = post.id;
   const postAuthor = post.author;
+  const postTags = post.tags
 
   const userName = userData ? userData.username : null;
-  
+
   const deletePostHandler = () => {
     if (postAuthor === userName) {
       deletePost(postId).then(() => {
@@ -28,32 +32,80 @@ const SinglePost = (props) => {
         toast("You post deleted permanently!")
       }).catch((error) => console.error(error));
     } else { toast('Only author can delete the post!') }
+
+    removeTags(postTags, postId)
+      .then(() => console.log(`${postTags} removed successfully`))
+      .catch((e) => console.log(e.message))
   };
-
-  const likePostHandler = () => {
-    likePost(userName, postId)
-      .then(() => {
-        toast("Post liked !")
-      })
-      .catch((error) => console.error(error))
-  }
-
-  const dislikePostHandler = () => {
-    dislikePost(userName, postId)
-      .then(() => {
-        toast("Post disliked !")
-      })
-      .catch((error) => console.error(error))
-  }
-
-
+  ////----------------------
   useEffect(() => {
-  
+    getPostById(postId)
+      .then((snapshot) => {
+        setLiked(snapshot.likedBy);
+      })
+      .catch((error) => console.error(error));
+  }, [postId]);
+
+
+  // console.log (userData, user)
+  const likePostHandler = () => {
+   // console.log(userData.likedPosts, user)
+
+    if (userData.likedPosts) {
+      //console.log('-disli')
+      const disliked = Object.keys(disliked).filter(key => disliked[key] !== true);
+      if (disliked.includes(userData.username)) {
+        likesReverse(userName, postId)
+          .then(() => {
+            toast("Post disliked !")
+          })
+          .catch((error) => console.error(error))
+      }
+    } else {
+      //console.log("li")
+      likePost(userName, postId)
+        .then(() => {
+          toast("Post liked !")
+        })
+        .catch((error) => console.error(error))
+    }
+  }
+  const dislikePostHandler = () => {
+    //console.log(userData.likedPosts, 'd')
+    if (userData.likedPosts) {
+      //console.log('-li')
+      const liked = Object.keys(liked).filter(key => liked[key] !== true);
+      //console.log(liked, userData.username)
+      if (liked.includes(userData.username)) {
+        likesReverse(userName, postId)
+          .then(() => {
+            toast("Post disliked !")
+          })
+          .catch((error) => console.error(error))
+      }
+    } else {
+      //console.log("disli")
+      dislikePost(userName, postId)
+        .then(() => {
+          toast("Post liked !")
+        })
+        .catch((error) => console.error(error))
+    }
+  }
+  //-----------------------------------------------
+  useEffect(() => {
+
     getCommentCount(postId)
       .then(count => setCommentCount(count));
-  
+
   }, [postId]); // добавяме userName като зависимост
-  
+
+  useEffect(() => {
+
+
+
+  }, [postId]);
+
 
   const myDate = new Date(post.createdOn);
   const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
@@ -103,7 +155,15 @@ const SinglePost = (props) => {
 
 
         <div className="font-semibold text-gray-900">
+          <div className="pl-3">
+          <img
+            src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+
+            className="h-10 w-10 rounded-full bg-gray-50"
+          />
+          </div>
           <span className="absolute inset-0" />
+
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <p className='pl-3'>{post.author}</p>
             <p style={{ marginLeft: '1rem' }}>{post.tags}</p>
@@ -114,7 +174,7 @@ const SinglePost = (props) => {
 
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-      {user && <Link to={`/NewComment/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+        {user && <Link to={`/NewComment/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
           Reply
         </Link>}
         {user && <Link to={`/postDetails/${post.id}`} className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
@@ -129,38 +189,3 @@ SinglePost.propTypes = {
   value: PropTypes.object.isRequired,
 };
 export default SinglePost
-
-/* <img
-src={post.author.imageUrl}
-alt=""
-className="h-10 w-10 rounded-full bg-gray-50"
-/> */
-
-
-
-          // useEffect(() => {
-  //   getLikesPerPost(postId)
-  //     .then((counter) => {
-  //       setCounter(counter);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, [postId]);
-
-
-
-
-
-//dislikePostHandler
-         // getLikesPerPost(postId)
-        //   .then((counter) => {
-        //     setCounter(counter);
-//   })
-        
-
-
-//likePostHandler
-  // getLikesPerPost(postId)
-        //   .then((counter) => {
-        //     setCounter(counter);
-        //   })
-          //.catch((error) => console.error(error));

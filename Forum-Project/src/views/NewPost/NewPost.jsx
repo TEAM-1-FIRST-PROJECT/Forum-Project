@@ -19,6 +19,10 @@ const NewPost = () => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   const handlePostSubmit = async (event) => {
     event.preventDefault();
 
@@ -118,6 +122,7 @@ const NewPost = () => {
           <div className="flex items-center justify-between gap-4">
             <button
               type="button"
+              onClick={handleCancel}
               className="text-sm font-semibold text-gray-900"
             >
               Cancel

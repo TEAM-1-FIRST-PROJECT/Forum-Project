@@ -24,7 +24,7 @@ export const tagExistChecker = (tag) => {
 
 export const removeTags = (tag, postId) =>{
   const updateLikes = {};
-  updateLikes[`/tags/tag/${postId}/${tag}`] = null;
+  updateLikes[`/tags/tag/${tag}/${postId}`] = null;
 
   return update(ref(database), updateLikes);
 }

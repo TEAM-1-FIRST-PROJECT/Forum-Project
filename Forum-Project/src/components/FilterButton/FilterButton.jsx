@@ -125,15 +125,15 @@ const FilterButton = ({onFilter}) => {
                 id="apple"
                 type="checkbox"
                 value=""
-                checked={selectedCategories.includes('iPhone')}
-                onChange={() => handleCheckboxChange('iPhone')}
+                checked={selectedCategories.includes('iphone')}
+                onChange={() => handleCheckboxChange('iphone')}
                 className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
               />
               <label
                 htmlFor="apple"
                 className="ml-2 text-sm font-medium text-gray-900"
               >
-                iPhone (56)
+                iPhone
               </label>
             </li>
             <li className="flex items-center">
@@ -141,15 +141,15 @@ const FilterButton = ({onFilter}) => {
                 id="fitbit"
                 type="checkbox"
                 value=""
-                checked={selectedCategories.includes('MacOs')}
-                onChange={() => handleCheckboxChange('MacOs')}
+                checked={selectedCategories.includes('macos')}
+                onChange={() => handleCheckboxChange('macos')}
                 className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
               />
               <label
                 htmlFor="fitbit"
                 className="ml-2 text-sm font-medium text-gray-900"
               >
-                MacOs (56)
+                MacOs
               </label>
             </li>
             <li className="flex items-center">
@@ -157,15 +157,15 @@ const FilterButton = ({onFilter}) => {
                 id="dell"
                 type="checkbox"
                 value=""
-                checked={selectedCategories.includes('Apple Watch')}
-                onChange={() => handleCheckboxChange('Apple Watch')}
+                checked={selectedCategories.includes('applewatch')}
+                onChange={() => handleCheckboxChange('applewatch')}
                 className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
               />
               <label
                 htmlFor="dell"
                 className="ml-2 text-sm font-medium text-gray-900"
               >
-                Apple Watch (56)
+                Apple Watch
               </label>
             </li>
           </ul>
