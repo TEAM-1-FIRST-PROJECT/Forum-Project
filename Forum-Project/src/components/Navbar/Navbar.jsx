@@ -37,7 +37,7 @@ const Navbar = () => {
       });
     });
   }, [isOpen]);
-
+console.log(userData)
   return (
     <nav className=" bg-white h-20 rounded-2xl">
       <div className=" flex flex-wrap justify-between mx-auto p-1">
