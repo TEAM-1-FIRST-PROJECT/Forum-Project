@@ -31,7 +31,7 @@ const SinglePost = (props) => {
       }).catch((error) => console.error(error));
     } else { toast('Only author can delete the post!') }
   };
-
+////----------------------
       useEffect(() => {
         getPostById(postId)
         .then((snapshot) => {
@@ -39,18 +39,15 @@ const SinglePost = (props) => {
       })
       .catch((error) => console.error(error));
       }, [postId]);
-    
-  const likePostHandler = () => {
-    
-    
-    console.log (userData.likedPosts)
+   
 
-    if (userData.likedPosts.length) {
-      console.log(userData.likedPost)
-      
-      const disliked=Object.keys(liked).filter(key => liked[key] !== true);
+  console.log (userData, user)
+  const likePostHandler = () => {   
+    console.log (userData.likedPosts, user)
 
-      console.log(disliked)
+    if (userData.likedPosts) {
+      console.log('-disli') 
+      const disliked=Object.keys(disliked).filter(key => disliked[key] !== true);
       if (disliked.includes(userData.username)){
       likesReverse(userName, postId)
       .then(() => {
@@ -66,30 +63,30 @@ const SinglePost = (props) => {
       })
       .catch((error) => console.error(error))
     }
-
-    
   }
   const dislikePostHandler = () => {
+    console.log (userData.likedPosts, 'd')
     if (userData.likedPosts) {
-      const disliked= Object.keys(userData.likedPosts)//.filter(id => id === true);
-      console.log(disliked, 'x')
+      console.log('-li') 
+      const liked=Object.keys(liked).filter(key => liked[key] !== true);
+      console.log(liked, userData.username)
+         if (liked.includes(userData.username)){
       likesReverse(userName, postId)
       .then(() => {
         toast("Post disliked !")
       })
       .catch((error) => console.error(error))
+    }
     } else {
+    console.log("disli")
     dislikePost(userName, postId)
       .then(() => {
-        toast("Post disliked !")
+        toast("Post liked !")
       })
       .catch((error) => console.error(error))
-    
     }
-
-    
   }
- 
+ //-----------------------------------------------
   useEffect(() => {
   
     getCommentCount(postId)
@@ -152,7 +149,14 @@ const SinglePost = (props) => {
 
 
         <div className="font-semibold text-gray-900">
+         <img
+         src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      
+          alt=""
+          className="h-10 w-10 rounded-full bg-gray-50"
+/>
           <span className="absolute inset-0" />
+         
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <p className='pl-3'>{post.author}</p>
             <p style={{ marginLeft: '1rem' }}>{post.tags}</p>
@@ -178,38 +182,3 @@ SinglePost.propTypes = {
   value: PropTypes.object.isRequired,
 };
 export default SinglePost
-
-/* <img
-src={post.author.imageUrl}
-alt=""
-className="h-10 w-10 rounded-full bg-gray-50"
-/> */
-
-
-
-          // useEffect(() => {
-  //   getLikesPerPost(postId)
-  //     .then((counter) => {
-  //       setCounter(counter);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, [postId]);
-
-
-
-
-
-//dislikePostHandler
-         // getLikesPerPost(postId)
-        //   .then((counter) => {
-        //     setCounter(counter);
-//   })
-        
-
-
-//likePostHandler
-  // getLikesPerPost(postId)
-        //   .then((counter) => {
-        //     setCounter(counter);
-        //   })
-          //.catch((error) => console.error(error));
