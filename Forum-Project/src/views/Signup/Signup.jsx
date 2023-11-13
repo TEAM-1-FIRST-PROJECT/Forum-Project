@@ -125,73 +125,67 @@ const SignUp = () => {
             alt=""
           />
         </div>
-        <div className="bg-gray-500 flex flex-col justify-center">
-          <form className="max-w-[550px] w-full mx-auto bg-gray-600 p-8 px-8 rounded-lg">
-            <h2 className="text-4x1 text-white font-bold text-center">
+        <div className="bg-gray-300 flex flex-col justify-center">
+          <form className="max-w-[550px] w-full mx-auto shadow-xl hover:shadow-violet-400 bg-gray-400 p-8 px-8 rounded-lg">
+            <h2 className="text-4x1 text-3xl text-black font-bold text-center">
               SIGN UP
             </h2>
-            <div className="flex flex-col text-gray-400 py-2">
+            <div className="flex flex-col text-black py-2">
               <label>First Name</label>
               <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-lg  mt-2 p-2 focus-within:border-blue-500 focus:outline-none"
                 type="text"
                 value={form.firstName}
                 onChange={updateForm("firstName")}
               />
             </div>
-            <div className="flex flex-col text-gray-400 py-2">
+            <div className="flex flex-col text-black py-2">
               <label>Last Name</label>
               <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-lg  mt-2 p-2 focus-within:border-blue-500 focus:outline-none"
                 type="text"
                 value={form.lastName}
                 onChange={updateForm("lastName")}
               />
             </div>
-            <div className="flex flex-col text-gray-400 py-2">
+            <div className="flex flex-col text-black py-2">
               <label>Username</label>
               <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-lg mt-2 p-2 focus-within:border-blue-500 focus:outline-none"
                 type="text"
                 value={form.username}
                 onChange={updateForm("username")}
               />
             </div>
-            <div className="flex flex-col text-gray-400 py-2">
+            <div className="flex flex-col text-black py-2">
               <label>Email</label>
               <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-lg mt-2 p-2 focus-within:border-blue-500 focus:outline-none"
                 type="email"
                 value={form.email}
                 onChange={updateForm("email")}
               />
             </div>
-            <div className="flex flex-col text-gray-400 py-2">
+            <div className="flex flex-col text-black py-2">
               <label>Password</label>
               <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus-within:border-blue-500 focus:bg-gray-800 focus:outline-none"
+                className="rounded-lg bg-white mt-2 p-2 focus-within:border-blue-500 focus:outline-none"
                 type="password"
                 value={form.password}
                 onChange={updateForm("password")}
               />
             </div>
-            <div className="flex justify-between text-gray-400 py-2">
-              <p className="flex items-center">
-                <input className="mr-2" type="checkbox" /> Remember Me
-              </p>
-              <p>Forgot Password</p>
-            </div>
             <button
-              className="w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
+              className="w-full my-5 py-2 bg-teal-500 shadow-xl hover:shadow-teal-800 text-black font-semibold rounded-lg"
               onClick={handleSignUp}
               type="button"
             >
               SIGN UP
             </button>
-            <p className="text-gray-400 py-2 flex justify-center">
+            <p className="text-indigo-500 py-2 flex justify-center">
               Already have an account?{" "}
               <Link
-                className="ml-1 hover:animate-pulse mix-blend-color-dodge"
+                className="ml-1 hover:animate-pulse dark:text-white mix-blend-color-dodge"
                 to="/Login"
               >
                 Sign In
