@@ -117,7 +117,7 @@ useEffect(() => {
 
       <div className="pl-3">
         <img
-          src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src={userData.profilePhoto}
           className="h-10 w-10 rounded-full bg-gray-50"
         />
       </div>
