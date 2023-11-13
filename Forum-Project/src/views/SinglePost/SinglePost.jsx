@@ -29,7 +29,9 @@ const SinglePost = (props) => {
   const postAuthor = post.author;
   const postTags = post.tags
 
+
   const userName = userData ? userData.username : null;
+  const isAuthor = postAuthor === userName;
 
   const deletePostHandler = () => {
     if (postAuthor === userName) {
@@ -43,6 +45,8 @@ const SinglePost = (props) => {
       .then(() => console.log(`${postTags} removed successfully`))
       .catch((e) => console.log(e.message))
   };
+
+  
   ////----------------------
   useEffect(() => {
     getPostById(postId)
@@ -53,13 +57,14 @@ const SinglePost = (props) => {
   }, [postId]);
 
 
-  // console.log (userData, user)
+   console.log (userData, user)
   const likePostHandler = () => {
-    // console.log(userData.likedPosts, user)
+    console.log(userData.likedPosts, user)
 
     if (userData.likedPosts) {
+
       //console.log('-disli')
-      const disliked = Object.keys(disliked).filter(key => disliked[key] !== true);
+      const disliked = Object.keys(userData.likedPosts).filter(key => disliked[key] !== true);
       if (disliked.includes(userData.username)) {
         likesReverse(userName, postId)
           .then(() => {
