@@ -13,6 +13,7 @@ import {
   FaRegThumbsUp,
   FaRegCommentDots,
   FaInfoCircle,
+  FaReply,
 } from "react-icons/fa";
 
 const SinglePost = (props) => {
@@ -148,7 +149,7 @@ useEffect(() => {
           to={`/NewComment/${postId}`}
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
         >
-          <FaRegCommentDots /> Reply
+          <FaReply /> Reply
         </Link>}
         {user && <Link
           to={`/PostDetails/${postId}`}

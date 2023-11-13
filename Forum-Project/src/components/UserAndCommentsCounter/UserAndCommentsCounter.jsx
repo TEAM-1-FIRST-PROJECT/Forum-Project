@@ -27,13 +27,13 @@ const UserAndCommentsCounter = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center  space-x-4">
-        <div className="flex flex-col items-center bg-white shadow-xl shadow-indigo-300 p-4 rounded-md">
+      <div className="flex justify-center items-center  opacity-90 p-5 space-x-4">
+        <div className="flex flex-col items-center bg-transparent bg-white  shadow-2xl shadow-indigo-300 p-2 rounded-md">
           <p className="text-lg font-extrabold text-red-600">{usersLength}</p>
           <p className="font-sans font-bold text-lg">Registered Users</p>
         </div>
-        <div className=" border-l border-gray-300 h-20 "></div>
-        <div className="flex flex-col items-center bg-white shadow-xl shadow-indigo-300 p-4 rounded-md">
+        <div className=" "></div>
+        <div className="flex flex-col items-center bg-transparent bg-white shadow-2xl shadow-indigo-300 p-2 rounded-md">
           <span className="text-lg font-extrabold text-red-600">
             {postsLength}
           </span>

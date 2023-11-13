@@ -32,6 +32,11 @@ import EditComment from "./components/EditComment/EditComment";
 import Search from "./views/Search/Search";
 import EditPost from "./components/EditPost/EditPost";
 import ProfilePhoto from "./components/ProfilePhoto/ProfilePhoto";
+import Article1 from "./views/EditorsChoice/Article 1/Article1";
+import Article2 from "./views/EditorsChoice/Article 2/Article2";
+import Article3 from "./views/EditorsChoice/Article 3/Article3";
+import Article4 from "./views/EditorsChoice/Article 4/Article4";
+import Contact from "./views/Contact/Contact";
 
 const App = () => {
   const [user, loading] = useAuthState(auth);
@@ -104,6 +109,7 @@ const App = () => {
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/About" element={<About />} />
+          <Route path="/Contact" element={<Contact />} />
           <Route path="/EditorsChoice" element={<EditorsChoice />} />
           <Route path="*" element={<Notfound />} />
           <Route path="/newPost" element={<NewPost></NewPost>} />
@@ -124,6 +130,10 @@ const App = () => {
           <Route path="/editComment/:id" element={<EditComment />} />
           <Route path="/editPost/:id" element={<EditPost />} />
           <Route path="/Photo" element={<ProfilePhoto />} />
+          <Route path="/article1" element={<Article1 />} />
+          <Route path="/article2" element={<Article2 />} />
+           <Route path="/article3" element={<Article3 />} />
+          <Route path="/article4" element={<Article4 />} /> 
         </Routes>
         <Footer />
         <ToastContainer

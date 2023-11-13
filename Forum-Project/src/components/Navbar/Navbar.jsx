@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react"; // Import useState hook
+import { useEffect, useState } from "react"; 
 import logo from "../../assets/apple.png";
 import Categories from "../../views/Categories/Categories";
 import { useContext } from "react";
@@ -10,8 +10,8 @@ import { listImg } from "../../services/uploadToStorage.services";
 
 const Navbar = () => {
   const { setUser, user, userData } = useContext(AuthContext);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for tracking menu visibility
-  const [isOpen, setIsOpen] = useState(false); // State for tracking menu visibility
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false); 
   const [imageUrls, setImageUrls] = useState([]);
 
   const userName = userData?.firstName;
@@ -39,8 +39,8 @@ const Navbar = () => {
   }, [isOpen]);
 console.log(userData)
   return (
-    <nav className=" bg-white h-20 rounded-2xl">
-      <div className=" flex flex-wrap justify-between mx-auto p-1">
+    <nav className=" bg-white h-30 opacity-95">
+      <div className=" flex flex-wrap justify-between hover:shadow-2xl hover:shadow-indigo-400 p-5">
         <Link
           to="/"
           className="flex items-center space-x-3 "
@@ -52,7 +52,7 @@ console.log(userData)
         </Link>
         <div className="flex mr-5 items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           {user !== null && (
-            <div className="">
+            <div className="relative">
               <button
                 type="button"
                 className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -63,7 +63,7 @@ console.log(userData)
                 <Link className="sr-only"></Link>
                 <img className="w-9 h-9 rounded-full" src={imageUrls} />
               </button>
-              {isMenuOpen && (
+              {!isMenuOpen && (
                 <div
                   className="absolute z-50 right-0 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                   id="user-dropdown"
@@ -140,7 +140,7 @@ console.log(userData)
           } md:block`}
           id="navbar-user"
         >
-          <ul className="flex flex-col items-center  font-medium p-4 md:p-0 mt-4 border border-gray-100  bg-gray-50 md:space-x-10 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-col items-center bg-transparent  font-medium p-4 md:p-0 mt-4 md:space-x-10 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {userData && userData.isAdmin === true && (
               <li>
                 <Link
@@ -172,7 +172,7 @@ console.log(userData)
                   to="/EditorsChoice"
                   className="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 >
-                  EditorsChoice
+                  Editors&apos; Choice
                 </Link>
               </li>
             )}
