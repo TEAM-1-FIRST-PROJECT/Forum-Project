@@ -45,26 +45,28 @@ const Iphone = () => {
     });
   };
 
+
   return (
-    <div className=" bgImage py-5 sm:py-10 rounded-3xl items-center flex justify-center">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 items-center ">
-        <div className="mx-auto max-w-2xl lg:mx-0 items-center ">
-          <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-            iPhone posts
-          </h3>
-          <div className="flex flex-col space-y-4">
-            <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
-          </div>
-        </div>
-        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t bg-slate-100 border-gray-200 rounded-3xl p-10 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-1">
-          {iphonePosts.map((post) => (
-            <div key={post.id} >
-              <SinglePost value={post}></SinglePost>
-            </div>
-          ))}
-        </div>
+    <section className=" bg-white dark:bg-gray-900 bg-fixed bg-hero-pattern bg-contain">
+
+    <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+      <div className="mx-auto max-w-screen-sm text-center lg:mb-0 mb-8  box-decoration-slice bg-gradient-to-r from-indigo-600 to-black-500 text-white px-2 rounded-md">
+        <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-white">See all iPhone topics 👇</h2>
       </div>
-    </div >
+      <div className=" flex-row space-y-4 justify-end pb-10 z-10">
+          <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
+        </div>
+      <div className="grid gap-8 lg:grid-cols-2">
+
+        {iphonePosts.map((post) => (
+          <div key={post.id} >
+            <SinglePost value={post}></SinglePost>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </section>
   )
 }
 

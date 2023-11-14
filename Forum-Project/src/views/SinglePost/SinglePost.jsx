@@ -112,7 +112,7 @@ console.log(post)
 
   return (
  
-  <article className="flex flex-col min-h-full p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <article className="flex flex-col min-h-full p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-indigo-400">
   <div className="flex justify-between items-center mb-5 text-gray-400">
     <span className="bg-primary-100 text-black text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
     <div className="flex items-center space-x-4">
