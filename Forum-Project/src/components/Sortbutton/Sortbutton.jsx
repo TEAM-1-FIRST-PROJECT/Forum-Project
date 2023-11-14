@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 const SortButton = ({ onSort, onSortByComments }) => {
   return (
-      <div className="flex justify-end pr-10 z-10">
+      <div className="flex flex-row justify-end pr-10 z-10 ml-10">
            <button className="relative flex items-center bg-white border border-white text-black font-medium focus:outline-none shadow rounded focus:ring ring-indigo-500/40 group hover:bg-light-blue-100 hover:text-black shadow-lg shadow-indigo-500/40">
             <p className="px-4">Sort posts</p>
             <span className="border-l p-2 hover:bg-gray-100">

@@ -60,7 +60,7 @@ const RecentlyAddedPosts = () => {
           <p className="font-light text-white sm:text-xl dark:text-gray-400">
             Your Ultimate Apple Community.</p>
         </div>
-        <div className=" flex-row space-y-4 justify-end pb-10 z-10">
+        <div className=" flex flex-row space-y-4 justify-end pb-10 z-10 mt-10">
             <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
             <FilterButton onFilter={filterPostsByTag} onReset={resetPosts} />
           </div>
