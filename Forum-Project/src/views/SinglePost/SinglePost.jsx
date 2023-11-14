@@ -34,11 +34,11 @@ const SinglePost = (props) => {
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
-  const permissionChecker = userData.isModerator || isAuthor;
+  const permissionChecker = userData?.isModerator || isAuthor;
   useEffect(() => {
     getUserByHandle(post.author)
       .then((snapshot) => {
-        setImg(snapshot.val().profilePhoto)
+        setImg(snapshot.val()?.profilePhoto)
       });
   }, [post.author]);
 
@@ -91,7 +91,6 @@ const SinglePost = (props) => {
       });
   }, [postId, likesCount]);
 
-
   useEffect(() => {
 
     getCommentCount(postId)
@@ -99,7 +98,6 @@ const SinglePost = (props) => {
   }, [postId]);
   useEffect(() => {
   }, [postId]);
-
 
   const myDate = new Date(post.createdOn);
   const options = {
@@ -109,7 +107,7 @@ const SinglePost = (props) => {
     minute: "2-digit",
   };
   const formattedDate = myDate.toLocaleString("bg-BG", options);
-  
+
   return (
 
     <article className="flex flex-col min-h-full p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
