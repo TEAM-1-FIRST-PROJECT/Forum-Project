@@ -95,7 +95,7 @@ const Login = () => {
             <Link >Forgot Password</Link>
           </div>
           <button
-           className="w-full my-5 py-2 bg-teal-500 shadow-xl hover:shadow-teal-800 dark:text-white font-semibold rounded-lg"
+           className="w-full my-5 py-2 bg-violet-400 shadow-xl hover:shadow-violet-600 dark:text-white font-semibold rounded-lg"
             type="button"
             onClick={handleLogin}
           >
@@ -107,7 +107,7 @@ const Login = () => {
               className="ml-1 dark:text-white hover:animate-pulse mix-blend-color-dodge"
               to="/Signup"
             >
-              Sign Up
+              Sign up
             </Link>
           </p>
         </form>

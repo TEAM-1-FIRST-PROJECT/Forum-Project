@@ -70,13 +70,12 @@ const HomeView = () => {
         <UserAndCommentsCounter/>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-
-            </h2>
-            <p className="mt-10 text-2xl text-yellow-50 font-bold text-black-600 text-left leading-relaxed">
-              <span className="block text-yellow-50">Connect. Share. Explore. 💡</span>
+            <div className=" mt-5 mx-auto max-w-xl mb-10 lg:mx-0 box-decoration-slice bg-gradient-to-r from-indigo-600 to-black-500 text-white px-2 rounded-md">
+            <p className=" text-2xl text-yellow-50 font-bold text-black-600 text-left leading-relaxed">
+             Connect. Share. Explore. 💡<br />
               Your Ultimate Apple Community.
-            </p>
+        </p>
+          </div>
           </div>
           <div>
             <RecentlyAddedPosts></RecentlyAddedPosts>
