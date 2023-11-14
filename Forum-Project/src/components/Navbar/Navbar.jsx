@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react"; 
+import { useState } from "react"; 
 import logo from "../../assets/apple.png";
 import Categories from "../../views/Categories/Categories";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { logoutUser } from "../../services/auth.services";
-import { getDownloadURL } from "firebase/storage";
-import { listImg } from "../../services/uploadToStorage.services";
+// import { getDownloadURL } from "firebase/storage";
+// import { listImg } from "../../services/uploadToStorage.services";
 
 const Navbar = () => {
   const { setUser, user, userData } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [isOpen, setIsOpen] = useState(false); 
-  const [imageUrls, setImageUrls] = useState([]);
+  //const [imageUrls, setImageUrls] = useState([]);
 
   const userName = userData?.firstName;
   const userEmail = userData?.email;
@@ -25,18 +25,18 @@ const Navbar = () => {
     });
   };
 
-  useEffect(() => {
-    listImg().then((response) => {
-      if (response.length === 0) {
-        return;
-      }
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, [isOpen]);
+  // useEffect(() => {
+  //   listImg().then((response) => {
+  //     if (response.length === 0) {
+  //       return;
+  //     }
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageUrls((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, [isOpen]);
 
   return (
     <nav className=" bg-white h-30 opacity-95">
