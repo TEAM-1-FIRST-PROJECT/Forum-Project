@@ -203,7 +203,7 @@ const Navbar = () => {
                   to="/SignUp"
                   className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 >
-                  SignUp
+                  Sign up
                 </Link>
               </li>
             )}

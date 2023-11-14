@@ -20,6 +20,7 @@ const PostDetails = () => {
     }, [id]);
 
     return (
+        <div className=" bg-fixed bg-hero-pattern bg-contain">
         <div className="container mx-auto mt-5 p-5">
             {post ? (
                 <>
@@ -29,6 +30,7 @@ const PostDetails = () => {
             ) : (
                 <div className="text-red-500">Post not found</div>
             )}
+        </div>
         </div>
     );
 };
