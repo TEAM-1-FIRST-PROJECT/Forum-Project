@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import SortButton from "../SortButton/Sortbutton";
 import { getCommentCount } from "../../services/comments.services";
 import FilterButton from "../FilterButton/FilterButton";
+import PropTypes from "prop-types";
 
-const RecentlyAddedPosts = () => {
+
+const RecentlyAddedPosts = ({ numberOfPostsToShow }) => {
 
   const [recentlyAddedPosts, setRecentlyAddedPosts] = useState([]);
   const [originalPosts, setOriginalPosts] = useState([]);
@@ -61,12 +63,12 @@ const RecentlyAddedPosts = () => {
             Your Ultimate Apple Community.</p>
         </div>
         <div className=" flex flex-row space-y-4 justify-end pb-10 z-10 mt-10">
-            <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
-            <FilterButton onFilter={filterPostsByTag} onReset={resetPosts} />
-          </div>
+          <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
+          <FilterButton onFilter={filterPostsByTag} onReset={resetPosts} />
+        </div>
         <div className="grid gap-8 lg:grid-cols-2">
 
-          {recentlyAddedPosts.map((post) => (
+          {recentlyAddedPosts.slice(0, numberOfPostsToShow).map((post) => (
             <div key={post.id} >
               <SinglePost value={post}></SinglePost>
             </div>
@@ -78,4 +80,7 @@ const RecentlyAddedPosts = () => {
   )
 }
 
+RecentlyAddedPosts.propTypes = {
+  numberOfPostsToShow: PropTypes.number,
+};
 export default RecentlyAddedPosts;
