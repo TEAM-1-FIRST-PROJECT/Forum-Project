@@ -83,62 +83,60 @@ const NewComment = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold text-gray-900">New Comment</h2>
-      <form onSubmit={commentSubmitHandler}>
-        <div className="mt-6 space-y-6">
-          <div>
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="Title"
-            />
+    <div className=" animate-colorchange flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 m-4 bg-white rounded-2xl shadow-2xl shadow-indigo-400 ">
+        <h2 className="text-2xl font-semibold text-center text-gray-900">
+          Add comment
+        </h2>
+        <form onSubmit={commentSubmitHandler} className="mt-4 space-y-6">
+          <div className="space-y-4">
+            {[
+              { label: "Title", state: title, setState: setTitle },  
+              {
+                label: "Content",
+                state: content,
+                setState: setContent,
+              },
+            ].map((field, index) => (
+              <div key={index}>
+                <label
+                  htmlFor={field.label}
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {field.label}
+                </label>
+                <textarea
+                  id={field.label}
+                  name={field.label}
+                  value={field.state}
+                  onChange={(e) => field.setState(e.target.value)}
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-lg shadow-indigo-200 resize-x focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  placeholder={field.label}
+                />
+              </div>
+            ))}
           </div>
-          <div>
-            <label
-              htmlFor="content"
-              className="block text-sm font-medium leading-6 text-gray-900"
+          <div className="flex items-center justify-between gap-4">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="text-sm font-semibold text-gray-900"
             >
-              Add comment
-            </label>
-            <textarea
-              rows="4"
-              id="content"
-              name="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="What's on your mind?"
-            />
+              Cancel
+            </button>
+            <button
+              type="submit"
+              onClick={commentSubmitHandler}
+              className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            >
+               SUBMIT
+            </button>
           </div>
-        </div>
-        <div className="mt-6 mb-40 flex items-center justify-end gap-x-6">
-          <button type="button" 
-          onClick={handleCancel}
-          className="text-sm font-semibold text-gray-900">
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
-          >
-            Submit
-          </button>
-        </div>
-        {isPostSubmitted && (
-          <p className="text-green-500 mt-2">Comment successfully submitted!</p>
-        )}
-      </form>
+          {isPostSubmitted && (
+            <p className="mt-2 text-green-500">Post successfully submitted!</p>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
