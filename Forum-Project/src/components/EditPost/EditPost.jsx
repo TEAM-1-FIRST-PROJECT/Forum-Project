@@ -20,12 +20,17 @@ const EditPost = () => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     getPostContentHandler(id)
       .then((snapshot) => {
         setContent(snapshot.val())
       });
   }, [id]);
+
   const postEditHandler = async (event) => {
     event.preventDefault();
 
@@ -69,65 +74,65 @@ const EditPost = () => {
 
   }
 
-  return (
-    <div className=" items-center text-center max-w-lg">
-      <h2 className="text-2xl font-semibold text-gray-900">Edit Post</h2>
-      <form onSubmit={postEditHandler}>
-        <div className="mt-10 mb-40 space-y-10 ">
-          <div>
-            <label
-              htmlFor="content"
-              className="block text-sm font-medium leading-6 text-gray-900"
+  return (<>
+    <div className=" animate-colorchange flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 m-4 bg-white rounded-2xl shadow-2xl shadow-indigo-400 ">
+        <h2 className="text-2xl font-semibold text-center text-gray-900">
+          Edit Post
+        </h2>
+        <form onSubmit={postEditHandler} className="mt-4 space-y-6">
+          <div className="space-y-4">
+            {[
+              { label: "content", state: content, setState: setContent },
+
+              {
+                label: "tags",
+                state: tags,
+                setState: setTags,
+              },
+            ].map((field, index) => (
+              <div key={index}>
+                <label
+                  htmlFor={field.label}
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {field.label}
+                </label>
+                <textarea
+                  id={field.label}
+                  name={field.label}
+                  value={field.state}
+                  onChange={(e) => field.setState(e.target.value)}
+                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-lg shadow-indigo-200 resize-x focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  placeholder={field.label}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between gap-4">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="text-sm font-semibold text-gray-900"
             >
-              Edit post content
-            </label>
-            <textarea
-              rows="4"
-              id="content"
-              name="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="What's on your mind?"
-            />
+              Cancel
+            </button>
+            <button
+              type="submit"
+              onClick={postEditHandler}
+              className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            >
+              SUBMIT
+            </button>
           </div>
-          <div>
-            <label
-              htmlFor='tags'
-              className="block text-sm font-medium leading-6 text-gray-900">
-              Add some tags
-            </label>
-            <input
-              type="text"
-              id='tags'
-              name='tags'
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              className="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
-              placeholder="Add some tags"
-            />
-          </div>
-        </div>
-        <div className="mb-40  flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold text-gray-900"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
-          >
-            SUBMIT
-          </button>
-        </div>
-        {isPostSubmitted && (
-          <p className="text-green-500 mt-2">Post successfully edited!</p>
-        )}
-      </form>
+          {isPostSubmitted && (
+            <p className="mt-2 text-green-500">Post successfully submitted!</p>
+          )}
+        </form>
+      </div>
     </div>
+  </>
   );
-
-
 }
 
 
