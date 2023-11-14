@@ -61,7 +61,7 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <Link className="sr-only"></Link>
-                <img className="w-9 h-9 rounded-full" src={imageUrls} />
+                <img className="w-9 h-9 rounded-full" src={userData?.profilePhoto} alt={logo}/>
               </button>
               {isMenuOpen && (
                 <div
