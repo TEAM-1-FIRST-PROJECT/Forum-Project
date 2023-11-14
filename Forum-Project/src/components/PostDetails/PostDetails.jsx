@@ -18,20 +18,20 @@ const PostDetails = () => {
                 setPost(null);
             });
     }, [id]);
-
+    
     return (
-        <div className=" bg-fixed bg-hero-pattern bg-contain">
+        <div className="bg-fixed bg-hero-pattern bg-contain">
         <div className="container mx-auto mt-5 p-5">
-            {post ? (
-                <>
-                    <SinglePost value={post} />
-                    <Comments value={id}></Comments>
-                </>
-            ) : (
-                <div className="text-red-500">Post not found</div>
-            )}
+          {post ? (
+            <>
+              <SinglePost value={post} />
+              <Comments value={id}></Comments>
+            </>
+          ) : (
+            <div className="text-red-500">Post not found</div>
+          )}
         </div>
-        </div>
+      </div>
     );
 };
 
