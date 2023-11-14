@@ -40,7 +40,6 @@ export const adminSearchUser = (searchTerm) => {
   });
 };
 
-// function for blocking user
 export const blockUser = (username, blockStatus,) => {
   return update(ref(database, `users/${username}`), {
     isBlocked: blockStatus,
@@ -48,7 +47,7 @@ export const blockUser = (username, blockStatus,) => {
   });
 };
 
-// function for deleting user post
+
 export const deletePost = (postId) => {
   return remove(ref(database, `posts/${postId}`));
 };

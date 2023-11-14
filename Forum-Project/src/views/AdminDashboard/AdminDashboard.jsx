@@ -14,6 +14,8 @@ const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [blockedUsers, setBlockedUsers] = useState({});
+  const [moderators, setModerators] = useState({});
 
 
   useEffect(() => {
@@ -43,6 +45,12 @@ const AdminDashboard = () => {
   };
 
   const handleBlockUser = (username, blockStatus) => {
+
+    setBlockedUsers({
+      ...blockedUsers,
+      [username]: blockStatus,
+    });
+
     blockUser(username, blockStatus).then(() => {
       setUsers(
         users.map((user) =>
@@ -55,6 +63,12 @@ const AdminDashboard = () => {
   };
 
   const handleMakeModerator = (username, moderatorStatus) => {
+
+setModerators({
+      ...moderators,
+      [username]: moderatorStatus,
+    });
+
     makeModerator(username, moderatorStatus).then(() => {
       setUsers(
         users.map((user) =>
@@ -65,6 +79,7 @@ const AdminDashboard = () => {
       );
     });
   };
+
 
   const handleDeletePost = (postId) => {
     deletePost(postId).then(() => {
@@ -111,7 +126,7 @@ const AdminDashboard = () => {
               autoComplete="off"
               value={searchTerm}
               onChange={handleSearchChange}
-              onClick={handleSearchSubmit}
+          
               required
             />
            
@@ -137,33 +152,33 @@ const AdminDashboard = () => {
                       <strong>Email:</strong> {user.email}
                     </p>
                     <button
-                      className={`mt-2 m-20 px-4 py-2 hover:shadow-xl hover:shadow-violet-300 ${user.isBlocked ? ("bg-green-500") : ("bg-red-500")
-                        } text-white rounded`}
+                      className={`mt-2 20 px-4 py-2 hover:shadow-xl hover:shadow-violet-300 ${blockedUsers[user.username] ? ("bg-green-500") : ("bg-red-500")
+                        } text-white rounded active:bg-green-400`}
                       onClick={() =>
-                        handleBlockUser(user.username, !user.isBlocked)
+                        handleBlockUser(user.username, !blockedUsers[user.username])
                       }
                     >
-                      {user.isBlocked && ("Unblock") || ("Block") }
+                      {blockedUsers[user.username] ? "Unblock" : "Block"}
                     </button>
                     <button
-                      className={`mt-2 m-20 px-4 ml-2 py-2 hover:shadow-xl hover:shadow-violet-300  ${user.isModerator ?  ("bg-red-500") : ("bg-green-500")
-                        } text-white rounded`}
+                      className={`mt-2 m-20 px-4 ml-2 py-2 rounded text-white ${moderators[user.username] ? ("bg-red-500") : ("bg-green-500")
+                        } hover:shadow-xl hover:shadow-violet-300 active:bg-green-400`}
                       onClick={() =>
-                        handleMakeModerator(user.username, !user.isModerator)
+                        handleMakeModerator(user.username, !moderators[user.username])
                       }
                     >
-                      {user.isModerator && ("Remove Moderator") || ("Add Moderator") }
+                      {moderators[user.username] ? "Remove Moderator" : "Add Moderator"}
                     </button>
                   </div>
-                  {!posts && (
+                  {posts && (
                   <div>
                     <h2 className="text-xl font-bold mb-2">Posts</h2>
-                    <div className=" overflow-scroll h-10 pb-40 ">
+                    <div className=" overflow-scroll h-10 pb-80 ">
                       {posts
                         .filter((post) => post.author === user.username)
                         .map((post) => (
                           <div key={post.id} className="">
-                            <p className=" sticky top-0 bg-indigo-400 rounded-lg text-white mb- p-1">
+                            <p className=" sticky top-0 bg-indigo-400 rbg-primary-100 text-black text-center inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                               <strong>Title:</strong> {post.title}
                             </p>
                             <p>
