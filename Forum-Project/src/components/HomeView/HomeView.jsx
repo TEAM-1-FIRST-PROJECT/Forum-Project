@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { getAllPosts } from "../../services/posts.service";
 import './homeview.css';
 import UserAndCommentsCounter from "../UserAndCommentsCounter/UserAndCommentsCounter";
-
+import img from '../../assets/backgroundimg.jpg';
 const HomeView = () => {
   const [recentlyAddedPosts, setRecentlyAddedPosts] = useState(false);
 
@@ -61,9 +61,12 @@ const HomeView = () => {
 
   // export default HomeView;
 
+
+
+  //bg-hero-pattern bg-contain
   return (
     <>
-      <div className="bg-hero-pattern bg-contain" >
+       <div className=" bg-fixed bg-hero-pattern bg-contain"  > 
         <UserAndCommentsCounter/>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">

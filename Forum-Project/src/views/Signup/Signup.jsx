@@ -160,7 +160,11 @@ const SignUp = () => {
             <div className="flex flex-col text-black py-2">
               <label>Email</label>
               <input
-                className="rounded-lg mt-2 p-2 focus-within:border-blue-500 focus:outline-none"
+                className="rounded-lg mt-2 p-2 placeholder-slate-400
+      focus:outline-none 
+      disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+      invalid:border-pink-500 invalid:text-pink-600
+      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                 type="email"
                 value={form.email}
                 onChange={updateForm("email")}

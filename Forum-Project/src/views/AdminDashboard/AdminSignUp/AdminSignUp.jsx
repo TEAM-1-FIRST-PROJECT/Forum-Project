@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH, PASSWORD_CHECK, PHONE_NUMBER_CHECK } from "../../../common/constants";
 
+
 function UserRegistrationComponent() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,7 +17,7 @@ function UserRegistrationComponent() {
   const navigate = useNavigate();
 
   const handleRegistration = () => {
-   
+
     if (!firstName) {
       toast.warning("First Name is required");
       return;
@@ -36,7 +37,7 @@ function UserRegistrationComponent() {
       toast.warning(`Last Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
       return;
     }
-    
+
     if (!email) {
       toast.warning("Email is required");
       return;
@@ -51,7 +52,7 @@ function UserRegistrationComponent() {
       toast.warning("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character and to be at least 8 characters long");
       return;
     }
-    
+
     registerUser(email, password)
       .then((userCredential) => {
         const newUser = userCredential.user;
@@ -73,8 +74,9 @@ function UserRegistrationComponent() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white border rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">
+    <div className=" bg-zinc-900 p-1">
+    <div className="bg-fixed bg-hero-pattern bg-contain max-w-md mx-auto m-8 p-6 bg-gray-300 border rounded-lg  shadow-xl hover:shadow-2xl hover:shadow-violet-300">
+      <h2 className="text-xl text-white font-semibold mb-4">
         Create Administrator Account
       </h2>
       <input
@@ -82,43 +84,43 @@ function UserRegistrationComponent() {
         placeholder="First Name"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-2 mb-4 border focus:outline-none rounded shadow-md hover:shadow-green-200"
       />
       <input
         type="text"
         placeholder="Last Name"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-2 mb-4 border  focus:outline-none rounded shadow-md hover:shadow-green-200 "
       />
+      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full p-2 mb-4 border rounded bg-white placeholder-slate-400 shadow-md hover:shadow-green-200
+      focus:outline-none 
+      disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+      invalid:border-pink-500 invalid:text-pink-600
+      focus:invalid:border-pink-500 focus:invalid:ring-pink-500 hover:invalid:shadow-red-600
+    "/>
       <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="block w-full p-2 mb-4 border rounded"
-      />
-      <input
-        type="text"
+        type="number"
         placeholder="Phone"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-2 mb-4 border  focus:outline-none rounded shadow-md hover:shadow-green-200"
       />
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-2 mb-4 border  focus:outline-none rounded shadow-md hover:shadow-green-200"
       />
       <button
         onClick={handleRegistration}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="transition delay-150 duration-300 ease-in-out  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Register
       </button>
-    </div>
+      </div>
+      </div>
   );
 }
 

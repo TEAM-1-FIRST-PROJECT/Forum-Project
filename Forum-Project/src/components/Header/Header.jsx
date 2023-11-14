@@ -58,7 +58,8 @@ function Header() {
   }, []);
 
   return (
-    <div className="relative h-[400px] rounded-xl lg:h-[500px]">
+  
+    <div className="bg-fixed bg-hero-pattern bg-contain relative h-[400px] rounded-xl lg:h-[500px]">
       <img
         src={BgImg}
         alt=""

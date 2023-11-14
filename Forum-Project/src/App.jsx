@@ -59,10 +59,7 @@ const App = () => {
           toast.error("Something went wrong!");
         }
         const username = Object.keys(snapshot.val())[0];
-        // Delay setting the app state by 2 seconds
-      
-        
-
+    
           setAppState({
             ...appState,
             userData: snapshot.val()[username],
@@ -80,24 +77,6 @@ const App = () => {
     );
   }
 
-
-  // useEffect(() => {
-  //   if (user === null) {
-  //     return;
-  //   }
-
-  //   getUserData(user.uid).then((snapshot) => {
-  //     if (!snapshot.exists()) {
-  //       throw new Error("User data not found");
-  //     }
-  //     const username = Object.keys(snapshot.val())[0];
-
-  //     setAppState({
-  //       ...appState,
-  //       userData: snapshot.val()[username],
-  //     });
-  //   });
-  // });
   return (
     <div>
       <AuthContext.Provider value={{ ...appState, setUser: setAppState }}>
@@ -119,9 +98,11 @@ const App = () => {
           <Route path="/Watch" element={<Watch />} />
           <Route path="/ViewAll" element={<ViewAll />} />
           <Route path="/settings" element={<SettingsForm />} />
-          <Route path="/adminsignup" element={<AdminSignUp />} />
           {appState.userData && appState.userData.isAdmin === true && (
+            <>
             <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/adminsignup" element={<AdminSignUp />} />
+            </>
           )}
           <Route path="/postDetails/:id" element={<PostDetails />} />
           <Route path="/editPost/:id" element={<EditPost />} />
