@@ -124,7 +124,7 @@ const FilterButton = ({onFilter, onReset}) => {
           <h6 className="mb-3 text-sm font-medium text-gray-900">
             Category
           </h6>
-          <ul className="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+          <ul className="pl-4 space-y-2 text-sm" aria-labelledby="dropdownDefault">
             <li className="flex items-center">
               <input
                 id="apple"
@@ -176,7 +176,7 @@ const FilterButton = ({onFilter, onReset}) => {
           </ul>
           <button
             onClick={handleReset}
-            className="text-indigo-500 underline hover:text-indigo-700"
+            className=" pt-3 text-indigo-500 underline hover:text-indigo-700"
           >
             Reset
           </button>

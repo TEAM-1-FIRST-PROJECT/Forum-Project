@@ -52,17 +52,6 @@ const RecentlyAddedPosts = () => {
     setRecentlyAddedPosts(originalPosts);
   };
   return (
-    // <div className=" py-5 sm:py-10 rounded-3xl items-center flex justify-center">
-
-    // <div className="mx-auto max-w-7xl px-6 lg:px-8 items-center ">
-    //   <div className="mx-auto w-full lg:mx-0 items-center ">
-    //     <div className="flex flex-col space-y-4">
-    //       <SortButton onSort={sortPosts} onSortByComments={sortPostsByComments} />
-    //       <FilterButton onFilter={filterPostsByTag} onReset={resetPosts} />
-    //     </div>
-    //   </div>
-
-
     <section className=" bg-white dark:bg-gray-900 bg-fixed bg-hero-pattern bg-contain">
 
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
