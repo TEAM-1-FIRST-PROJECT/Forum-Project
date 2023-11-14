@@ -45,7 +45,7 @@ const App = () => {
     userData: false,
   });
 
-  if (appState.user !== user) {
+  if (appState?.user !== user) {
     setAppState({ user });
   }
 
@@ -67,7 +67,7 @@ const App = () => {
         
       })
       .catch((e) => toast.error(e.message));
-  }, [user]);
+  }, [user, appState]);
 
   if (loading) {
     return (
@@ -119,7 +119,7 @@ const App = () => {
         <Footer />
         <ToastContainer
           position={"top-right"}
-          autoClose={1300}
+          autoClose={1000}
           pauseOnHover={true}
         />
       </AuthContext.Provider>

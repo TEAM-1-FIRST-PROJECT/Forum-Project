@@ -25,6 +25,8 @@ const SinglePost = (props) => {
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
 
+  const [likedPosts, setLikedPosts] = useState(userData ? userData.likedPosts : false);
+
   const post = props.value;
   const postId = post.id;
 
@@ -34,7 +36,7 @@ const SinglePost = (props) => {
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
-  const permissionChecker = userData.isModerator || isAuthor;
+  const permissionChecker = userData?.isModerator || isAuthor;
   useEffect(() => {
     getUserByHandle(post.author)
       .then((snapshot) => {
@@ -56,28 +58,26 @@ const SinglePost = (props) => {
   };
 
   const toggleLikePostHandler = () => {
-    if (userData.likedPosts) {
-
+    if (likedPosts) {
       dislikePost(userName, postId)
         .then(() => {
           getLikesPerPost(postId)
             .then((result) => {
               setLikesCount(result)
             });
-
-          userData.likedPosts = false;
+  
+          setLikedPosts(false);
         })
         .catch((error) => console.error(error));
     } else {
-
       likePost(userName, postId)
         .then(() => {
           getLikesPerPost(postId)
             .then((result) => {
               setLikesCount(result)
             });
-
-          userData.likedPosts = true;
+  
+          setLikedPosts(true);
         })
         .catch((error) => console.error(error));
     }
@@ -105,8 +105,9 @@ const SinglePost = (props) => {
   const options = {
     day: "2-digit",
     month: "2-digit",
+    year: "numeric",
     hour: "2-digit",
-    minute: "2-digit",
+    minute: "2-digit"
   };
   const formattedDate = myDate.toLocaleString("bg-BG", options);
   

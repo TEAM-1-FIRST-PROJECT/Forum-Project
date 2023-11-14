@@ -25,28 +25,15 @@ const Navbar = () => {
     });
   };
 
-  // useEffect(() => {
-  //   listImg().then((response) => {
-  //     if (response.length === 0) {
-  //       return;
-  //     }
-  //     response.items.forEach((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         setImageUrls((prev) => [...prev, url]);
-  //       });
-  //     });
-  //   });
-  // }, [isOpen]);
-
   return (
     <nav className=" bg-zinc-950 h-30 ">
       <div className=" flex flex-wrap justify-between hover:shadow-lg hower:shadow-inner hover:shadow-indigo-400 p-5">
         <Link
-          to="/"
+          to="/home"
           className="flex items-center space-x-3 "
         >
           <img src={logo} className="h-8 ml-5" alt="Dynamic Island logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowra text-white shadow-2xl hover:shadow-amber-100">
+          <span className="self-center text-2xl font-semibold whitespace-nowra text-white shadow-2xl">
             Dynamic Island
           </span>
         </Link>
@@ -145,7 +132,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/adminsignup"
-                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent hover:text-blue-500  md:p-0 md:dark:text-blue-500"
+                  className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                   aria-current="page"
                 >
                   Create Account
@@ -156,7 +143,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/admin"
-                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent hover:text-blue-500 md:p-0 md:dark:text-blue-500"
+                  className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                   aria-current="page"
                 >
                   Admin Dashboard

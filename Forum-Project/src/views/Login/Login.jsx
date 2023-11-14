@@ -42,9 +42,7 @@ const Login = () => {
       })
       .then(() => {
         toast.success("Login successful, redirecting...");
-        setTimeout(() => {
           navigate("/home");
-        }, 2100);
       })
       .catch((err) => {
         toast.error(err.message);

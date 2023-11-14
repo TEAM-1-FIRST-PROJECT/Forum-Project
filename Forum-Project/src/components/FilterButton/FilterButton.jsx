@@ -100,7 +100,7 @@ const FilterButton = ({onFilter, onReset}) => {
     <div className="flex justify-end pr-10 w-full" ref={dropdownRef}>
       <button id="dropdownDefault"
         data-dropdown-toggle="dropdown"
-        className="relative flex items-center bg-white border border-white text-black font-medium focus:outline-none shadow rounded focus:ring ring-indigo-500/40 group hover:bg-light-blue-100 hover:text-black shadow-lg shadow-indigo-500/40"
+        className="relative flex items-center bg-white border border-white text-black font-medium focus:outline-none rounded focus:ring ring-indigo-500/40 group hover:bg-light-blue-100 hover:text-black shadow-lg shadow-indigo-500/40"
         type="button"
         onClick={toggleDropdown}>
         <p className="px-4">Filter by category</p>
