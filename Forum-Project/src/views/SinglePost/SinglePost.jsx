@@ -34,7 +34,7 @@ const SinglePost = (props) => {
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
-  const deletePermission = userData.isModerator || isAuthor;
+  const permissionChecker = userData.isModerator || isAuthor;
   useEffect(() => {
     getUserByHandle(post.author)
       .then((snapshot) => {
@@ -167,13 +167,13 @@ const SinglePost = (props) => {
         >
           <FaInfoCircle /> Post Details
         </Link>}
-        {deletePermission && <Link
+        {permissionChecker && <Link
           to={`/EditPost/${postId}`}
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
         >
           <FaRegCommentDots /> Edit post
         </Link>}
-        {deletePermission && <button
+        {permissionChecker && <button
           className="rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
           onClick={deletePostHandler}
         >
