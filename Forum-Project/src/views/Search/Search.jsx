@@ -17,8 +17,9 @@ const Search = () => {
   const { userData } = useContext(AuthContext);
 
   const postId = post.id;
+  console.log(post);
   const postAuthor = post.author;
-
+console.log(post);
   const deletePostHandler = () => {
     if (postAuthor === userData.username) {
       deletePost(postId)

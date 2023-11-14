@@ -21,11 +21,12 @@ const NewComment = () => {
   const { userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
   const handleCancel = () => {
     navigate(-1);
   };
 
-  const commentSubmitHandler = async (event) => {
+  const commentSubmitHandler = (event) => {
     event.preventDefault();
 
     if (
@@ -99,9 +100,10 @@ const NewComment = () => {
               },
             ].map((field, index) => (
               <div key={index}>
+
                 <label
                   htmlFor={field.label}
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className={`block text-sm font-medium leading-6 text-black`}
                 >
                   {field.label}
                 </label>
@@ -110,7 +112,7 @@ const NewComment = () => {
                   name={field.label}
                   value={field.state}
                   onChange={(e) => field.setState(e.target.value)}
-                  className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-lg shadow-indigo-200 resize-x focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  className={`block w-full px-4 py-2 mt-2 ${userData.isAdmin ? ` text-red-500 font-extrabold font-serif` : 'text-black' && userData.isModerator ? 'text-indigo-600 font-medium' : 'text-black'} bg-white border border-gray-300 rounded-md shadow-lg shadow-indigo-200 resize-x focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent`}
                   placeholder={field.label}
                 />
               </div>

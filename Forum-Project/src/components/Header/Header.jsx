@@ -1,4 +1,4 @@
-import BgImg from "../../assets/header-bg.jpg";
+import BgImg from "../../assets/laptop.jpg";
 import { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
@@ -58,15 +58,17 @@ function Header() {
   }, []);
 
   return (
-  
-    <div className="bg-fixed bg-hero-pattern bg-contain relative h-[400px] rounded-xl lg:h-[500px]">
+  <>
+ 
+    <div className="bg-fixed bg-hero-pattern bg-contain relative h-[400px] rounded-xl lg:h-[400px]">
       <img
         src={BgImg}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute  h-full w-full object-cover"
       />
       <header className="relative ">
-        <Navbar />
+       
+      <Navbar />
       
       </header>
 
@@ -105,6 +107,7 @@ function Header() {
                         to={"/search"}
                         state={{ post }}
                         key={post.id}
+                        
                         onChange={() => setSearchTerm(post.title)}
                         className="block p-2 hover:bg-gray-200 cursor-pointer"
                       >
@@ -124,7 +127,8 @@ function Header() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+      </>
   );
 }
 

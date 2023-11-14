@@ -13,7 +13,7 @@ import {
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+
   const [content, setContent] = useState("");
   const [isPostSubmitted, setIsPostSubmitted] = useState(false);
   const { userData } = useContext(AuthContext);
@@ -28,7 +28,6 @@ const NewPost = () => {
 
     if (
       title.trim() === "" ||
-      description.trim() === "" ||
       content.trim() === ""
     ) {
       alert("Fields cannot be empty");
@@ -57,10 +56,9 @@ const NewPost = () => {
             navigate("/");
           }, 2100);
         } else if (userData.isBlocked === false) {
-          addPost(userName, title, content, description)
+          addPost(userName, title, content)
             .then((newPost) => {
               setTitle("");
-              setDescription("");
               setContent("");
               setIsPostSubmitted(true);
               toast("Post submitted successfully!");
@@ -90,11 +88,6 @@ const NewPost = () => {
           <div className="space-y-4">
             {[
               { label: "Title", state: title, setState: setTitle },
-              {
-                label: "Description",
-                state: description,
-                setState: setDescription,
-              },
               {
                 label: "What's on your mind?",
                 state: content,

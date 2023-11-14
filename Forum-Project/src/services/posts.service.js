@@ -17,7 +17,7 @@ const fromPostsDocument = snapshot => {
   });
 }
 
-export const addPost = (userName, title, content, description) => {
+export const addPost = (userName, title, content, ) => {
 
   return push(
     ref(database, 'posts'),
@@ -25,7 +25,6 @@ export const addPost = (userName, title, content, description) => {
       author: userName,
       title,
       content,
-      description,
       createdOn: Date.now(),
     },
   )

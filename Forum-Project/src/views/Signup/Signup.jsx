@@ -180,7 +180,7 @@ const SignUp = () => {
               />
             </div>
             <button
-              className="w-full my-5 py-2 bg-teal-500 shadow-xl hover:shadow-teal-800 text-black font-semibold rounded-lg"
+              className="w-full my-5 py-2 bg-violet-400 shadow-xl hover:shadow-violet-600 text-black font-semibold rounded-lg"
               onClick={handleSignUp}
               type="button"
             >
