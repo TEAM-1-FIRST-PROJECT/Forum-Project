@@ -70,12 +70,12 @@ const HomeView = () => {
         <UserAndCommentsCounter/>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <div className=" mt-5 mx-auto max-w-xl mb-10 lg:mx-0 box-decoration-slice bg-gradient-to-r from-indigo-600 to-black-500 text-white px-2 rounded-md">
+            {/* <div className=" mt-5 mx-auto max-w-xl mb-10 lg:mx-0 box-decoration-slice bg-gradient-to-r from-indigo-600 to-black-500 text-white px-2 rounded-md">
             <p className=" text-2xl text-yellow-50 font-bold text-black-600 text-left leading-relaxed">
              Connect. Share. Explore. 💡<br />
               Your Ultimate Apple Community.
         </p>
-          </div>
+          </div> */}
           </div>
           <div>
             <RecentlyAddedPosts></RecentlyAddedPosts>

@@ -9,14 +9,8 @@ const Public = () => {
     <>
        <div className=" bg-fixed bg-hero-pattern bg-contain"  > 
         <UserAndCommentsCounter/>
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className=" mt-5 mx-auto max-w-xl mb-10 lg:mx-0 box-decoration-slice bg-gradient-to-r from-indigo-600 to-black-500 text-white px-2 rounded-md">
-            <p className=" text-2xl text-yellow-50 font-bold text-black-600 text-left leading-relaxed">
-             Connect. Share. Explore. 💡<br />
-              Your Ultimate Apple Community.
-        </p>
-          </div>
-          <div className="text-white mx-auto max-w-2xl mb-10 lg:mx-0  box-decoration-slice bg-gradient-to-r from-indigo-600 to-black-500 text-white px-2 rounded-md">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 lg:mb-0 mb-8">
+          <div className="text-white mx-auto max-w-screen-sm text-center lg:mb-0 mb-8 box-decoration-slice bg-gradient-to-r from-pink-500 to-black-500 text-white px-2 rounded-md ">
             <p>
           You are currently viewing our boards as a guest which gives you limited access <br /> to view most discussions and access our other features.
           Only registered members <br /> may post questions, contact other members or search our database of over several millions posts.
