@@ -14,6 +14,7 @@ import {
   PASSWORD_CHECK,
 } from "../../common/constants";
 import { toast } from "react-toastify";
+
 const SignUp = () => {
   const [form, setForm] = useState({
     firstName: "",
@@ -88,11 +89,9 @@ const SignUp = () => {
         if (snapshot.exists()) {
           toast.warning("Username already exists");
         }
-
         return registerUser(form.email, form.password);
       })
       .then((credential) => {
-        console.log(credential);
         createUserHandle(
           form.username,
           credential.user.uid,
