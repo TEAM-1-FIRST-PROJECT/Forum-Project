@@ -24,16 +24,16 @@ const SinglePost = (props) => {
   const [img, setImg] = useState('');
   const navigate = useNavigate();
   const { user, userData } = useContext(AuthContext);
-
+  
   const post = props.value;
   const postId = post.id;
+
   const postAuthor = post.author;
   const postTags = post.tags;
   const userLike = userData ? userData.likedPosts : null;
 
   const userName = userData ? userData.username : null;
   const isAuthor = postAuthor === userName;
-
   useEffect(() => {
     getUserByHandle(post.author)
       .then((snapshot) => {
@@ -101,9 +101,13 @@ const SinglePost = (props) => {
 
 
   const myDate = new Date(post.createdOn);
-  const hours = myDate.getHours().toString().padStart(2, '0'); // Get hours (0-23), convert to string, and pad with leading zero if necessary
-  const minutes = myDate.getMinutes().toString().padStart(2, '0'); // Get minutes (0-59), convert to string, and pad with leading zero if necessary
-  const formattedDate = `${hours}:${minutes} ${myDate.getDate()}/${myDate.getMonth() + 1}`;
+  const options = {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  const formattedDate = myDate.toLocaleString("bg-BG", options);
 
 
   return (

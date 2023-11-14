@@ -10,6 +10,7 @@ import { MAX_NAME_LENGTH, MIN_NAME_LENGTH, PASSWORD_CHECK, PHONE_NUMBER_CHECK } 
 function UserRegistrationComponent() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +25,15 @@ function UserRegistrationComponent() {
     }
 
     if (firstName.length < MIN_NAME_LENGTH || firstName.length > MAX_NAME_LENGTH) {
+      toast.warning(`First Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
+      return;
+    }
+    if (!username) {
+      toast.warning("First Name is required");
+      return;
+    }
+
+    if (username.length < MIN_NAME_LENGTH || username.length > MAX_NAME_LENGTH) {
       toast.warning(`First Name must be between ${MIN_NAME_LENGTH} and ${MAX_NAME_LENGTH} characters long`);
       return;
     }
@@ -55,14 +65,14 @@ function UserRegistrationComponent() {
 
     registerUser(email, password)
       .then((userCredential) => {
-        const newUser = userCredential.user;
+        const user = userCredential.user;
 
-        createAdminHandle(firstName, lastName, email, phone, newUser.uid)
+        createAdminHandle(firstName, lastName, email, phone, username, user.uid)
           .then(() => {
             toast.success("User created successfully, redirecting... to admin panel");
-            setTimeout(() => {
+          
               navigate("/admin");
-            }, 2100);
+           
           })
           .catch((error) => {
             toast.error(`Error creating user: ${error}`);
@@ -74,8 +84,8 @@ function UserRegistrationComponent() {
   };
 
   return (
-    <div className=" bg-zinc-900 p-1">
-    <div className="bg-fixed bg-hero-pattern bg-contain max-w-md mx-auto m-8 p-6 bg-gray-300 border rounded-lg  shadow-xl hover:shadow-2xl hover:shadow-violet-300">
+    <div className=" bg-zinc-900 p-1 bg-fixed bg-hero-pattern bg-contain">
+    <div className="bg-fixed bg-hero-pattern bg-contain max-w-md mx-auto m-8 p-6 bg-gray-300 border rounded-lg  shadow-xl hover:shadow-2xl hover:shadow-white">
       <h2 className="text-xl text-white font-semibold mb-4">
         Create Administrator Account
       </h2>
@@ -91,6 +101,13 @@ function UserRegistrationComponent() {
         placeholder="Last Name"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
+        className="block w-full p-2 mb-4 border  focus:outline-none rounded shadow-md hover:shadow-green-200 "
+      />
+      <input
+        type="text"
+        placeholder="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         className="block w-full p-2 mb-4 border  focus:outline-none rounded shadow-md hover:shadow-green-200 "
       />
       <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full p-2 mb-4 border rounded bg-white placeholder-slate-400 shadow-md hover:shadow-green-200
@@ -115,7 +132,7 @@ function UserRegistrationComponent() {
       />
       <button
         onClick={handleRegistration}
-        className="transition delay-150 duration-300 ease-in-out  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="transition delay-150 duration-300  bg-blue-700 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-500 text-white font-bold py-2 px-4 rounded"
       >
         Register
       </button>

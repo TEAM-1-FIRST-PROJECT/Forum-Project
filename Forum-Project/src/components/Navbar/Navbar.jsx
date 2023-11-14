@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react"; 
+import { useState } from "react"; 
 import logo from "../../assets/apple.png";
 import Categories from "../../views/Categories/Categories";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { logoutUser } from "../../services/auth.services";
-import { getDownloadURL } from "firebase/storage";
-import { listImg } from "../../services/uploadToStorage.services";
+// import { getDownloadURL } from "firebase/storage";
+// import { listImg } from "../../services/uploadToStorage.services";
 
 const Navbar = () => {
   const { setUser, user, userData } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [isOpen, setIsOpen] = useState(false); 
-  const [imageUrls, setImageUrls] = useState([]);
+  //const [imageUrls, setImageUrls] = useState([]);
 
   const userName = userData?.firstName;
   const userEmail = userData?.email;
@@ -25,28 +25,28 @@ const Navbar = () => {
     });
   };
 
-  useEffect(() => {
-    listImg().then((response) => {
-      if (response.length === 0) {
-        return;
-      }
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, [isOpen]);
+  // useEffect(() => {
+  //   listImg().then((response) => {
+  //     if (response.length === 0) {
+  //       return;
+  //     }
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageUrls((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, [isOpen]);
 
   return (
-    <nav className=" bg-white h-30 opacity-95">
-      <div className=" flex flex-wrap justify-between hover:shadow-2xl hover:shadow-indigo-400 p-5">
+    <nav className=" bg-zinc-950 h-30 ">
+      <div className=" flex flex-wrap justify-between hover:shadow-lg hower:shadow-inner hover:shadow-indigo-400 p-5">
         <Link
           to="/"
           className="flex items-center space-x-3 "
         >
           <img src={logo} className="h-8 ml-5" alt="Dynamic Island logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">
+          <span className="self-center text-2xl font-semibold whitespace-nowra text-white shadow-2xl hover:shadow-amber-100">
             Dynamic Island
           </span>
         </Link>
@@ -140,12 +140,23 @@ const Navbar = () => {
           } md:block`}
           id="navbar-user"
         >
-          <ul className="flex flex-col items-center bg-transparent  font-medium p-4 md:p-0 mt-4 md:space-x-10 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-col items-center bg-transparent sm:bg-zinc-950  font-medium p-4 md:p-0 mt-4 md:space-x-10 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            {userData && userData.isAdmin === true && (
+              <li>
+                <Link
+                  to="/adminsignup"
+                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent hover:text-blue-500  md:p-0 md:dark:text-blue-500"
+                  aria-current="page"
+                >
+                  Create Account
+                </Link>
+              </li>
+            )}
             {userData && userData.isAdmin === true && (
               <li>
                 <Link
                   to="/admin"
-                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent hover:text-blue-500 md:p-0 md:dark:text-blue-500"
                   aria-current="page"
                 >
                   Admin Dashboard
@@ -155,14 +166,14 @@ const Navbar = () => {
             <li>
               <Link
                 to="/"
-                className="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400"
+                className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 aria-current="page"
               >
                 Home
               </Link>
             </li>
             {user !== null && (
-              <li className="blocktext-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400">
+              <li className="block rounded md:bg-transparent text-white md:p-0  md:dark:text-blue-500 hover:text-blue-400">
                 <Categories />
               </li>
             )}
@@ -170,7 +181,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/EditorsChoice"
-                  className="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400"
+                  className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 >
                   Editors&apos; Choice
                 </Link>
@@ -180,7 +191,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/Login"
-                  className="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400"
+                  className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 >
                   Login
                 </Link>
@@ -190,7 +201,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/SignUp"
-                  className="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0  md:dark:text-blue-500 hover:text-blue-400"
+                  className="block py-2 px-3 text-white rounded md:bg-transparent md:p-0  md:dark:text-blue-500 hover:text-blue-400"
                 >
                   SignUp
                 </Link>

@@ -18,7 +18,7 @@ const PostDetails = () => {
                 setPost(null);
             });
     }, [id]);
-    
+
     return (
         <div className="container mx-auto mt-5 p-5">
             {post ? (

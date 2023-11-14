@@ -5,16 +5,18 @@ export const getAdminByHandle = (firstName) => {
   return get(ref(database, `users/${firstName}`));
 };
 
-export const createAdminHandle = (firstName, lastName, email, phone, uid) => {
-  return set(ref(database, `users/${firstName}`), {
+export const createAdminHandle = (firstName, lastName, email, phone, username, uid) => {
+  return set(ref(database, `users/${username}`), {
     firstName,
     lastName,
     email,
     phone,
+    username,
     uid,
+    profiPhoto: "",
     isAdmin: true,
     isBlocked: false,
-    createdOnn: Date.now(),
+    createdOn: Date.now(),
   });
 };
 
@@ -49,4 +51,12 @@ export const blockUser = (username, blockStatus,) => {
 // function for deleting user post
 export const deletePost = (postId) => {
   return remove(ref(database, `posts/${postId}`));
+};
+
+
+export const makeModerator = (username, status,) => {
+  return update(ref(database, `users/${username}`), {
+    isModerator: status,
+  
+  });
 };
