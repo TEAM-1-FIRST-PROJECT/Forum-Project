@@ -96,32 +96,32 @@ const AdminDashboard = () => {
     });
   };
 
-  useEffect(() => {
-    getAllPosts()
-      .then((fetchedPosts) => {
-        setRecentlyAddedPosts(fetchedPosts);
-        setOriginalPosts(fetchedPosts);
-      })
-      .catch((error) => {
-        console.error('Error fetching recently added posts:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getAllPosts()
+  //     .then((fetchedPosts) => {
+  //       setRecentlyAddedPosts(fetchedPosts);
+  //       setOriginalPosts(fetchedPosts);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching recently added posts:', error);
+  //     });
+  // }, []);
 
   const sortPosts = () => {
-    const sortedPostsByDate = [...recentlyAddedPosts].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
-    setRecentlyAddedPosts(sortedPostsByDate);
+    const sortedPostsByDate = [...posts].sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
+    setPosts(sortedPostsByDate);
   };
   
   const sortPostsByComments = () => {
     Promise.all(
-      recentlyAddedPosts.map((post) =>
+      posts.map((post) =>
         getCommentCount(post.id).then((commentCount) => ({ ...post, commentCount }))
       )
     ).then((sortedPostsByComments) => {
       const sortedPostsByCommentsOnly = [...sortedPostsByComments].sort(
         (a, b) => b.commentCount - a.commentCount
       );
-      setRecentlyAddedPosts(sortedPostsByCommentsOnly);
+      setPosts(sortedPostsByCommentsOnly);
     });
   };
   
