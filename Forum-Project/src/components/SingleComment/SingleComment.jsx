@@ -49,6 +49,8 @@ const SingleComment = (props) => {
         </div>
       </div>
       <div className="mt-5 mb-5 line-clamp-3 text-sm leading-6 text-gray-600 ml-3">
+        <div className="font-bold text-gray-600"> {comment.title}
+        </div>
         {comment.content}
       </div>
       {permissionChecker && <button className=" mb-3 ml-3 rounded-full bg-gray-50 px-3 py-1.5 font-small text-gray-600 hover:bg-gray-100 mr-3"
