@@ -108,9 +108,9 @@ const SignUp = () => {
       })
       .then(() => {
         toast.success("User created successfully, redirecting...");
-        setTimeout(() => {
+        
           navigate("/home");
-        }, 2100);
+       
       })
       .catch((e) => toast.error(e.message));
   };

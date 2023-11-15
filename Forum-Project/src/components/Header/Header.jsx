@@ -39,7 +39,7 @@ function Header() {
   };
 
   const handleClickOutside = (e) => {
-    if (node.current.contains(e.target)) {
+    if (node.current && node.current.contains(e.target)) {
       return;
     }
     setIsOpen(false);
