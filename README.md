@@ -97,7 +97,6 @@ Design and implement a Forum System where users can create posts, add comments, 
     - [Installation](#installation)
   - [Usage](#usage)
   - [Teamwork and Collaboration](#teamwork-and-collaboration)
-  - [License](#license)
 
 ## Functional Requirements
 
@@ -238,10 +237,16 @@ Remember that these instructions provide a general guideline, and you can tailor
 
 - This project was a result of great teamwork and collaboration. Our team effectively managed tasks, tracked progress, and ensured a successful project delivery.
 - We utilized tools like Trello to organize our work. Below are a couple of screenshots from our Trello board, showcasing our task management and progress tracking:
+- Code: [Link Text][1]
 
-Trello Board
+[1]: https://github.com/TEAM-1-FIRST-PROJECT/Forum-Project
+
+Trello Board screenshots: 
+
+![Trello 1](Forum-Project/src/assets/Screenshot_2023-11-06_at_11.50.44.png)
 
 
-## License
+![Trello 2](Forum-Project/src/assets/Screenshot_2023-11-15_at_0.14.54.png)
 
-[Specify the license for your project, e.g., MIT License.]
+
+
