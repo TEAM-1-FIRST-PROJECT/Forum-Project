@@ -248,7 +248,7 @@ const AdminDashboard = () => {
           {posts.map((post, index) => (
             <div key={index} className="p-4 bg-white rounded-md shadow-lg hover:shadow-violet-300 mb-4">
               <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-              <h2 className="text-xl font-bold mb-2">By {post.author}</h2>
+              <h2 className="text-xl font-bold mb-2 text-indigo-800">By {post.author}</h2>
               <p>{post.content}</p>
             </div>
           ))}
