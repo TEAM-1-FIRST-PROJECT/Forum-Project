@@ -37,6 +37,16 @@ const SingleComment = (props) => {
       });
   }, [comment.userName]);
 
+  const myDate = new Date(comment.createdOn);
+  const options = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  };
+  const formattedDate = myDate.toLocaleString("bg-BG", options);
+
   return (
     <div className=" bg-white min-h-full border border-gray-200 shadow-lg md:max-w-xl hover:shadow-indigo-400 rounded">
       <div className="flex items-center justify-between gap-x-4 text-xs">
@@ -46,6 +56,9 @@ const SingleComment = (props) => {
             className=" ml-3 h-10 w-10 rounded-full bg-gray-50"
           />
           <div className="font-bold text-gray-600">{comment.userName}</div>
+          <time dateTime={formattedDate} className=" pl-20 text-sm text-gray-500">
+            {formattedDate}
+          </time>
         </div>
       </div>
       <div className="mt-5 mb-5 line-clamp-3 text-sm leading-6 text-gray-600 ml-3">
