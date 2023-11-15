@@ -58,7 +58,7 @@ const Login = () => {
       <div className="bg-gray-300 flex flex-col justify-center">
         <form className="max-w-[550px] w-full mx-auto shadow-xl hover:shadow-violet-400 bg-gray-400 p-8 px-8 rounded-lg">
           <h2 className="text-4x1 text-3xl dark:text-white font-bold text-center">
-            SIGN IN
+          Login
           </h2>
           <div className="flex flex-col text-black py-2">
             <label>Email</label>
