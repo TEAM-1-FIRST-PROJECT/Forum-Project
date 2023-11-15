@@ -1,4 +1,4 @@
-# Forum System
+# Forum Project
 
 ## Project Description
 Design and implement a Forum System where users can create posts, add comments, and upvote/downvote content related to a specific topic. The forum revolves around Apple products.
@@ -66,7 +66,7 @@ Design and implement a Forum System where users can create posts, add comments, 
 
 ## Table of Contents
 
-- [Forum System](#forum-system)
+- [Forum Project](#forum-project)
   - [Project Description](#project-description)
   - [Table of Contents](#table-of-contents)
     - [Functionalities](#functionalities)
@@ -80,7 +80,7 @@ Design and implement a Forum System where users can create posts, add comments, 
       - [Scenario 2](#scenario-2)
     - [Getting Started](#getting-started)
       - [Prerequisites](#prerequisites)
-- [Forum System](#forum-system-1)
+- [Forum System](#forum-system)
   - [Project Description](#project-description-1)
   - [Table of Contents](#table-of-contents-1)
   - [Functional Requirements](#functional-requirements)
@@ -237,7 +237,7 @@ Remember that these instructions provide a general guideline, and you can tailor
 
 - This project was a result of great teamwork and collaboration. Our team effectively managed tasks, tracked progress, and ensured a successful project delivery.
 - We utilized tools like Trello to organize our work. Below are a couple of screenshots from our Trello board, showcasing our task management and progress tracking:
-- Code: [Link Text][1]
+- Code:   [in GitHub][1]
 
 [1]: https://github.com/TEAM-1-FIRST-PROJECT/Forum-Project
 
